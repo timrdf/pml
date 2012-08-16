@@ -14,7 +14,7 @@ Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 Ontology: <http://provenance-web.org/ontology/pml-base#>
 
-Import: <http://www.w3.org/ns/prov#>
+Import: <http://www.w3.org/TR/prov-o/prov-20120724.owl>
 
 Annotations: 
     rdfs:label "PML2 provenance ontology"@en,
