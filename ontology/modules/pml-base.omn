@@ -325,7 +325,16 @@ Class: <http://www.w3.org/ns/prov#Location>
 Class: owl:Thing
 
     
-Class: <http://provenanceweb.org/ontology/pml#Website>
+Class: <http://provenanceweb.org/ontology/pml-base#Publishership>
+
+    Annotations: 
+        <http://www.w3.org/ns/prov#category> "base"^^rdf:PlainLiteral
+    
+    SubClassOf: 
+        <http://www.w3.org/ns/prov#Attribution>
+    
+    
+Class: <http://provenanceweb.org/ontology/pml#Webpage>
 
     Annotations: 
         rdfs:comment "Collection of files and related resources accessible through the World Wide Web and organized under a particular domain name. Typical files found at a Web site are HTML documents with their associated graphic image files (GIF, JPEG, etc.), scripted programs (in Perl, CGI, Java, etc.), and similar resources. The site's files are usually accessed through hypertext or hyperlinks embedded in other files. A Web site may consist of a single HTML file, or it may comprise hundreds or thousands of related files. A Web site's usual starting point or opening page, called a home page, usually functions as a table of contents or index, with links to other sections of the site. Web sites are hosted on one or more Web servers, which transfer files to client computers or other servers that request them using the HTTP protocol. Although the term ?ite?implies a single physical location, the files and resources of a Web site may actually be spread among several servers in different geographic locations.(adapted from Britannica Concise Encyclopedia)."@en,
@@ -334,15 +343,6 @@ Class: <http://provenanceweb.org/ontology/pml#Website>
     
     SubClassOf: 
         <http://provenanceweb.org/ontology/pml#Document>
-    
-    
-Class: <http://provenanceweb.org/ontology/pml-base#Publishership>
-
-    Annotations: 
-        <http://www.w3.org/ns/prov#category> "base"^^rdf:PlainLiteral
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#Attribution>
     
     
 Class: <http://provenanceweb.org/ontology/pml#TranslationMethod>
@@ -519,17 +519,6 @@ Class: <http://provenanceweb.org/ontology/pml#EmptyInformation>
         <http://provenanceweb.org/ontology/pml#Information>
     
     
-Class: <http://provenanceweb.org/ontology/pml#Dataset>
-
-    Annotations: 
-        rdfs:comment "A dataset is a collection of data document whose information is encoded in a defined structure (for example, lists, tables, and databases). see also http://purl.org/dc/dcmitype/Dataset."@en,
-        rdfs:label "Dataset"@en,
-        <http://www.w3.org/ns/prov#category> "base"^^rdf:PlainLiteral
-    
-    SubClassOf: 
-        <http://provenanceweb.org/ontology/pml#Document>
-    
-    
 Class: <http://www.w3.org/ns/prov#AgentInfluence>
 
     SubClassOf: 
@@ -653,7 +642,7 @@ Class: <http://provenanceweb.org/ontology/pml#OffsetPosition>
 Class: <http://www.w3.org/ns/prov#Plan>
 
     SubClassOf: 
-        <http://provenanceweb.org/ontology/pml#Information>
+        <http://www.w3.org/ns/prov#Entity>
     
     
 Class: <http://www.w3.org/ns/prov#Attribution>
