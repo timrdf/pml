@@ -13,9 +13,9 @@ Import: <http://www.w3.org/ns/inverses.owl>
 Import: <http://www.w3.org/ns/prov#>
 
 Annotations: 
-    rdfs:label "PML2 provenance ontology"@en,
-    owl:versionInfo "version 3.0, Authors: Tim Lebo, James P. McCusker, Deborah L. McGuinness, Li Ding, Paulo Pinheiro da Silva, Alyssa Glass, and Cynthia Chang"@en,
-    rdfs:comment "The basic part of PML3 ontology. It is a fundamental component of PML3 ontology and extends W3C PROV-O (Provenance Ontology)."@en
+    rdfs:comment "The Provenance Markup Language (PML 3.0) is an OWL ontology that extends W3C's PROV-O with the best parts of PML 2.0."@en,
+    owl:versionInfo "version 3.0, Authors: Timothy Lebo, James P. McCusker, Paulo Pinheiro, Cynthia Chang, and Deborah L. McGuinness"@en,
+    rdfs:label "Provenance Markup Language (PML 3.0)"@en
 
 AnnotationProperty: owl:versionInfo
 
@@ -353,10 +353,10 @@ DataProperty: <http://provenanceweb.org/ontology/pml#hasToCol>
         xsd:int
     
     
-Class: <http://www.w3.org/ns/prov#Location>
+Class: owl:Thing
 
     
-Class: owl:Thing
+Class: <http://www.w3.org/ns/prov#Location>
 
     
 Class: <http://provenanceweb.org/ontology/pml#Publishership>
@@ -415,6 +415,15 @@ Class: <http://provenanceweb.org/ontology/pml#DeclarativeRule>
     
     SubClassOf: 
         <http://www.w3.org/ns/prov#Plan>
+    
+    
+Class: <http://provenanceweb.org/ontology/pml#Publisher>
+
+    Annotations: 
+        <http://www.w3.org/ns/prov#category> "base"
+    
+    SubClassOf: 
+        <http://www.w3.org/ns/prov#Agent>
     
     
 Class: <http://www.w3.org/ns/prov#Bundle>
@@ -487,12 +496,6 @@ Class: <http://provenanceweb.org/ontology/pml#WebService>
         <http://www.w3.org/ns/prov#SoftwareAgent>
     
     
-Class: <http://www.w3.org/ns/prov#Activity>
-
-    
-Class: <http://www.w3.org/ns/prov#Collection>
-
-    
 Class: <http://provenanceweb.org/ontology/pml#Position>
 
     Annotations: 
@@ -502,6 +505,12 @@ Class: <http://provenanceweb.org/ontology/pml#Position>
         <http://www.w3.org/ns/prov#Location>,
         <http://provenanceweb.org/ontology/pml#hasFromOffset> exactly 1 rdfs:Literal
     
+    
+Class: <http://www.w3.org/ns/prov#Activity>
+
+    
+Class: <http://www.w3.org/ns/prov#Collection>
+
     
 Class: <http://provenanceweb.org/ontology/pml#InformationContainer>
 
@@ -588,15 +597,6 @@ Class: <http://provenanceweb.org/ontology/pml#RowColLocation>
         <http://provenanceweb.org/ontology/pml#hasFromRow> exactly 1 rdfs:Literal,
         <http://provenanceweb.org/ontology/pml#hasToCol> exactly 1 rdfs:Literal,
         <http://provenanceweb.org/ontology/pml#hasToRow> exactly 1 rdfs:Literal
-    
-    
-Class: <http://provenanceweb.org/ontology/pml#Publisher>
-
-    Annotations: 
-        <http://www.w3.org/ns/prov#category> "base"
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#Agent>
     
     
 Class: <http://provenanceweb.org/ontology/pml#Source>
@@ -701,7 +701,7 @@ Individual: <http://provenanceweb.org/ontology/pml#Source>
         <http://www.w3.org/ns/prov#Role>
     
     
-Individual: <http://provenanceweb.org/ontology/pml#Publisher>
+Individual: <http://provenanceweb.org/ontology/pml#Author>
 
     Annotations: 
         <http://www.w3.org/ns/prov#category> "base"
@@ -710,7 +710,7 @@ Individual: <http://provenanceweb.org/ontology/pml#Publisher>
         <http://www.w3.org/ns/prov#Role>
     
     
-Individual: <http://provenanceweb.org/ontology/pml#Author>
+Individual: <http://provenanceweb.org/ontology/pml#Publisher>
 
     Annotations: 
         <http://www.w3.org/ns/prov#category> "base"
