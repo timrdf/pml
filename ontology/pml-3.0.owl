@@ -27,6 +27,7 @@
         <rdfs:label xml:lang="en">PML2 provenance ontology</rdfs:label>
         <rdfs:comment xml:lang="en">The basic part of PML3 ontology. It is a fundamental component of PML3 ontology and extends W3C PROV-O (Provenance Ontology).</rdfs:comment>
         <owl:versionInfo xml:lang="en">version 3.0, Authors: Tim Lebo, James P. McCusker, Deborah L. McGuinness, Li Ding, Paulo Pinheiro da Silva, Alyssa Glass, and Cynthia Chang</owl:versionInfo>
+        <owl:imports rdf:resource="http://www.w3.org/ns/inverses.owl"/>
         <owl:imports rdf:resource="http://www.w3.org/ns/prov#"/>
     </owl:Ontology>
     
@@ -59,11 +60,24 @@
     
 
 
+    <!-- http://provenanceweb.org/ontology/pml#authorOf -->
+
+    <owl:ObjectProperty rdf:about="&pml;authorOf">
+        <owl:inverseOf rdf:resource="&pml;hasAuthor"/>
+        <rdfs:subPropertyOf rdf:resource="&prov;contributed"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://provenanceweb.org/ontology/pml#hasAuthor -->
 
     <owl:ObjectProperty rdf:about="&pml;hasAuthor">
         <rdfs:range rdf:resource="&pml;Author"/>
         <rdfs:subPropertyOf rdf:resource="&prov;wasAttributedTo"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&pml;qualifiedAuthorship"/>
+            <rdf:Description rdf:about="&prov;agent"/>
+        </owl:propertyChainAxiom>
     </owl:ObjectProperty>
     
 
@@ -145,6 +159,15 @@
     
 
 
+    <!-- http://provenanceweb.org/ontology/pml#qualifiedAuthorship -->
+
+    <owl:ObjectProperty rdf:about="&pml;qualifiedAuthorship">
+        <rdfs:range rdf:resource="&pml;Authorship"/>
+        <rdfs:subPropertyOf rdf:resource="&prov;qualifiedAttribution"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://purl.org/dc/terms/isPartOf -->
 
     <owl:ObjectProperty rdf:about="&terms;isPartOf"/>
@@ -157,15 +180,39 @@
     
 
 
+    <!-- http://www.w3.org/ns/prov#agentOfInfluence -->
+
+    <owl:ObjectProperty rdf:about="&prov;agentOfInfluence"/>
+    
+
+
     <!-- http://www.w3.org/ns/prov#atLocation -->
 
     <owl:ObjectProperty rdf:about="&prov;atLocation"/>
     
 
 
+    <!-- http://www.w3.org/ns/prov#contributed -->
+
+    <owl:ObjectProperty rdf:about="&prov;contributed"/>
+    
+
+
     <!-- http://www.w3.org/ns/prov#entity -->
 
     <owl:ObjectProperty rdf:about="&prov;entity"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#hadRole -->
+
+    <owl:ObjectProperty rdf:about="&prov;hadRole"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#qualifiedAttribution -->
+
+    <owl:ObjectProperty rdf:about="&prov;qualifiedAttribution"/>
     
 
 
@@ -328,10 +375,30 @@
 
     <!-- http://provenanceweb.org/ontology/pml#Author -->
 
-    <owl:Class rdf:about="&pml;Author">
+    <owl:NamedIndividual rdf:about="&pml;Author">
+        <rdf:type rdf:resource="&owl;Class"/>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&pml;authorOf"/>
+                        <owl:someValuesFrom rdf:resource="&owl;Thing"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&prov;agentOfInfluence"/>
+                        <owl:someValuesFrom>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="&prov;hadRole"/>
+                                <owl:hasValue rdf:resource="&pml;Author"/>
+                            </owl:Restriction>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="&prov;Agent"/>
-        <prov:category>base</prov:category>
-    </owl:Class>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
+    </owl:NamedIndividual>
     
 
 
@@ -346,18 +413,7 @@
                 <owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxQualifiedCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <prov:category>base</prov:category>
-    </owl:Class>
-    
-
-
-    <!-- http://provenanceweb.org/ontology/pml#Dataset -->
-
-    <owl:Class rdf:about="&pml;Dataset">
-        <rdfs:label xml:lang="en">Dataset</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&pml;Document"/>
-        <prov:category>base</prov:category>
-        <rdfs:comment xml:lang="en">A dataset is a collection of data document whose information is encoded in a defined structure (for example, lists, tables, and databases). see also http://purl.org/dc/dcmitype/Dataset.</rdfs:comment>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
     </owl:Class>
     
 
@@ -367,7 +423,7 @@
     <owl:Class rdf:about="&pml;DeclarativeRule">
         <rdfs:label xml:lang="en">Declarative Rule</rdfs:label>
         <rdfs:subClassOf rdf:resource="&prov;Plan"/>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
         <rdfs:comment xml:lang="en">A declarative inference rule can be fully specified by patterns for premises and its conclusion.   For example, Modus Ponens, can be specified by the premise patterns ?A,  ?A -&amp;gt; ?B and the conclusion pattern ?B.</rdfs:comment>
     </owl:Class>
     
@@ -384,8 +440,8 @@
                 <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
         <rdfs:comment xml:lang="en">A physical information container that is not actionable. They function like database.</rdfs:comment>
-        <prov:category>base</prov:category>
     </owl:Class>
     
 
@@ -397,18 +453,18 @@
         <rdfs:subClassOf rdf:resource="&pml;InformationContainer"/>
         <rdfs:subClassOf>
             <owl:Restriction>
+                <owl:onProperty rdf:resource="&prov;atLocation"/>
+                <owl:someValuesFrom rdf:resource="&prov;Location"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
                 <owl:onProperty rdf:resource="&terms;isPartOf"/>
                 <owl:onClass rdf:resource="&pml;Document"/>
                 <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&prov;atLocation"/>
-                <owl:someValuesFrom rdf:resource="&prov;Location"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
         <rdfs:comment xml:lang="en">A fragment of document that can be used as source.</rdfs:comment>
     </owl:Class>
     
@@ -419,7 +475,7 @@
     <owl:Class rdf:about="&pml;EmptyInformation">
         <rdfs:label xml:lang="en">Empty Information</rdfs:label>
         <rdfs:subClassOf rdf:resource="&pml;Information"/>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
         <rdfs:comment xml:lang="en">An instance of information indicating no conclusion has been derived, i.e. empty set of statements. In this case, the rawstring may contain some english message indicating no answer.</rdfs:comment>
     </owl:Class>
     
@@ -430,8 +486,8 @@
     <owl:Class rdf:about="&pml;Format">
         <rdfs:label xml:lang="en">Format</rdfs:label>
         <rdfs:subClassOf rdf:resource="&prov;Entity"/>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
         <rdfs:comment xml:lang="en">A plan for the organization and arrangement of specified information. Examples: binary, text,  pdf, etc.</rdfs:comment>
-        <prov:category>base</prov:category>
     </owl:Class>
     
 
@@ -441,8 +497,8 @@
     <owl:Class rdf:about="&pml;InferenceEngine">
         <rdfs:label xml:lang="en">Inference Engine</rdfs:label>
         <rdfs:subClassOf rdf:resource="&prov;SoftwareAgent"/>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
         <rdfs:comment xml:lang="en">An inference engine represents an engine that is able to produce a justification for a conclusion. Note that the phrase &quot;inference engine&quot; applies not only to reasoners but also to other systems like search engines which may justify their answers by direct assertion</rdfs:comment>
-        <prov:category>base</prov:category>
     </owl:Class>
     
 
@@ -454,17 +510,17 @@
         <rdfs:subClassOf rdf:resource="&prov;Entity"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&pml;hasFormat"/>
+                <owl:onProperty rdf:resource="&pml;hasLanguage"/>
                 <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&pml;hasLanguage"/>
+                <owl:onProperty rdf:resource="&pml;hasFormat"/>
                 <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
         <rdfs:comment xml:lang="en">A piece of information, e.g. a formula in logic languages, and an utterance/word/phrase/sentence/paragraph/article in natural language. It is used as a range of iw:hasContent. This class and two of its sub-classes enable users to specify four types of semantics  (i) Information Annotation - annotate just the format and language used by the content of information; (ii) Information With Content - additionally provide the content of information that is materialized as string without loading a web page; (iii) Information external - additionally provide the URL for fetching the content; and (iv) Information - with every thing including the content string and URL. The second semantics is especially useful when the content is short or mainly used locally. For example, when learning by instruction, the utterances used for learning can be stored within the PML document without being externally stored. By assigning URI reference to information, we can even use owl:sameAs to capture the equivalence of two pieces of information.</rdfs:comment>
     </owl:Class>
     
@@ -476,7 +532,7 @@
         <rdfs:label rdf:datatype="&xsd;string">Information Container</rdfs:label>
         <rdfs:subClassOf rdf:resource="&prov;Entity"/>
         <prov:editorialNote rdf:datatype="&xsd;string">Do we mean frbr:Item or frbr:Manifestation?</prov:editorialNote>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
     </owl:Class>
     
 
@@ -486,7 +542,7 @@
     <owl:Class rdf:about="&pml;Language">
         <rdfs:label xml:lang="en">Language</rdfs:label>
         <rdfs:subClassOf rdf:resource="&prov;Entity"/>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
         <rdfs:comment xml:lang="en">The language used to encode the raw string, e.g. English, Knowledge Interchange Format (KIF) , and N3. Languages are in general registered at the core IWRegistry.</rdfs:comment>
     </owl:Class>
     
@@ -503,8 +559,8 @@
                 <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
         <rdfs:comment xml:lang="en">We may treat a document a one dimensional string, so we can mark a fragment with two offsets. We don&#39;t use byte because characters in text document may be multi-bytes.</rdfs:comment>
-        <prov:category>base</prov:category>
     </owl:Class>
     
 
@@ -514,7 +570,7 @@
     <owl:Class rdf:about="&pml;Ontology">
         <rdfs:label xml:lang="en">Ontology</rdfs:label>
         <rdfs:subClassOf rdf:resource="&pml;Document"/>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
         <rdfs:comment xml:lang="en">An Ontology is a document that describes a vocabulary of terms and their correlations.</rdfs:comment>
         <rdfs:comment xml:lang="en">This is a proper superclass of owl:Ontology, since ontologies may be expressed in formalisms other than OWL.</rdfs:comment>
     </owl:Class>
@@ -532,7 +588,7 @@
             </owl:Restriction>
         </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="&prov;Entity"/>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
     </owl:Class>
     
 
@@ -541,7 +597,7 @@
 
     <owl:Class rdf:about="&pml;Owner">
         <rdfs:subClassOf rdf:resource="&prov;Agent"/>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
     </owl:Class>
     
 
@@ -562,7 +618,7 @@
                 <owl:allValuesFrom rdf:resource="&pml;Owner"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
     </owl:Class>
     
 
@@ -572,7 +628,7 @@
     <owl:Class rdf:about="&pml;ProceduralPlan">
         <rdfs:label xml:lang="en">Procedural Plan</rdfs:label>
         <rdfs:subClassOf rdf:resource="&prov;Plan"/>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
         <rdfs:comment xml:lang="en">A method inference rule, uses patterns for premises and its conclusions, and additionally contains a method that must be applied.  In addition, 
 the conclusion needs to be a valid output of the method, using the premises.  For example, procedural attachment is a common encoding form for method rules.</rdfs:comment>
     </owl:Class>
@@ -590,7 +646,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
                 <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
         <rdfs:comment xml:lang="en">If we have two versions of the same publication, we need to create two instances of Publication. A publication may have multiple ISBNs.</rdfs:comment>
     </owl:Class>
     
@@ -603,13 +659,13 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
         <rdfs:subClassOf rdf:resource="&prov;Location"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&pml;hasFromRow"/>
+                <owl:onProperty rdf:resource="&pml;hasFromCol"/>
                 <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&pml;hasFromCol"/>
+                <owl:onProperty rdf:resource="&pml;hasFromRow"/>
                 <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -625,7 +681,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
                 <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
     </owl:Class>
     
 
@@ -635,8 +691,8 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <owl:Class rdf:about="&pml;Sensor">
         <rdfs:label xml:lang="en">Sensor</rdfs:label>
         <rdfs:subClassOf rdf:resource="&prov;Agent"/>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
         <rdfs:comment xml:lang="en">any device that receives a signal or stimulus (as heat or pressure or light or motion etc.) and records it. (WordNet)</rdfs:comment>
-        <prov:category>base</prov:category>
     </owl:Class>
     
 
@@ -646,7 +702,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <owl:Class rdf:about="&pml;Source">
         <rdfs:label xml:lang="en">Source</rdfs:label>
         <rdfs:subClassOf rdf:resource="&prov;Entity"/>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
         <rdfs:comment xml:lang="en">A source refers to the source of information. It is the place where we obtain information.</rdfs:comment>
     </owl:Class>
     
@@ -669,7 +725,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
                 <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
         <rdfs:comment xml:lang="en">Translation rules are special kinds of inference rules which are used to translate expressions from one language to the other.</rdfs:comment>
     </owl:Class>
     
@@ -680,19 +736,19 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <owl:Class rdf:about="&pml;WebService">
         <rdfs:label xml:lang="en">Web Service</rdfs:label>
         <rdfs:subClassOf rdf:resource="&prov;SoftwareAgent"/>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
         <rdfs:comment xml:lang="en">services implemented by software and available on the Web</rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- http://provenanceweb.org/ontology/pml#Website -->
+    <!-- http://provenanceweb.org/ontology/pml#Webpage -->
 
-    <owl:Class rdf:about="&pml;Website">
+    <owl:Class rdf:about="&pml;Webpage">
         <rdfs:label xml:lang="en">Website</rdfs:label>
         <rdfs:subClassOf rdf:resource="&pml;Document"/>
-        <rdfs:comment xml:lang="en">Collection of files and related resources accessible through the World Wide Web and organized under a particular domain name. Typical files found at a Web site are HTML documents with their associated graphic image files (GIF, JPEG, etc.), scripted programs (in Perl, CGI, Java, etc.), and similar resources. The site&#39;s files are usually accessed through hypertext or hyperlinks embedded in other files. A Web site may consist of a single HTML file, or it may comprise hundreds or thousands of related files. A Web site&#39;s usual starting point or opening page, called a home page, usually functions as a table of contents or index, with links to other sections of the site. Web sites are hosted on one or more Web servers, which transfer files to client computers or other servers that request them using the HTTP protocol. Although the term ?ite?implies a single physical location, the files and resources of a Web site may actually be spread among several servers in different geographic locations.(adapted from Britannica Concise Encyclopedia).</rdfs:comment>
         <prov:category>base</prov:category>
+        <rdfs:comment xml:lang="en">Collection of files and related resources accessible through the World Wide Web and organized under a particular domain name. Typical files found at a Web site are HTML documents with their associated graphic image files (GIF, JPEG, etc.), scripted programs (in Perl, CGI, Java, etc.), and similar resources. The site&#39;s files are usually accessed through hypertext or hyperlinks embedded in other files. A Web site may consist of a single HTML file, or it may comprise hundreds or thousands of related files. A Web site&#39;s usual starting point or opening page, called a home page, usually functions as a table of contents or index, with links to other sections of the site. Web sites are hosted on one or more Web servers, which transfer files to client computers or other servers that request them using the HTTP protocol. Although the term ?ite?implies a single physical location, the files and resources of a Web site may actually be spread among several servers in different geographic locations.(adapted from Britannica Concise Encyclopedia).</rdfs:comment>
     </owl:Class>
     
 
@@ -707,7 +763,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
                 <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
     </owl:Class>
     
 
@@ -716,7 +772,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
     <owl:Class rdf:about="&pml-base;Publisher">
         <rdfs:subClassOf rdf:resource="&prov;Agent"/>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
     </owl:Class>
     
 
@@ -725,6 +781,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
     <owl:Class rdf:about="&pml-base;Publishership">
         <rdfs:subClassOf rdf:resource="&prov;Attribution"/>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
         <prov:category>base</prov:category>
     </owl:Class>
     
@@ -795,7 +852,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <!-- http://www.w3.org/ns/prov#Plan -->
 
     <owl:Class rdf:about="&prov;Plan">
-        <rdfs:subClassOf rdf:resource="&pml;Information"/>
+        <rdfs:subClassOf rdf:resource="&prov;Entity"/>
     </owl:Class>
     
 
@@ -827,7 +884,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
     <prov:Role rdf:about="&pml;Author">
         <rdf:type rdf:resource="&owl;NamedIndividual"/>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
     </prov:Role>
     
 
@@ -836,7 +893,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
     <prov:Role rdf:about="&pml;Owner">
         <rdf:type rdf:resource="&owl;NamedIndividual"/>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
     </prov:Role>
     
 
@@ -846,7 +903,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <prov:Role rdf:about="&pml;Source">
         <rdf:type rdf:resource="&owl;NamedIndividual"/>
         <rdfs:label xml:lang="en">Source</rdfs:label>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
         <rdfs:comment xml:lang="en">A source refers to the source of information. It is the place where we obtain information.</rdfs:comment>
     </prov:Role>
     
@@ -865,7 +922,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
     <prov:Role rdf:about="&pml-base;Publisher">
         <rdf:type rdf:resource="&owl;NamedIndividual"/>
-        <prov:category>base</prov:category>
+        <prov:category rdf:datatype="&xsd;string">base</prov:category>
     </prov:Role>
 </rdf:RDF>
 
