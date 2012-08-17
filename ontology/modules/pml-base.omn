@@ -54,6 +54,15 @@ Datatype: xsd:double
 Datatype: rdfs:Literal
 
     
+ObjectProperty: <http://provenanceweb.org/ontology/pml#authorOf>
+
+    SubPropertyOf: 
+        <http://www.w3.org/ns/prov#contributed>
+    
+    InverseOf: 
+        <http://provenanceweb.org/ontology/pml#hasAuthor>
+    
+    
 ObjectProperty: <http://provenanceweb.org/ontology/pml#hasLanguage>
 
     Annotations: 
@@ -67,9 +76,6 @@ ObjectProperty: <http://provenanceweb.org/ontology/pml#hasLanguage>
         <http://provenanceweb.org/ontology/pml#Language>
     
     
-ObjectProperty: <http://www.w3.org/ns/prov#atLocation>
-
-    
 ObjectProperty: <http://provenanceweb.org/ontology/pml#hasDescription>
 
     Annotations: 
@@ -79,6 +85,9 @@ ObjectProperty: <http://provenanceweb.org/ontology/pml#hasDescription>
     Range: 
         <http://provenanceweb.org/ontology/pml#Information>
     
+    
+ObjectProperty: <http://www.w3.org/ns/prov#atLocation>
+
     
 ObjectProperty: <http://www.w3.org/ns/prov#wasAttributedTo>
 
@@ -117,6 +126,12 @@ ObjectProperty: <http://provenanceweb.org/ontology/pml#hasToLanguage>
 ObjectProperty: <http://www.w3.org/ns/prov#qualifiedAttribution>
 
     
+ObjectProperty: <http://www.w3.org/ns/prov#hadRole>
+
+    
+ObjectProperty: <http://www.w3.org/ns/prov#contributed>
+
+    
 ObjectProperty: <http://provenanceweb.org/ontology/pml#hasAuthor>
 
     SubPropertyOf: 
@@ -127,6 +142,9 @@ ObjectProperty: <http://provenanceweb.org/ontology/pml#hasAuthor>
     
     Range: 
         <http://provenanceweb.org/ontology/pml#Author>
+    
+    InverseOf: 
+        <http://provenanceweb.org/ontology/pml#authorOf>
     
     
 ObjectProperty: <http://provenanceweb.org/ontology/pml#hasFormat>
@@ -184,6 +202,9 @@ ObjectProperty: <http://provenanceweb.org/ontology/pml#hasPublisher>
         <http://provenanceweb.org/ontology/pml#Document>
     
     
+ObjectProperty: <http://www.w3.org/ns/prov#agentOfInfluence>
+
+    
 DataProperty: <http://provenanceweb.org/ontology/pml#hasToRow>
 
     Annotations: 
@@ -236,9 +257,6 @@ DataProperty: <http://provenanceweb.org/ontology/pml#hasFromCol>
         xsd:int
     
     
-DataProperty: <http://www.w3.org/ns/prov#generatedAtTime>
-
-    
 DataProperty: <http://provenanceweb.org/ontology/pml#hasModificationDateTime>
 
     Annotations: 
@@ -270,6 +288,9 @@ DataProperty: <http://provenanceweb.org/ontology/pml#hasCreationDateTime>
     SubPropertyOf: 
         <http://www.w3.org/ns/prov#generatedAtTime>
     
+    
+DataProperty: <http://www.w3.org/ns/prov#generatedAtTime>
+
     
 DataProperty: <http://provenanceweb.org/ontology/pml#hasFromOffset>
 
@@ -336,10 +357,16 @@ DataProperty: <http://provenanceweb.org/ontology/pml#hasToCol>
         xsd:int
     
     
-Class: <http://www.w3.org/ns/prov#Location>
+Class: <http://provenanceweb.org/ontology/pml-base#Publishership>
 
+    Annotations: 
+        <http://www.w3.org/ns/prov#category> "base"
     
-Class: owl:Thing
+    SubClassOf: 
+        <http://www.w3.org/ns/prov#Attribution>
+    
+    
+Class: <http://www.w3.org/ns/prov#Location>
 
     
 Class: <http://provenanceweb.org/ontology/pml#Website>
@@ -353,14 +380,8 @@ Class: <http://provenanceweb.org/ontology/pml#Website>
         <http://provenanceweb.org/ontology/pml#Document>
     
     
-Class: <http://provenanceweb.org/ontology/pml-base#Publishership>
+Class: owl:Thing
 
-    Annotations: 
-        <http://www.w3.org/ns/prov#category> "base"^^rdf:PlainLiteral
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#Attribution>
-    
     
 Class: <http://provenanceweb.org/ontology/pml#TranslationMethod>
 
@@ -380,6 +401,10 @@ Class: <http://provenanceweb.org/ontology/pml#Author>
     Annotations: 
         <http://www.w3.org/ns/prov#category> "base"
     
+    EquivalentTo: 
+        (<http://provenanceweb.org/ontology/pml#authorOf> some owl:Thing)
+         or (<http://www.w3.org/ns/prov#agentOfInfluence> some (<http://www.w3.org/ns/prov#hadRole> value <http://provenanceweb.org/ontology/pml#Author>))
+    
     SubClassOf: 
         <http://www.w3.org/ns/prov#Agent>
     
@@ -398,17 +423,6 @@ Class: <http://provenanceweb.org/ontology/pml#DeclarativeRule>
 Class: <http://www.w3.org/ns/prov#Bundle>
 
     
-Class: <http://provenanceweb.org/ontology/pml#InferenceEngine>
-
-    Annotations: 
-        rdfs:comment "An inference engine represents an engine that is able to produce a justification for a conclusion. Note that the phrase \"inference engine\" applies not only to reasoners but also to other systems like search engines which may justify their answers by direct assertion"@en,
-        <http://www.w3.org/ns/prov#category> "base",
-        rdfs:label "Inference Engine"@en
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#SoftwareAgent>
-    
-    
 Class: <http://provenanceweb.org/ontology/pml#Information>
 
     Annotations: 
@@ -420,6 +434,17 @@ Class: <http://provenanceweb.org/ontology/pml#Information>
         <http://provenanceweb.org/ontology/pml#hasLanguage> max 1 owl:Thing,
         <http://provenanceweb.org/ontology/pml#hasFormat> max 1 owl:Thing,
         <http://www.w3.org/ns/prov#Entity>
+    
+    
+Class: <http://provenanceweb.org/ontology/pml#InferenceEngine>
+
+    Annotations: 
+        rdfs:comment "An inference engine represents an engine that is able to produce a justification for a conclusion. Note that the phrase \"inference engine\" applies not only to reasoners but also to other systems like search engines which may justify their answers by direct assertion"@en,
+        <http://www.w3.org/ns/prov#category> "base",
+        rdfs:label "Inference Engine"@en
+    
+    SubClassOf: 
+        <http://www.w3.org/ns/prov#SoftwareAgent>
     
     
 Class: <http://provenanceweb.org/ontology/pml#Language>
@@ -468,6 +493,9 @@ Class: <http://provenanceweb.org/ontology/pml#WebService>
 Class: <http://www.w3.org/ns/prov#Activity>
 
     
+Class: <http://www.w3.org/ns/prov#Collection>
+
+    
 Class: <http://provenanceweb.org/ontology/pml-base#Position>
 
     Annotations: 
@@ -477,9 +505,6 @@ Class: <http://provenanceweb.org/ontology/pml-base#Position>
         <http://provenanceweb.org/ontology/pml#hasFromOffset> exactly 1 rdfs:Literal,
         <http://www.w3.org/ns/prov#Location>
     
-    
-Class: <http://www.w3.org/ns/prov#Collection>
-
     
 Class: <http://provenanceweb.org/ontology/pml#InformationContainer>
 
@@ -504,16 +529,6 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
         <http://www.w3.org/ns/prov#Plan>
     
     
-Class: <http://provenanceweb.org/ontology/pml#Authorship>
-
-    Annotations: 
-        <http://www.w3.org/ns/prov#category> "base"
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#atLocation> max 1 <http://provenanceweb.org/ontology/pml-base#Position>,
-        <http://www.w3.org/ns/prov#Attribution>
-    
-    
 Class: <http://provenanceweb.org/ontology/pml#EmptyInformation>
 
     Annotations: 
@@ -523,6 +538,16 @@ Class: <http://provenanceweb.org/ontology/pml#EmptyInformation>
     
     SubClassOf: 
         <http://provenanceweb.org/ontology/pml#Information>
+    
+    
+Class: <http://provenanceweb.org/ontology/pml#Authorship>
+
+    Annotations: 
+        <http://www.w3.org/ns/prov#category> "base"
+    
+    SubClassOf: 
+        <http://www.w3.org/ns/prov#atLocation> max 1 <http://provenanceweb.org/ontology/pml-base#Position>,
+        <http://www.w3.org/ns/prov#Attribution>
     
     
 Class: <http://provenanceweb.org/ontology/pml#Format>
@@ -536,12 +561,6 @@ Class: <http://provenanceweb.org/ontology/pml#Format>
         <http://www.w3.org/ns/prov#Entity>
     
     
-Class: <http://www.w3.org/ns/prov#AgentInfluence>
-
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#agent> exactly 1 <http://www.w3.org/ns/prov#Agent>
-    
-    
 Class: <http://provenanceweb.org/ontology/pml#Dataset>
 
     Annotations: 
@@ -551,6 +570,12 @@ Class: <http://provenanceweb.org/ontology/pml#Dataset>
     
     SubClassOf: 
         <http://provenanceweb.org/ontology/pml#Document>
+    
+    
+Class: <http://www.w3.org/ns/prov#AgentInfluence>
+
+    SubClassOf: 
+        <http://www.w3.org/ns/prov#agent> exactly 1 <http://www.w3.org/ns/prov#Agent>
     
     
 Class: <http://provenanceweb.org/ontology/pml#Document>
@@ -565,6 +590,15 @@ Class: <http://provenanceweb.org/ontology/pml#Document>
         <http://provenanceweb.org/ontology/pml#hasVersion> max 1 rdfs:Literal
     
     
+Class: <http://provenanceweb.org/ontology/pml-base#Publisher>
+
+    Annotations: 
+        <http://www.w3.org/ns/prov#category> "base"
+    
+    SubClassOf: 
+        <http://www.w3.org/ns/prov#Agent>
+    
+    
 Class: <http://provenanceweb.org/ontology/pml#RowColLocation>
 
     Annotations: 
@@ -577,15 +611,6 @@ Class: <http://provenanceweb.org/ontology/pml#RowColLocation>
         <http://provenanceweb.org/ontology/pml#hasToCol> exactly 1 rdfs:Literal,
         <http://provenanceweb.org/ontology/pml#hasFromCol> exactly 1 rdfs:Literal,
         <http://provenanceweb.org/ontology/pml#hasFromRow> exactly 1 rdfs:Literal
-    
-    
-Class: <http://provenanceweb.org/ontology/pml-base#Publisher>
-
-    Annotations: 
-        <http://www.w3.org/ns/prov#category> "base"^^rdf:PlainLiteral
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#Agent>
     
     
 Class: <http://provenanceweb.org/ontology/pml#Publication>
@@ -611,6 +636,9 @@ Class: <http://provenanceweb.org/ontology/pml#Source>
         <http://www.w3.org/ns/prov#Entity>
     
     
+Class: <http://www.w3.org/ns/prov#Entity>
+
+    
 Class: <http://provenanceweb.org/ontology/pml#Sensor>
 
     Annotations: 
@@ -622,13 +650,10 @@ Class: <http://provenanceweb.org/ontology/pml#Sensor>
         <http://www.w3.org/ns/prov#Agent>
     
     
-Class: <http://www.w3.org/ns/prov#Entity>
+Class: <http://www.w3.org/ns/prov#Role>
 
     
 Class: <http://www.w3.org/ns/prov#SoftwareAgent>
-
-    
-Class: <http://www.w3.org/ns/prov#Role>
 
     
 Class: <http://provenanceweb.org/ontology/pml#DocumentFragment>
@@ -673,10 +698,10 @@ Class: <http://www.w3.org/ns/prov#Plan>
         <http://provenanceweb.org/ontology/pml#Information>
     
     
-Class: <http://www.w3.org/ns/prov#Attribution>
+Class: <http://www.w3.org/ns/prov#Agent>
 
     
-Class: <http://www.w3.org/ns/prov#Agent>
+Class: <http://www.w3.org/ns/prov#Attribution>
 
     
 Class: <http://provenanceweb.org/ontology/pml#Ontology>
@@ -705,7 +730,7 @@ Individual: <http://provenanceweb.org/ontology/pml#Source>
 Individual: <http://provenanceweb.org/ontology/pml-base#Publisher>
 
     Annotations: 
-        <http://www.w3.org/ns/prov#category> "base"^^rdf:PlainLiteral
+        <http://www.w3.org/ns/prov#category> "base"
     
     Types: 
         <http://www.w3.org/ns/prov#Role>
