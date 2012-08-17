@@ -353,6 +353,15 @@ Class: <http://provenanceweb.org/ontology/pml#Website>
         <http://provenanceweb.org/ontology/pml#Document>
     
     
+Class: <http://provenanceweb.org/ontology/pml-base#Publishership>
+
+    Annotations: 
+        <http://www.w3.org/ns/prov#category> "base"^^rdf:PlainLiteral
+    
+    SubClassOf: 
+        <http://www.w3.org/ns/prov#Attribution>
+    
+    
 Class: <http://provenanceweb.org/ontology/pml#TranslationMethod>
 
     Annotations: 
@@ -570,6 +579,15 @@ Class: <http://provenanceweb.org/ontology/pml#RowColLocation>
         <http://provenanceweb.org/ontology/pml#hasFromRow> exactly 1 rdfs:Literal
     
     
+Class: <http://provenanceweb.org/ontology/pml-base#Publisher>
+
+    Annotations: 
+        <http://www.w3.org/ns/prov#category> "base"^^rdf:PlainLiteral
+    
+    SubClassOf: 
+        <http://www.w3.org/ns/prov#Agent>
+    
+    
 Class: <http://provenanceweb.org/ontology/pml#Publication>
 
     Annotations: 
@@ -679,6 +697,15 @@ Individual: <http://provenanceweb.org/ontology/pml#Source>
         <http://www.w3.org/ns/prov#category> "base",
         rdfs:comment "A source refers to the source of information. It is the place where we obtain information."@en,
         rdfs:label "Source"@en
+    
+    Types: 
+        <http://www.w3.org/ns/prov#Role>
+    
+    
+Individual: <http://provenanceweb.org/ontology/pml-base#Publisher>
+
+    Annotations: 
+        <http://www.w3.org/ns/prov#category> "base"^^rdf:PlainLiteral
     
     Types: 
         <http://www.w3.org/ns/prov#Role>
