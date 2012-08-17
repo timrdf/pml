@@ -397,15 +397,15 @@
         <rdfs:subClassOf rdf:resource="&pml;InformationContainer"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&prov;atLocation"/>
-                <owl:someValuesFrom rdf:resource="&prov;Location"/>
+                <owl:onProperty rdf:resource="&terms;isPartOf"/>
+                <owl:onClass rdf:resource="&pml;Document"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&terms;isPartOf"/>
-                <owl:onClass rdf:resource="&pml;Document"/>
-                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onProperty rdf:resource="&prov;atLocation"/>
+                <owl:someValuesFrom rdf:resource="&prov;Location"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <prov:category>base</prov:category>
@@ -552,14 +552,14 @@
         <rdfs:subClassOf rdf:resource="&prov;Attribution"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&prov;agent"/>
-                <owl:allValuesFrom rdf:resource="&pml;Owner"/>
+                <owl:onProperty rdf:resource="&prov;entity"/>
+                <owl:allValuesFrom rdf:resource="&pml;OwnedEntity"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&prov;entity"/>
-                <owl:allValuesFrom rdf:resource="&pml;OwnedEntity"/>
+                <owl:onProperty rdf:resource="&prov;agent"/>
+                <owl:allValuesFrom rdf:resource="&pml;Owner"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <prov:category>base</prov:category>
@@ -603,7 +603,13 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
         <rdfs:subClassOf rdf:resource="&prov;Location"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&pml;hasToCol"/>
+                <owl:onProperty rdf:resource="&pml;hasFromRow"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&pml;hasFromCol"/>
                 <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -615,13 +621,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&pml;hasFromRow"/>
-                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&pml;hasFromCol"/>
+                <owl:onProperty rdf:resource="&pml;hasToCol"/>
                 <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -707,6 +707,24 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
                 <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
+        <prov:category>base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenanceweb.org/ontology/pml-base#Publisher -->
+
+    <owl:Class rdf:about="&pml-base;Publisher">
+        <rdfs:subClassOf rdf:resource="&prov;Agent"/>
+        <prov:category>base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenanceweb.org/ontology/pml-base#Publishership -->
+
+    <owl:Class rdf:about="&pml-base;Publishership">
+        <rdfs:subClassOf rdf:resource="&prov;Attribution"/>
         <prov:category>base</prov:category>
     </owl:Class>
     
@@ -840,6 +858,15 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
         <rdfs:label xml:lang="en">nil</rdfs:label>
         <rdfs:comment xml:lang="en">The empty list, with no items in it. If the rest of a list is nil then the list has no more items in it.</rdfs:comment>
     </owl:NamedIndividual>
+    
+
+
+    <!-- http://provenanceweb.org/ontology/pml-base#Publisher -->
+
+    <prov:Role rdf:about="&pml-base;Publisher">
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+        <prov:category>base</prov:category>
+    </prov:Role>
 </rdf:RDF>
 
 
