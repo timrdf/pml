@@ -7,7 +7,7 @@ Prefix: skos: <http://www.w3.org/2004/02/skos/core#>
 
 
 
-Ontology: <http://provenanceweb.org/ontology/pml-base#>
+Ontology: <http://provenanceweb.org/ontology/pml#>
 
 Import: <http://www.w3.org/ns/inverses.owl>
 Import: <http://www.w3.org/ns/prov#>
@@ -359,7 +359,7 @@ Class: <http://www.w3.org/ns/prov#Location>
 Class: owl:Thing
 
     
-Class: <http://provenanceweb.org/ontology/pml-base#Publishership>
+Class: <http://provenanceweb.org/ontology/pml#Publishership>
 
     Annotations: 
         <http://www.w3.org/ns/prov#category> "base"^^rdf:PlainLiteral,
@@ -493,7 +493,7 @@ Class: <http://www.w3.org/ns/prov#Activity>
 Class: <http://www.w3.org/ns/prov#Collection>
 
     
-Class: <http://provenanceweb.org/ontology/pml-base#Position>
+Class: <http://provenanceweb.org/ontology/pml#Position>
 
     Annotations: 
         <http://www.w3.org/ns/prov#category> "base"
@@ -533,7 +533,7 @@ Class: <http://provenanceweb.org/ontology/pml#Authorship>
     
     SubClassOf: 
         <http://www.w3.org/ns/prov#Attribution>,
-        <http://www.w3.org/ns/prov#atLocation> max 1 <http://provenanceweb.org/ontology/pml-base#Position>
+        <http://www.w3.org/ns/prov#atLocation> max 1 <http://provenanceweb.org/ontology/pml#Position>
     
     
 Class: <http://provenanceweb.org/ontology/pml#Format>
@@ -579,7 +579,7 @@ Class: <http://provenanceweb.org/ontology/pml#Document>
 Class: <http://provenanceweb.org/ontology/pml#RowColLocation>
 
     Annotations: 
-        rdfs:label "Document Fragment by Row/Column"@en,
+        rdfs:label "Row Column Location"@en,
         <http://www.w3.org/ns/prov#category> "base"
     
     SubClassOf: 
@@ -590,7 +590,7 @@ Class: <http://provenanceweb.org/ontology/pml#RowColLocation>
         <http://provenanceweb.org/ontology/pml#hasToRow> exactly 1 rdfs:Literal
     
     
-Class: <http://provenanceweb.org/ontology/pml-base#Publisher>
+Class: <http://provenanceweb.org/ontology/pml#Publisher>
 
     Annotations: 
         <http://www.w3.org/ns/prov#category> "base"
@@ -633,7 +633,7 @@ Class: <http://www.w3.org/ns/prov#SoftwareAgent>
 Class: <http://provenanceweb.org/ontology/pml#DocumentFragment>
 
     Annotations: 
-        rdfs:comment "A fragment of document that can be used as source."@en,
+        rdfs:comment "When a Document is treated as a one dimensional string, a fragment of the Document may be established with two offsets. The offsets are in units of characters (and not bytes because characters may be multiple bytes)."@en,
         rdfs:label "Document Fragment"@en,
         <http://www.w3.org/ns/prov#category> "base"
     
@@ -657,12 +657,12 @@ Class: <http://provenanceweb.org/ontology/pml#Ownership>
 Class: <http://provenanceweb.org/ontology/pml#OffsetPosition>
 
     Annotations: 
-        rdfs:comment "We may treat a document a one dimensional string, so we can mark a fragment with two offsets. We don't use byte because characters in text document may be multi-bytes."@en,
-        rdfs:label "Document Fragment by Offset"@en,
+        rdfs:comment ""@en,
+        rdfs:label "Offset Position"@en,
         <http://www.w3.org/ns/prov#category> "base"
     
     SubClassOf: 
-        <http://provenanceweb.org/ontology/pml-base#Position>,
+        <http://provenanceweb.org/ontology/pml#Position>,
         <http://provenanceweb.org/ontology/pml#hasToOffset> exactly 1 rdfs:Literal
     
     
@@ -701,7 +701,7 @@ Individual: <http://provenanceweb.org/ontology/pml#Source>
         <http://www.w3.org/ns/prov#Role>
     
     
-Individual: <http://provenanceweb.org/ontology/pml-base#Publisher>
+Individual: <http://provenanceweb.org/ontology/pml#Publisher>
 
     Annotations: 
         <http://www.w3.org/ns/prov#category> "base"

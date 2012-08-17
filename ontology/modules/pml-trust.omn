@@ -2,7 +2,6 @@ Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
 Prefix: owl: <http://www.w3.org/2002/07/owl#>
 Prefix: pml: <http://provenanceweb.org/ontology/pml#>
 Prefix: pmlj: <http://inference-web.org/2.0/pml-justification.owl#>
-Prefix: pmltbase: <http://inference-web.org/2.0/pml-trust.owl>
 Prefix: pmlp: <http://inference-web.org/2.0/pml-provenance.owl#>
 Prefix: xml: <http://www.w3.org/XML/1998/namespace>
 Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
