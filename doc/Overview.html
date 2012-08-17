@@ -1,0 +1,4304 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML+RDFa 1.0//EN' 'http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd'>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" typeof="bibo:Document">
+<head>
+    <title>Provenance Markup Language (PML 3.0)</title>
+    
+<!-- link href="http://aquarius.tw.rpi.edu/pml-3/css/basic.css" rel="stylesheet" type="text/css" media="screen" / -->
+
+    <style type="text/css">
+    </style>
+
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+
+    <style type="text/css">
+      /* prov:wasQuotedFrom http://speronitomcat.web.cs.unibo.it:8080/LODE/owl.css */
+      .RFC2119 {
+        text-transform: lowercase;
+        font-style: italic;
+      }
+      .nonterminal {
+          font-weight: bold;
+          font-family: sans-serif;
+          font-size: 95%;
+      }
+      #abstract br {
+         /* doesn't work right SOMETIMES 
+         margin-bottom: 1em;   */
+      }
+      .name {
+          font-family: monospace;
+      }
+      .buttonpanel {
+          margin-top: 1ex;
+          margin-bottom: 1ex;
+          padding-left: 1ex;
+          padding-right: 1ex;
+          padding-top: 1ex;
+          padding-bottom: 0.6ex;
+          border: 1px dotted black; 
+      }
+      .grammar {
+          margin-top: 1ex;
+          margin-bottom: 1ex;
+          padding-left: 1ex;
+          padding-right: 1ex;
+          padding-top: 1ex;
+          padding-bottom: 0.6ex;
+          border: 1px dashed #2f6fab;
+          font-family: monospace;
+      }
+      .image {
+          text-align: center;
+      }
+      .centered {
+          text-align: center;
+          padding-top: 4ex;
+          padding-bottom: 4ex;
+      }
+      .centered table {
+          margin: 0 auto;
+          text-align: left;
+      }
+      .caption {
+          font-weight: bold;
+      }
+      .indent {
+          margin-left: 20px;
+      }
+      .atrisknote {
+          padding: 5px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+          border: solid 2px blue;
+          background-color: #FFA;
+      }
+      .atrisknotehead {
+          font-style: italic; 
+      }
+
+      /* Stying the examples. */
+
+      .anexample:before {
+          content: "Example:";
+          font-family: sans-serif;
+          font-size: 1.6ex;
+          font-weight: bold;
+      }
+      .anexample {
+          margin-top: 1ex;
+          margin-bottom: 1ex;
+          padding-left: 1ex;
+          padding-right: 1ex;
+          padding-top: 1ex;
+          padding-bottom: 0.6ex;
+          border: 1px dashed #2f6fab;
+          background-color: #f9f9f9;
+      }
+      .anexample table {
+          background-color: #f9f9f9;
+      }
+
+      /* Styling the parts in the functional-style syntax. */
+
+      div.fss {
+          margin-top: 10px; 
+          margin-bottom: 10px; 
+          margin-left: 20px; 
+          margin-right: 20px; 
+          font-family: monospace;
+      }
+      table.fss {
+          margin: 0px 0px 0px 0px; 
+          padding: 0px 0px 0px 0px; 
+          width: 100%;
+      }
+      table.fss caption.fss {
+          font-size: 1.5ex;
+          font-weight: bold;
+          text-align: left;
+          padding-left: 10px;
+      }
+      table.fss td:first-child {
+          font-family: monospace;
+          padding-left: 20px;
+          padding-right: 20px;
+          width: 60%;
+      }
+
+      /* Styling the parts in the RDF syntax. */
+
+      div.rdf{
+          margin-top: 10px; 
+          margin-bottom: 10px; 
+          margin-left: 20px; 
+          margin-right: 20px; 
+          font-family: monospace;
+      }
+      table.rdf {
+          margin: 0px 0px 0px 0px; 
+          padding: 0px 0px 0px 0px; 
+          width: 100%;
+      }
+      table.rdf caption.rdf {
+          font-size: 1.5ex;
+          font-weight: bold;
+          text-align: left;
+          padding-left: 10px;
+      }
+      table.rdf td:first-child {
+          font-family: monospace;
+          padding-left: 20px;
+          padding-right: 20px;
+          width: 60%;
+      }
+
+      /* Styling the XML syntax. */
+
+      div.xmlsyn {
+          margin-top: 10px; 
+          margin-bottom: 10px; 
+          margin-left: 20px; 
+          margin-right: 20px; 
+          font-family: monospace;
+      }
+      div.axioms {
+          margin-top: 10px; 
+          margin-bottom: 10px; 
+          margin-left: 20px; 
+          margin-right: 20px; 
+      }
+
+      /* Other styles. */
+
+      table.complexity td {
+          text-align: center;
+      }
+      table.allname td {
+         font-family: monospace;
+      }
+      table.canonicalparsing {
+          margin-left: 20px;
+          border-style: none;
+      }
+      table.canonicalparsing td {
+          vertical-align: top;
+          padding: 2px 2px 2px 2px;
+      }
+      table.canonicalparsing td.two {
+          padding-left: 30px;
+      }
+
+      /* The following are classes for templates used in the editing process. */
+
+      .review {
+          padding: 5px;
+          border: solid 1px black;
+          margin-left: 10%;
+          margin-top: 10px;
+          margin-bottom: 10px;
+          background-color: #FFA;
+          font-size: smaller;
+      }
+      .reviewauthor {
+          font-size: smaller;
+          font-style: italic;
+      }
+      .ednote {
+          padding: 5px;
+          border: solid 1px black;
+          margin-top: 10px;
+          margin-bottom: 10px;
+      }
+      .ednotehead {
+         font-weight: bold;
+      }
+
+      /* override mediawiki's beautiful DL styling... */
+      dl {
+          background: white;
+          width: 100%;
+          border: none;
+          margin-top: 0;
+          margin-bottom: 0;
+          padding-top: 0;
+          padding-bottom: 0;
+      }
+
+      div {
+          margin-top: 0;
+          margin-bottom: 0;
+      }
+      #fulltitle {
+        font-size: 140%; 
+        font-weight: bold;
+      }
+
+      .xml {
+       color: red
+      }
+
+      .rdbms{
+      color: red
+      }
+
+      /* just copying from wiki, so it stays through TR. Currently
+        affects Primer, at least */
+      pre {
+        background-color:#F9F9F9;
+        border:1px dashed #2F6FAB;
+        color:black;
+        line-height:1.1em;
+        padding:1em;
+      }
+    </style>
+
+    <style type="text/css">
+      /* prov:wasQuotedFrom http://speronitomcat.web.cs.unibo.it:8080/LODE/Primer.css . */
+
+      /* define a class "noprint" for sections which don't get printed */  
+      .noprint { display: none; }
+
+      /* our syntax menu for switching */
+      div.syntaxmenu {
+        border: 1px dotted black;
+        padding:0.5em;
+        margin: 1em; 
+      }
+
+      @media print {
+         div.syntaxmenu { display:none; }
+      }
+
+      /* use tab-like headers for syntax examples */
+      div.exampleheader {
+        font-size: 90%;
+        float: left;
+        background: #F9F9F9;
+        color: #2F6FAB;
+        border: 1px dashed #2F6FAB;
+        border-bottom: 0px;
+        padding-top: 2px;
+      }
+
+      div.exampleheader span.exampleheader {
+        background: #F9F9F9;
+        padding-top: 0px;
+        padding-right: 10px;
+        padding-left: 10px;
+        padding-bottom: 3px;
+        padding-top: 0px;
+      }
+
+      /* Also copy MediaWiki style here, so it will not look different when exported */
+      div.fssyntax pre, div.rdfxml pre, div.owlxml pre, div.turtle pre, div.manchester pre  {
+        background-color: #F9F9F9;
+        border: 1px dashed #2F6FAB;
+        color: black;
+        line-height: 1.1em;
+        padding: 1em;
+        clear: both;
+        margin-left: 0em;
+      }
+      /* (further styles directly embedded in header template) */
+    </style>
+
+    <style type="text/css">
+      /* prov:wasDerivedFrom http://speronitomcat.web.cs.unibo.it:8080/LODE/rec.css . */
+
+      /* Style for a "Recommendation" */
+
+      /*
+         Copyright 1997-2003 W3C (MIT, ERCIM, Keio). All Rights Reserved.
+         The following software licensing rules apply:
+         http://www.w3.org/Consortium/Legal/copyright-software */
+
+      /* $Id: base.css,v 1.25 2006/04/18 08:42:53 bbos Exp $ */
+
+      body {
+        padding: 2em 1em 2em 70px;
+        margin: 0;
+        font-family: sans-serif;
+        color: black;
+        background: white;
+        background-position: top left;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+      }
+      :link { color: #00C; background: transparent }
+      :visited { color: #609; background: transparent }
+      a:active { color: #C00; background: transparent }
+
+      a:link img, a:visited img { border-style: none } /* no border on img links */
+
+      a img { color: white; }        /* trick to hide the border in Netscape 4 */
+      @media all {                   /* hide the next rule from Netscape 4 */
+        a img { color: inherit; }    /* undo the color change above */
+      }
+
+      th, td { /* ns 4 */
+        font-family: sans-serif;
+      }
+
+      h1, h2, h3, h4, h5, h6 { text-align: left }
+      /* background should be transparent, but WebTV has a bug */
+      h1, h2, h3 { color: #005A9C; background: white }
+      h1 { font: 170% sans-serif }
+      h2 { font: 140% sans-serif }
+      h3 { font: 120% sans-serif }
+      h4 { font: bold 100% sans-serif }
+      h5 { font: italic 100% sans-serif }
+      h6 { font: small-caps 100% sans-serif }
+
+      .hide { display: none }
+
+      div.head { margin-bottom: 1em }
+      div.head h1 { margin-top: 2em; clear: both }
+      div.head table { margin-left: 2em; margin-top: 2em }
+
+      p.copyright { font-size: small }
+      p.copyright small { font-size: small }
+
+      @media screen {  /* hide from IE3 */
+      a[href]:hover { background: #ffa }
+      }
+
+      pre { margin-left: 2em }
+      /*
+      p {
+        margin-top: 0.6em;
+        margin-bottom: 0.6em;
+      }
+      */
+      dt, dd { margin-top: 0; margin-bottom: 0 } /* opera 3.50 */
+      dt { font-weight: bold }
+
+      pre, code { font-family: monospace } /* navigator 4 requires this */
+
+      ul.toc, ol.toc {
+        list-style: disc;     /* Mac NS has problem with 'none' */
+        list-style: none;
+      }
+
+      @media aural {  
+        h1, h2, h3 { stress: 20; richness: 90 }
+        .hide { speak: none }
+        p.copyright { volume: x-soft; speech-rate: x-fast }
+        dt { pause-before: 20% }
+        pre { speak-punctuation: code } 
+      }
+
+      /*body {
+        background-image: url(http://lode.sourceforge.net/img/LODELogo.png);
+      }*/
+    </style>
+
+    <style type="text/css">
+      /* prov:wasQuotedFrom http://speronitomcat.web.cs.unibo.it:8080/LODE/extra.css . */
+
+      body {
+          text-align: justify;    
+      }
+
+      h1 {
+          line-height: 110%;    
+      }
+
+      .hlist {
+          border: 1px solid navy;
+          padding:5px;
+          background-color: #F4FFFF; 
+      }
+
+      .hlist li {
+          display: inline;
+          display: inline-table;
+          list-style-type: none;
+          padding-right: 20px;
+          
+      }
+
+      .entity {
+          border: 1px solid navy;
+          margin:5px 0px 5px 0px;
+          padding: 5px;    
+      }
+
+      .type-c {
+          cursor:help;
+          color:orange;
+      }
+
+      .type-op {
+          cursor:help;
+          color:navy;    
+      }
+
+      .type-dp {
+          cursor:help;
+          color:green;    
+      }
+
+      .type-ap {
+          cursor:help;
+          color:maroon;    
+      }
+
+      .type-ni {
+          cursor:help;
+          color:brown;    
+      }
+
+      .logic {
+          color:purple;
+          font-weight:bold;    
+      }
+
+      h3 {
+          margin-top: 3px;
+          padding-bottom: 5px;
+          border-bottom: 1px solid navy;
+      }
+
+      h2 {
+          margin-top:40px;    
+      }
+
+      .dotted {
+          border-bottom: 1px dotted gray;
+      }
+
+      dt {
+          margin-top:5px;
+      }
+
+      .description {
+          border-top: 1px dashed gray;
+          border-bottom: 1px dashed gray;
+          background-color: rgb(242, 243, 244);
+          margin-top:5px;
+          padding-bottom:5px;
+      }
+
+      .description dl {
+          background-color: rgb(242, 243, 244);
+      }
+
+      .description ul {
+          padding-left: 12px;
+          margin-top: 0px;
+      }
+
+      .backlink {
+          font-size:10pt;
+          text-align:right;
+          float:right;
+          color:black;
+          padding: 2px;
+          border: 1px dotted navy;
+          background-color: #F4FFFF;
+      }
+
+      .imageblock {
+         text-align: center;
+      }
+
+      .imageblock img {
+         border:1px solid gray;
+      }
+
+      .endnote {
+         margin-top: 40px;
+         border-top: 1px solid gray;
+         padding-top: 10px;
+         text-align: center;
+         color:gray;
+         font-size:50%;
+      }
+    </style>
+    
+<!--  link rel="provenance" href="http://www.w3.org/2007/08/pyRdfa/extract?format=turtle&uri=http://aquarius.tw.rpi.edu/prov-wg/prov-o"/  -->
+
+
+    
+<!--  
+      === NOTA BENE ===
+      For the three scripts below, if your spec resides on dev.w3 you can check them
+      out in the same tree and use relative links so that they'll work offline,
+      -->
+
+
+   
+<!--  From DM  -->
+
+   <style type="text/css">
+      .note { font-size:small; margin-left:50px }
+       table { text-align: center; vertical-align: middle }
+   </style>
+
+   <style type="text/css">
+      /* This CSS written by Tim Lebo for PROV-O HTML (all other CSS was taken from elsewhere) */
+      table.qualified-forms {
+         width: 75%;
+      }
+      ul.hlist {
+         margin: 20px;
+      }
+      table {
+         margin: 20px; 
+         border:1px solid navy;
+         background-color: #F4FFFF;
+      }
+      table th {
+         background-color: LightGoldenRodYellow;
+      }
+      table tr {
+         padding: 2px;
+         border: 1px solid navy;
+      }
+      table td {
+         text-align: left;
+         padding-top: 5px;
+         padding-bottom: 5px;
+         padding-left: 15px;
+         padding-right: 15px;
+      }
+      table td.prov-attribute {
+         width: 20%
+      }
+      table.prov-detail a:visited {
+          color:black; text-decoration:none; 
+      }
+      table.prov-detail a:link {
+          color:black; text-decoration:none; 
+      }
+      .component-entities-activities {
+         border:1px solid gray;
+         background-color: #FFD4D4
+      }
+      .component-agents-responsibility {
+         border:1px solid gray;
+         background-color: #CCD9EE;
+      }
+      .component-derivations {
+         border:1px solid gray;
+         background-color: #CCEED9;
+      }
+      .component-collections {
+         border:1px solid gray;
+         background-color: #CED4D4;
+      }
+      .component-alternate {
+         border:1px solid gray;
+         background-color: #F4FFD9;
+      }
+      .component-annotations {
+         border:1px solid gray;
+         background-color: #FCE1CE;
+      }
+      span.repeated {
+         font-family: monospace;
+      }
+      a.qname {
+         font-family: monospace;
+      }
+      strong.crossreference {
+         padding-right: 15px;
+      }
+      div.feature-at-risk {
+         color: red;
+      }
+     </style>
+
+     
+     
+   
+    
+  <style type="text/css">
+/*****************************************************************
+ * ReSpec CSS
+ * Robin Berjon (robin at berjon dot com)
+ * v0.05 - 2009-07-31
+ *****************************************************************/
+
+
+/* --- INLINES --- */
+em.rfc2119 { 
+    text-transform:     lowercase;
+    font-variant:       small-caps;
+    font-style:         normal;
+    color:              #900;
+}
+
+h1 acronym, h2 acronym, h3 acronym, h4 acronym, h5 acronym, h6 acronym, a acronym,
+h1 abbr, h2 abbr, h3 abbr, h4 abbr, h5 abbr, h6 abbr, a abbr {
+    border: none;
+}
+
+dfn {
+    font-weight:    bold;
+}
+
+a.internalDFN {
+    color:  inherit;
+    border-bottom:  1px solid #99c;
+    text-decoration:    none;
+}
+
+a.externalDFN {
+    color:  inherit;
+    border-bottom:  1px dotted #ccc;
+    text-decoration:    none;
+}
+
+a.bibref {
+    text-decoration:    none;
+}
+
+code {
+    color:  #ff4500;
+}
+
+
+/* --- WEB IDL --- */
+pre.idl {
+    border-top: 1px solid #90b8de;
+    border-bottom: 1px solid #90b8de;
+    padding:    1em;
+    line-height:    120%;
+}
+
+pre.idl::before {
+    content:    "WebIDL";
+    display:    block;
+    width:      150px;
+    background: #90b8de;
+    color:  #fff;
+    font-family:    initial;
+    padding:    3px;
+    font-weight:    bold;
+    margin: -1em 0 1em -1em;
+}
+
+.idlType {
+    color:  #ff4500;
+    font-weight:    bold;
+    text-decoration:    none;
+}
+
+/*.idlModule*/
+/*.idlModuleID*/
+/*.idlInterface*/
+.idlInterfaceID, .idlDictionaryID {
+    font-weight:    bold;
+    color:  #005a9c;
+}
+
+.idlSuperclass {
+    font-style: italic;
+    color:  #005a9c;
+}
+
+/*.idlAttribute*/
+.idlAttrType, .idlFieldType, .idlMemberType {
+    color:  #005a9c;
+}
+.idlAttrName, .idlFieldName, .idlMemberName {
+    color:  #ff4500;
+}
+.idlAttrName a, .idlFieldName a, .idlMemberName a {
+    color:  #ff4500;
+    border-bottom:  1px dotted #ff4500;
+    text-decoration: none;
+}
+
+/*.idlMethod*/
+.idlMethType {
+    color:  #005a9c;
+}
+.idlMethName {
+    color:  #ff4500;
+}
+.idlMethName a {
+    color:  #ff4500;
+    border-bottom:  1px dotted #ff4500;
+    text-decoration: none;
+}
+
+/*.idlParam*/
+.idlParamType {
+    color:  #005a9c;
+}
+.idlParamName {
+    font-style: italic;
+}
+
+.extAttr {
+    color:  #666;
+}
+
+/*.idlConst*/
+.idlConstType {
+    color:  #005a9c;
+}
+.idlConstName {
+    color:  #ff4500;
+}
+.idlConstName a {
+    color:  #ff4500;
+    border-bottom:  1px dotted #ff4500;
+    text-decoration: none;
+}
+
+/*.idlException*/
+.idlExceptionID {
+    font-weight:    bold;
+    color:  #c00;
+}
+
+.idlTypedefID, .idlTypedefType {
+    color:  #005a9c;
+}
+
+.idlRaises, .idlRaises a.idlType, .idlRaises a.idlType code, .excName a, .excName a code {
+    color:  #c00;
+    font-weight:    normal;
+}
+
+.excName a {
+    font-family:    monospace;
+}
+
+.idlRaises a.idlType, .excName a.idlType {
+    border-bottom:  1px dotted #c00;
+}
+
+.excGetSetTrue, .excGetSetFalse, .prmNullTrue, .prmNullFalse, .prmOptTrue, .prmOptFalse {
+    width:  45px;
+    text-align: center;
+}
+.excGetSetTrue, .prmNullTrue, .prmOptTrue { color:  #0c0; }
+.excGetSetFalse, .prmNullFalse, .prmOptFalse { color:  #c00; }
+
+.idlImplements a {
+    font-weight:    bold;
+}
+
+dl.attributes, dl.methods, dl.constants, dl.fields, dl.dictionary-members {
+    margin-left:    2em;
+}
+
+.attributes dt, .methods dt, .constants dt, .fields dt, .dictionary-members dt {
+    font-weight:    normal;
+}
+
+.attributes dt code, .methods dt code, .constants dt code, .fields dt code, .dictionary-members dt code {
+    font-weight:    bold;
+    color:  #000;
+    font-family:    monospace;
+}
+
+.attributes dt code, .fields dt code, .dictionary-members dt code {
+    background:  #ffffd2;
+}
+
+.attributes dt .idlAttrType code, .fields dt .idlFieldType code, .dictionary-members dt .idlMemberType code {
+    color:  #005a9c;
+    background:  transparent;
+    font-family:    inherit;
+    font-weight:    normal;
+    font-style: italic;
+}
+
+.methods dt code {
+    background:  #d9e6f8;
+}
+
+.constants dt code {
+    background:  #ddffd2;
+}
+
+.attributes dd, .methods dd, .constants dd, .fields dd, .dictionary-members dd {
+    margin-bottom:  1em;
+}
+
+table.parameters, table.exceptions {
+    border-spacing: 0;
+    border-collapse:    collapse;
+    margin: 0.5em 0;
+    width:  100%;
+}
+table.parameters { border-bottom:  1px solid #90b8de; }
+table.exceptions { border-bottom:  1px solid #deb890; }
+
+.parameters th, .exceptions th {
+    color:  #fff;
+    padding:    3px 5px;
+    text-align: left;
+    font-family:    initial;
+    font-weight:    normal;
+    text-shadow:    #666 1px 1px 0;
+}
+.parameters th { background: #90b8de; }
+.exceptions th { background: #deb890; }
+
+.parameters td, .exceptions td {
+    padding:    3px 10px;
+    border-top: 1px solid #ddd;
+    vertical-align: top;
+}
+
+.parameters tr:first-child td, .exceptions tr:first-child td {
+    border-top: none;
+}
+
+.parameters td.prmName, .exceptions td.excName, .exceptions td.excCodeName {
+    width:  100px;
+}
+
+.parameters td.prmType {
+    width:  120px;
+}
+
+table.exceptions table {
+    border-spacing: 0;
+    border-collapse:    collapse;
+    width:  100%;
+}
+
+/* --- TOC --- */
+.toc a {
+    text-decoration:    none;
+}
+
+a .secno {
+    color:  #000;
+}
+
+/* --- TABLE --- */
+table.simple {
+    border-spacing: 0;
+    border-collapse:    collapse;
+    border-bottom:  3px solid #005a9c;
+}
+
+.simple th {
+    background: #005a9c;
+    color:  #fff;
+    padding:    3px 5px;
+    text-align: left;
+}
+
+.simple th[scope="row"] {
+    background: inherit;
+    color:  inherit;
+    border-top: 1px solid #ddd;
+}
+
+.simple td {
+    padding:    3px 10px;
+    border-top: 1px solid #ddd;
+}
+
+.simple tr:nth-child(even) {
+    background: #f0f6ff;
+}
+
+/* --- DL --- */
+.section dd > p:first-child {
+    margin-top: 0;
+}
+
+.section dd > p:last-child {
+    margin-bottom: 0;
+}
+
+.section dd {
+    margin-bottom:  1em;
+}
+
+.section dl.attrs dd, .section dl.eldef dd {
+    margin-bottom:  0;
+}
+
+/* --- EXAMPLES --- */
+pre.example {
+    border-top: 1px solid #ff4500;
+    border-bottom: 1px solid #ff4500;
+    padding:    1em;
+    margin-top: 1em;
+}
+
+pre.example::before {
+    content:    "Example";
+    display:    block;
+    width:      150px;
+    background: #ff4500;
+    color:  #fff;
+    font-family:    initial;
+    padding:    3px;
+    font-weight:    bold;
+    margin: -1em 0 1em -1em;
+}
+
+/* --- EDITORIAL NOTES --- */
+.issue {
+    padding:    1em;
+    margin: 1em 0em 0em;
+    border: 1px solid #f00;
+    background: #ffc;
+}
+
+.issue::before {
+    content:    "Issue";
+    display:    block;
+    width:  150px;
+    margin: -1.5em 0 0.5em 0;
+    font-weight:    bold;
+    border: 1px solid #f00;
+    background: #fff;
+    padding:    3px 1em;
+}
+
+.note {
+    margin: 1em 0em 0em;
+    padding:    1em;
+    border: 2px solid #cff6d9;
+    background: #e2fff0;
+}
+
+.note::before {
+    content:    "Note";
+    display:    block;
+    width:  150px;
+    margin: -1.5em 0 0.5em 0;
+    font-weight:    bold;
+    border: 1px solid #cff6d9;
+    background: #fff;
+    padding:    3px 1em;
+}
+
+/* --- Best Practices --- */
+div.practice {
+    border: solid #bebebe 1px;
+    margin: 2em 1em 1em 2em;
+}
+
+span.practicelab {
+    margin: 1.5em 0.5em 1em 1em;
+    font-weight: bold;
+    font-style: italic;
+}
+
+span.practicelab   { background: #dfffff; }
+
+span.practicelab {
+    position: relative;
+    padding: 0 0.5em;
+    top: -1.5em;
+}
+
+p.practicedesc {
+    margin: 1.5em 0.5em 1em 1em;
+}
+
+@media screen {
+    p.practicedesc {
+        position: relative;
+        top: -2em;
+        padding: 0;
+        margin: 1.5em 0.5em -1em 1em;
+    }
+}
+
+/* --- SYNTAX HIGHLIGHTING --- */
+pre.sh_sourceCode {
+  background-color: white;
+  color: black;
+  font-style: normal;
+  font-weight: normal;
+}
+
+pre.sh_sourceCode .sh_keyword { color: #005a9c; font-weight: bold; }           /* language keywords */
+pre.sh_sourceCode .sh_type { color: #666; }                            /* basic types */
+pre.sh_sourceCode .sh_usertype { color: teal; }                             /* user defined types */
+pre.sh_sourceCode .sh_string { color: red; font-family: monospace; }        /* strings and chars */
+pre.sh_sourceCode .sh_regexp { color: orange; font-family: monospace; }     /* regular expressions */
+pre.sh_sourceCode .sh_specialchar { color:   #ffc0cb; font-family: monospace; }  /* e.g., \n, \t, \\ */
+pre.sh_sourceCode .sh_comment { color: #A52A2A; font-style: italic; }         /* comments */
+pre.sh_sourceCode .sh_number { color: purple; }                             /* literal numbers */
+pre.sh_sourceCode .sh_preproc { color: #00008B; font-weight: bold; }       /* e.g., #include, import */
+pre.sh_sourceCode .sh_symbol { color: blue; }                            /* e.g., *, + */
+pre.sh_sourceCode .sh_function { color: black; font-weight: bold; }         /* function calls and declarations */
+pre.sh_sourceCode .sh_cbracket { color: red; }                              /* block brackets (e.g., {, }) */
+pre.sh_sourceCode .sh_todo { font-weight: bold; background-color: #00FFFF; }   /* TODO and FIXME */
+
+/* Predefined variables and functions (for instance glsl) */
+pre.sh_sourceCode .sh_predef_var { color: #00008B; }
+pre.sh_sourceCode .sh_predef_func { color: #00008B; font-weight: bold; }
+
+/* for OOP */
+pre.sh_sourceCode .sh_classname { color: teal; }
+
+/* line numbers (not yet implemented) */
+pre.sh_sourceCode .sh_linenum { display: none; }
+
+/* Internet related */
+pre.sh_sourceCode .sh_url { color: blue; text-decoration: underline; font-family: monospace; }
+
+/* for ChangeLog and Log files */
+pre.sh_sourceCode .sh_date { color: blue; font-weight: bold; }
+pre.sh_sourceCode .sh_time, pre.sh_sourceCode .sh_file { color: #00008B; font-weight: bold; }
+pre.sh_sourceCode .sh_ip, pre.sh_sourceCode .sh_name { color: #006400; }
+
+/* for Prolog, Perl... */
+pre.sh_sourceCode .sh_variable { color: #006400; }
+
+/* for LaTeX */
+pre.sh_sourceCode .sh_italics { color: #006400; font-style: italic; }
+pre.sh_sourceCode .sh_bold { color: #006400; font-weight: bold; }
+pre.sh_sourceCode .sh_underline { color: #006400; text-decoration: underline; }
+pre.sh_sourceCode .sh_fixed { color: green; font-family: monospace; }
+pre.sh_sourceCode .sh_argument { color: #006400; }
+pre.sh_sourceCode .sh_optionalargument { color: purple; }
+pre.sh_sourceCode .sh_math { color: orange; }
+pre.sh_sourceCode .sh_bibtex { color: blue; }
+
+/* for diffs */
+pre.sh_sourceCode .sh_oldfile { color: orange; }
+pre.sh_sourceCode .sh_newfile { color: #006400; }
+pre.sh_sourceCode .sh_difflines { color: blue; }
+
+/* for css */
+pre.sh_sourceCode .sh_selector { color: purple; }
+pre.sh_sourceCode .sh_property { color: blue; }
+pre.sh_sourceCode .sh_value { color: #006400; font-style: italic; }
+
+/* other */
+pre.sh_sourceCode .sh_section { color: black; font-weight: bold; }
+pre.sh_sourceCode .sh_paren { color: red; }
+pre.sh_sourceCode .sh_attribute { color: #006400; }
+
+</style><link href="http://www.w3.org/StyleSheets/TR/W3C-WD" rel="stylesheet" type="text/css" charset="utf-8" /></head>
+  <body style="display: inherit;"><div class="head"><p><a href="http://www.w3.org/"><img width="72" height="48" alt="W3C" src="http://www.w3.org/Icons/w3c_home" /></a></p><h1 id="title" class="title">Provenance Markup Language (PML 3.0)</h1><h2 id="w3c-working-draft-17-august-2012"><acronym title="World Wide Web Consortium">W3C</acronym> Working Draft 17 August 2012</h2><dl><dt>This version:</dt><dd><a href="http://www.w3.org/TR/2012/WD-pml-3-20120817/">http://www.w3.org/TR/2012/WD-pml-3-20120817/</a></dd><dt>Latest published version:</dt><dd><a href="http://www.w3.org/TR/pml-3/">http://www.w3.org/TR/pml-3/</a></dd><dt>Latest editor's draft:</dt><dd><a href="https://dvcs.w3.org/hg/prov/raw-file/default/pml-3/Overview.html">https://dvcs.w3.org/hg/prov/raw-file/default/pml-3/Overview.html</a></dd><dt>Previous version:</dt><dd>none</dd><dt>Editors:</dt><dd><a href="http://tw.rpi.edu/instances/TimLebo">Timothy Lebo</a>, Rensselaer Polytechnic Institute, USA</dd>
+<dd><a href="http://tw.rpi.edu/web/person/JamesMcCusker">Jim McCusker</a>, Rensselaer Polytechnic Institute, USA</dd>
+<dt>Authors:</dt><dd><a href="http://www.cs.utep.edu/paulo/">Paulo Pinheiro</a>, Rensselaer Polytechnic Institute, USA</dd>
+<dd><span>Cynthia Chang</span>, Rensselaer Polytechnic Institute, USA</dd>
+<dd><a href="http://tw.rpi.edu/instances/Deborah_L_McGuinness">Deborah McGuinness</a>, Rensselaer Polytechnic Institute, USA</dd>
+</dl><p class="copyright"><a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2012-2012 <a href="http://www.w3.org/"><acronym title="World Wide Web Consortium">W3C</acronym></a><sup>®</sup> (<a href="http://www.csail.mit.edu/"><acronym title="Massachusetts Institute of Technology">MIT</acronym></a>, <a href="http://www.ercim.eu/"><acronym title="European Research Consortium for Informatics and Mathematics">ERCIM</acronym></a>, <a href="http://www.keio.ac.jp/">Keio</a>), All Rights Reserved. <acronym title="World Wide Web Consortium">W3C</acronym> <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="http://www.w3.org/Consortium/Legal/copyright-documents">document use</a> rules apply.</p><hr /></div>
+
+    <div id="abstract" class="introductory section"><h2>Abstract</h2>
+         <p>The Provenance Markup Language (PML 3.0) is an OWL ontology that extends <acronym title="World Wide Web Consortium">W3C</acronym>'s PROV-O with the best parts of PML 2.0.
+        </p>
+
+        <p style="text-align: center;">The namespace for all PROV-O terms is <span class="repeated">http://provenanceweb.org/ontology/pml#</span>.
+        </p>
+
+        <p style="text-align: center;">The OWL encoding of the PROV Ontology is available <a href="https://raw.github.com/timrdf/pml/master/ontology/pml-3.0.owl">here</a>.
+        </p>
+
+    </div><div class="introductory section" id="sotd"><h2>Status of This Document</h2><p><em>This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current <acronym title="World Wide Web Consortium">W3C</acronym> publications and the latest revision of this technical report can be found in the <a href="http://www.w3.org/TR/"><acronym title="World Wide Web Consortium">W3C</acronym> technical reports index</a> at http://www.w3.org/TR/.</em></p><p>This document was published by the <a href="http://www.w3.org/2011/prov/">Provenance Working Group</a> as a Working Draft. This document is intended to become a <acronym title="World Wide Web Consortium">W3C</acronym> Recommendation. If you wish to make comments regarding this document, please send them to <a href="mailto:public-prov-comments@w3.org">public-prov-comments@w3.org</a> (<a href="mailto:public-prov-comments-request@w3.org?subject=subscribe">subscribe</a>, <a href="http://lists.w3.org/Archives/Public/public-prov-comments/">archives</a>). All feedback is welcome.</p><p>Publication as a Working Draft does not imply endorsement by the <acronym title="World Wide Web Consortium">W3C</acronym> Membership. This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document as other than work in progress.</p><p>This document was produced by a group operating under the <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5 February 2004 <acronym title="World Wide Web Consortium">W3C</acronym> Patent Policy</a>. <acronym title="World Wide Web Consortium">W3C</acronym> maintains a <a rel="disclosure" href="http://www.w3.org/2004/01/pp-impl/46974/status">public list of any patent disclosures</a> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential Claim(s)</a> must disclose the information in accordance with <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section 6 of the <acronym title="World Wide Web Consortium">W3C</acronym> Patent Policy</a>.</p></div><div id="toc" class="section"><h2 class="introductory">Table of Contents</h2><ul class="toc"><li class="tocline"><a href="#cross-reference-docuspeakr" class="tocxref"><span class="secno">1. </span>PML2 provenance ontology</a></li><li class="tocline"><a href="#references" class="tocxref"><span class="secno">A. </span>References</a><ul class="toc"><li class="tocline"><a href="#normative-references" class="tocxref"><span class="secno">A.1 </span>Normative references</a></li><li class="tocline"><a href="#informative-references" class="tocxref"><span class="secno">A.2 </span>Informative references</a></li></ul></li></ul></div>
+
+   <div id="cross-reference-docuspeakr" class="section">
+
+      
+<!-- OddPage -->
+<h2><span class="secno">1. </span>PML2 provenance ontology</h2>
+      <p></p>
+
+      <div>
+        <h3 id="classes">Classes</h3>
+        <ul class="hlist">
+         
+          <li>
+            <a href="#pml:Author">pml:Author</a>
+          </li>
+         
+          <li>
+            <a href="#pml:Authorship">pml:Authorship</a>
+          </li>
+         
+          <li>
+            <a href="#pml:DeclarativeRule">pml:DeclarativeRule</a>
+          </li>
+         
+          <li>
+            <a href="#pml:Document">pml:Document</a>
+          </li>
+         
+          <li>
+            <a href="#pml:DocumentFragment">pml:DocumentFragment</a>
+          </li>
+         
+          <li>
+            <a href="#pml:EmptyInformation">pml:EmptyInformation</a>
+          </li>
+         
+          <li>
+            <a href="#pml:Format">pml:Format</a>
+          </li>
+         
+          <li>
+            <a href="#pml:InferenceEngine">pml:InferenceEngine</a>
+          </li>
+         
+          <li>
+            <a href="#pml:Information">pml:Information</a>
+          </li>
+         
+          <li>
+            <a href="#pml:InformationContainer">pml:InformationContainer</a>
+          </li>
+         
+          <li>
+            <a href="#pml:Language">pml:Language</a>
+          </li>
+         
+          <li>
+            <a href="#pml:OffsetPosition">pml:OffsetPosition</a>
+          </li>
+         
+          <li>
+            <a href="#pml:Ontology">pml:Ontology</a>
+          </li>
+         
+          <li>
+            <a href="#pml:Ontology">pml:Ontology</a>
+          </li>
+         
+          <li>
+            <a href="#pml:Ontology">pml:Ontology</a>
+          </li>
+         
+          <li>
+            <a href="#pml:Ontology">pml:Ontology</a>
+          </li>
+         
+          <li>
+            <a href="#pml:OwnedEntity">pml:OwnedEntity</a>
+          </li>
+         
+          <li>
+            <a href="#pml:Owner">pml:Owner</a>
+          </li>
+         
+          <li>
+            <a href="#pml:Ownership">pml:Ownership</a>
+          </li>
+         
+          <li>
+            <a href="#pml:Position">pml:Position</a>
+          </li>
+         
+          <li>
+            <a href="#pml:ProceduralPlan">pml:ProceduralPlan</a>
+          </li>
+         
+          <li>
+            <a href="#pml:Publisher">pml:Publisher</a>
+          </li>
+         
+          <li>
+            <a href="#pml:Publishership">pml:Publishership</a>
+          </li>
+         
+          <li>
+            <a href="#pml:RowColLocation">pml:RowColLocation</a>
+          </li>
+         
+          <li>
+            <a href="#pml:Sensor">pml:Sensor</a>
+          </li>
+         
+          <li>
+            <a href="#pml:Source">pml:Source</a>
+          </li>
+         
+          <li>
+            <a href="#pml:TranslationMethod">pml:TranslationMethod</a>
+          </li>
+         
+          <li>
+            <a href="#pml:WebService">pml:WebService</a>
+          </li>
+         
+          <li>
+            <a href="#pml:Webpage">pml:Webpage</a>
+          </li>
+         
+          <li>
+            <a href="#owl:Thing">owl:Thing</a>
+          </li>
+         
+          <li>
+            <a href="#prov:Activity">prov:Activity</a>
+          </li>
+         
+          <li>
+            <a href="#prov:Agent">prov:Agent</a>
+          </li>
+         
+          <li>
+            <a href="#prov:AgentInfluence">prov:AgentInfluence</a>
+          </li>
+         
+          <li>
+            <a href="#prov:Attribution">prov:Attribution</a>
+          </li>
+         
+          <li>
+            <a href="#prov:Bundle">prov:Bundle</a>
+          </li>
+         
+          <li>
+            <a href="#prov:Collection">prov:Collection</a>
+          </li>
+         
+          <li>
+            <a href="#prov:Entity">prov:Entity</a>
+          </li>
+         
+          <li>
+            <a href="#prov:Location">prov:Location</a>
+          </li>
+         
+          <li>
+            <a href="#prov:Plan">prov:Plan</a>
+          </li>
+         
+          <li>
+            <a href="#prov:Role">prov:Role</a>
+          </li>
+         
+          <li>
+            <a href="#prov:SoftwareAgent">prov:SoftwareAgent</a>
+          </li>
+         
+          <li>
+            <a href="#blankNode">blankNode</a>
+          </li>
+         
+        </ul>
+      </div>
+
+
+      <div>
+        <h3 id="predicates">Predicates</h3>
+        <ul class="hlist">
+         
+          <li>
+            <a href="#pml:authorOf">pml:authorOf</a>
+          </li>
+         
+          <li>
+            <a href="#pml:hasAuthor">pml:hasAuthor</a>
+          </li>
+         
+          <li>
+            <a href="#pml:hasCreationDateTime">pml:hasCreationDateTime</a>
+          </li>
+         
+          <li>
+            <a href="#pml:hasDescription">pml:hasDescription</a>
+          </li>
+         
+          <li>
+            <a href="#pml:hasEncoding">pml:hasEncoding</a>
+          </li>
+         
+          <li>
+            <a href="#pml:hasFormat">pml:hasFormat</a>
+          </li>
+         
+          <li>
+            <a href="#pml:hasFromCol">pml:hasFromCol</a>
+          </li>
+         
+          <li>
+            <a href="#pml:hasFromLanguage">pml:hasFromLanguage</a>
+          </li>
+         
+          <li>
+            <a href="#pml:hasFromOffset">pml:hasFromOffset</a>
+          </li>
+         
+          <li>
+            <a href="#pml:hasFromRow">pml:hasFromRow</a>
+          </li>
+         
+          <li>
+            <a href="#pml:hasLanguage">pml:hasLanguage</a>
+          </li>
+         
+          <li>
+            <a href="#pml:hasModificationDateTime">pml:hasModificationDateTime</a>
+          </li>
+         
+          <li>
+            <a href="#pml:hasOwner">pml:hasOwner</a>
+          </li>
+         
+          <li>
+            <a href="#pml:hasPublicationDateTime">pml:hasPublicationDateTime</a>
+          </li>
+         
+          <li>
+            <a href="#pml:hasPublisher">pml:hasPublisher</a>
+          </li>
+         
+          <li>
+            <a href="#pml:hasToCol">pml:hasToCol</a>
+          </li>
+         
+          <li>
+            <a href="#pml:hasToLanguage">pml:hasToLanguage</a>
+          </li>
+         
+          <li>
+            <a href="#pml:hasToOffset">pml:hasToOffset</a>
+          </li>
+         
+          <li>
+            <a href="#pml:hasToRow">pml:hasToRow</a>
+          </li>
+         
+          <li>
+            <a href="#pml:hasVersion">pml:hasVersion</a>
+          </li>
+         
+          <li>
+            <a href="#pml:qualifiedAuthorship">pml:qualifiedAuthorship</a>
+          </li>
+         
+          <li>
+            <a href="#dcterms:isPartOf">dcterms:isPartOf</a>
+          </li>
+         
+          <li>
+            <a href="#prov:agent">prov:agent</a>
+          </li>
+         
+          <li>
+            <a href="#prov:agentOfInfluence">prov:agentOfInfluence</a>
+          </li>
+         
+          <li>
+            <a href="#prov:atLocation">prov:atLocation</a>
+          </li>
+         
+          <li>
+            <a href="#prov:contributed">prov:contributed</a>
+          </li>
+         
+          <li>
+            <a href="#prov:entity">prov:entity</a>
+          </li>
+         
+          <li>
+            <a href="#prov:generatedAtTime">prov:generatedAtTime</a>
+          </li>
+         
+          <li>
+            <a href="#prov:hadRole">prov:hadRole</a>
+          </li>
+         
+          <li>
+            <a href="#prov:qualifiedAttribution">prov:qualifiedAttribution</a>
+          </li>
+         
+          <li>
+            <a href="#prov:wasAttributedTo">prov:wasAttributedTo</a>
+          </li>
+         
+        </ul>
+      </div>
+
+          <h1>Classes</h1>
+          
+          <div class="entity" id="pml:Author">
+              <h3 id="class--pml-author">
+                Class: <a href="#pml:Author"><span title="http://provenanceweb.org/ontology/pml#Author" class="dotted">pml:Author</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:Author"><span title="http://provenanceweb.org/ontology/pml#Author" class="dotted">http://provenanceweb.org/ontology/pml#Author</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:Agent" title="http://www.w3.org/ns/prov#Agent">prov:Agent</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:Authorship">
+              <h3 id="class--pml-authorship">
+                Class: <a href="#pml:Authorship"><span title="http://provenanceweb.org/ontology/pml#Authorship" class="dotted">pml:Authorship</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:Authorship"><span title="http://provenanceweb.org/ontology/pml#Authorship" class="dotted">http://provenanceweb.org/ontology/pml#Authorship</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:Attribution" title="http://www.w3.org/ns/prov#Attribution">prov:Attribution</a>
+              
+              <a href="#blankNode" title="nodeID://b1184346">blankNode</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:DeclarativeRule">
+              <h3 id="class--declarative-rule">
+                Class: <a href="#pml:DeclarativeRule"><span title="http://provenanceweb.org/ontology/pml#DeclarativeRule" class="dotted">Declarative Rule</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:DeclarativeRule"><span title="http://provenanceweb.org/ontology/pml#DeclarativeRule" class="dotted">http://provenanceweb.org/ontology/pml#DeclarativeRule</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>A declarative inference rule can be fully specified by patterns for premises and its conclusion.   For example, Modus Ponens, can be specified by the premise patterns ?A,  ?A -&amp;gt; ?B and the conclusion pattern ?B.</p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:Plan" title="http://www.w3.org/ns/prov#Plan">prov:Plan</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:Document">
+              <h3 id="class--document">
+                Class: <a href="#pml:Document"><span title="http://provenanceweb.org/ontology/pml#Document" class="dotted">Document</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:Document"><span title="http://provenanceweb.org/ontology/pml#Document" class="dotted">http://provenanceweb.org/ontology/pml#Document</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>A physical information container that is not actionable. They function like database.</p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#pml:InformationContainer" title="http://provenanceweb.org/ontology/pml#InformationContainer">pml:InformationContainer</a>
+              
+              <a href="#blankNode" title="nodeID://b1184347">blankNode</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+              <a href="#pml:Ontology" title="http://provenanceweb.org/ontology/pml#Ontology">pml:Ontology</a>
+              
+              <a href="#pml:Webpage" title="http://provenanceweb.org/ontology/pml#Webpage">pml:Webpage</a>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:DocumentFragment">
+              <h3 id="class--document-fragment">
+                Class: <a href="#pml:DocumentFragment"><span title="http://provenanceweb.org/ontology/pml#DocumentFragment" class="dotted">Document Fragment</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:DocumentFragment"><span title="http://provenanceweb.org/ontology/pml#DocumentFragment" class="dotted">http://provenanceweb.org/ontology/pml#DocumentFragment</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>When a Document is treated as a one dimensional string, a fragment of the Document may be established with two offsets. The offsets are in units of characters (and not bytes because characters may be multiple bytes).</p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#pml:InformationContainer" title="http://provenanceweb.org/ontology/pml#InformationContainer">pml:InformationContainer</a>
+              
+              <a href="#blankNode" title="nodeID://b1184348">blankNode</a>
+              
+              <a href="#blankNode" title="nodeID://b1184349">blankNode</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:EmptyInformation">
+              <h3 id="class--empty-information">
+                Class: <a href="#pml:EmptyInformation"><span title="http://provenanceweb.org/ontology/pml#EmptyInformation" class="dotted">Empty Information</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:EmptyInformation"><span title="http://provenanceweb.org/ontology/pml#EmptyInformation" class="dotted">http://provenanceweb.org/ontology/pml#EmptyInformation</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>An instance of information indicating no conclusion has been derived, i.e. empty set of statements. In this case, the rawstring may contain some english message indicating no answer.</p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#pml:Information" title="http://provenanceweb.org/ontology/pml#Information">pml:Information</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:Format">
+              <h3 id="class--format">
+                Class: <a href="#pml:Format"><span title="http://provenanceweb.org/ontology/pml#Format" class="dotted">Format</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:Format"><span title="http://provenanceweb.org/ontology/pml#Format" class="dotted">http://provenanceweb.org/ontology/pml#Format</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>A plan for the organization and arrangement of specified information. Examples: binary, text,  pdf, etc.</p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:Entity" title="http://www.w3.org/ns/prov#Entity">prov:Entity</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:InferenceEngine">
+              <h3 id="class--inference-engine">
+                Class: <a href="#pml:InferenceEngine"><span title="http://provenanceweb.org/ontology/pml#InferenceEngine" class="dotted">Inference Engine</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:InferenceEngine"><span title="http://provenanceweb.org/ontology/pml#InferenceEngine" class="dotted">http://provenanceweb.org/ontology/pml#InferenceEngine</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>An inference engine represents an engine that is able to produce a justification for a conclusion. Note that the phrase &quot;inference engine&quot; applies not only to reasoners but also to other systems like search engines which may justify their answers by direct assertion</p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:SoftwareAgent" title="http://www.w3.org/ns/prov#SoftwareAgent">prov:SoftwareAgent</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:Information">
+              <h3 id="class--information">
+                Class: <a href="#pml:Information"><span title="http://provenanceweb.org/ontology/pml#Information" class="dotted">Information</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:Information"><span title="http://provenanceweb.org/ontology/pml#Information" class="dotted">http://provenanceweb.org/ontology/pml#Information</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>A piece of information, e.g. a formula in logic languages, and an utterance/word/phrase/sentence/paragraph/article in natural language. It is used as a range of iw:hasContent. This class and two of its sub-classes enable users to specify four types of semantics  (i) Information Annotation - annotate just the format and language used by the content of information; (ii) Information With Content - additionally provide the content of information that is materialized as string without loading a web page; (iii) Information external - additionally provide the URL for fetching the content; and (iv) Information - with every thing including the content string and URL. The second semantics is especially useful when the content is short or mainly used locally. For example, when learning by instruction, the utterances used for learning can be stored within the PML document without being externally stored. By assigning URI reference to information, we can even use owl:sameAs to capture the equivalence of two pieces of information.</p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:Entity" title="http://www.w3.org/ns/prov#Entity">prov:Entity</a>
+              
+              <a href="#blankNode" title="nodeID://b1184350">blankNode</a>
+              
+              <a href="#blankNode" title="nodeID://b1184351">blankNode</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+              <a href="#pml:EmptyInformation" title="http://provenanceweb.org/ontology/pml#EmptyInformation">pml:EmptyInformation</a>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:InformationContainer">
+              <h3 id="class--information-container">
+                Class: <a href="#pml:InformationContainer"><span title="http://provenanceweb.org/ontology/pml#InformationContainer" class="dotted">Information Container</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:InformationContainer"><span title="http://provenanceweb.org/ontology/pml#InformationContainer" class="dotted">http://provenanceweb.org/ontology/pml#InformationContainer</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:Entity" title="http://www.w3.org/ns/prov#Entity">prov:Entity</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+              <a href="#pml:Document" title="http://provenanceweb.org/ontology/pml#Document">pml:Document</a>
+              
+              <a href="#pml:DocumentFragment" title="http://provenanceweb.org/ontology/pml#DocumentFragment">pml:DocumentFragment</a>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:Language">
+              <h3 id="class--language">
+                Class: <a href="#pml:Language"><span title="http://provenanceweb.org/ontology/pml#Language" class="dotted">Language</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:Language"><span title="http://provenanceweb.org/ontology/pml#Language" class="dotted">http://provenanceweb.org/ontology/pml#Language</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>The language used to encode the raw string, e.g. English, Knowledge Interchange Format (KIF) , and N3. Languages are in general registered at the core IWRegistry.</p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:Entity" title="http://www.w3.org/ns/prov#Entity">prov:Entity</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:OffsetPosition">
+              <h3 id="class--offset-position">
+                Class: <a href="#pml:OffsetPosition"><span title="http://provenanceweb.org/ontology/pml#OffsetPosition" class="dotted">Offset Position</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:OffsetPosition"><span title="http://provenanceweb.org/ontology/pml#OffsetPosition" class="dotted">http://provenanceweb.org/ontology/pml#OffsetPosition</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#pml:Position" title="http://provenanceweb.org/ontology/pml#Position">pml:Position</a>
+              
+              <a href="#blankNode" title="nodeID://b1184352">blankNode</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:Ontology">
+              <h3 id="class--ontology">
+                Class: <a href="#pml:Ontology"><span title="http://provenanceweb.org/ontology/pml#Ontology" class="dotted">Ontology</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:Ontology"><span title="http://provenanceweb.org/ontology/pml#Ontology" class="dotted">http://provenanceweb.org/ontology/pml#Ontology</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>An Ontology is a document that describes a vocabulary of terms and their correlations.</p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#pml:Document" title="http://provenanceweb.org/ontology/pml#Document">pml:Document</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:Ontology">
+              <h3 id="class--ontology-1">
+                Class: <a href="#pml:Ontology"><span title="http://provenanceweb.org/ontology/pml#Ontology" class="dotted">Ontology</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:Ontology"><span title="http://provenanceweb.org/ontology/pml#Ontology" class="dotted">http://provenanceweb.org/ontology/pml#Ontology</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>An Ontology is a document that describes a vocabulary of terms and their correlations.</p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#pml:Document" title="http://provenanceweb.org/ontology/pml#Document">pml:Document</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:Ontology">
+              <h3 id="class--ontology-2">
+                Class: <a href="#pml:Ontology"><span title="http://provenanceweb.org/ontology/pml#Ontology" class="dotted">Ontology</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:Ontology"><span title="http://provenanceweb.org/ontology/pml#Ontology" class="dotted">http://provenanceweb.org/ontology/pml#Ontology</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>This is a proper superclass of owl:Ontology, since ontologies may be expressed in formalisms other than OWL.</p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#pml:Document" title="http://provenanceweb.org/ontology/pml#Document">pml:Document</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:Ontology">
+              <h3 id="class--ontology-3">
+                Class: <a href="#pml:Ontology"><span title="http://provenanceweb.org/ontology/pml#Ontology" class="dotted">Ontology</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:Ontology"><span title="http://provenanceweb.org/ontology/pml#Ontology" class="dotted">http://provenanceweb.org/ontology/pml#Ontology</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>This is a proper superclass of owl:Ontology, since ontologies may be expressed in formalisms other than OWL.</p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#pml:Document" title="http://provenanceweb.org/ontology/pml#Document">pml:Document</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:OwnedEntity">
+              <h3 id="class--pml-ownedentity">
+                Class: <a href="#pml:OwnedEntity"><span title="http://provenanceweb.org/ontology/pml#OwnedEntity" class="dotted">pml:OwnedEntity</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:OwnedEntity"><span title="http://provenanceweb.org/ontology/pml#OwnedEntity" class="dotted">http://provenanceweb.org/ontology/pml#OwnedEntity</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:Entity" title="http://www.w3.org/ns/prov#Entity">prov:Entity</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:Owner">
+              <h3 id="class--pml-owner">
+                Class: <a href="#pml:Owner"><span title="http://provenanceweb.org/ontology/pml#Owner" class="dotted">pml:Owner</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:Owner"><span title="http://provenanceweb.org/ontology/pml#Owner" class="dotted">http://provenanceweb.org/ontology/pml#Owner</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:Agent" title="http://www.w3.org/ns/prov#Agent">prov:Agent</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:Ownership">
+              <h3 id="class--pml-ownership">
+                Class: <a href="#pml:Ownership"><span title="http://provenanceweb.org/ontology/pml#Ownership" class="dotted">pml:Ownership</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:Ownership"><span title="http://provenanceweb.org/ontology/pml#Ownership" class="dotted">http://provenanceweb.org/ontology/pml#Ownership</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:Attribution" title="http://www.w3.org/ns/prov#Attribution">prov:Attribution</a>
+              
+              <a href="#blankNode" title="nodeID://b1184354">blankNode</a>
+              
+              <a href="#blankNode" title="nodeID://b1184355">blankNode</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:Position">
+              <h3 id="class--pml-position">
+                Class: <a href="#pml:Position"><span title="http://provenanceweb.org/ontology/pml#Position" class="dotted">pml:Position</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:Position"><span title="http://provenanceweb.org/ontology/pml#Position" class="dotted">http://provenanceweb.org/ontology/pml#Position</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:Location" title="http://www.w3.org/ns/prov#Location">prov:Location</a>
+              
+              <a href="#blankNode" title="nodeID://b1184356">blankNode</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+              <a href="#pml:OffsetPosition" title="http://provenanceweb.org/ontology/pml#OffsetPosition">pml:OffsetPosition</a>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:ProceduralPlan">
+              <h3 id="class--procedural-plan">
+                Class: <a href="#pml:ProceduralPlan"><span title="http://provenanceweb.org/ontology/pml#ProceduralPlan" class="dotted">Procedural Plan</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:ProceduralPlan"><span title="http://provenanceweb.org/ontology/pml#ProceduralPlan" class="dotted">http://provenanceweb.org/ontology/pml#ProceduralPlan</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>A method inference rule, uses patterns for premises and its conclusions, and additionally contains a method that must be applied.  In addition, 
+the conclusion needs to be a valid output of the method, using the premises.  For example, procedural attachment is a common encoding form for method rules.</p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:Plan" title="http://www.w3.org/ns/prov#Plan">prov:Plan</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+              <a href="#pml:TranslationMethod" title="http://provenanceweb.org/ontology/pml#TranslationMethod">pml:TranslationMethod</a>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:Publisher">
+              <h3 id="class--pml-publisher">
+                Class: <a href="#pml:Publisher"><span title="http://provenanceweb.org/ontology/pml#Publisher" class="dotted">pml:Publisher</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:Publisher"><span title="http://provenanceweb.org/ontology/pml#Publisher" class="dotted">http://provenanceweb.org/ontology/pml#Publisher</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:Agent" title="http://www.w3.org/ns/prov#Agent">prov:Agent</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:Publishership">
+              <h3 id="class--pml-publishership">
+                Class: <a href="#pml:Publishership"><span title="http://provenanceweb.org/ontology/pml#Publishership" class="dotted">pml:Publishership</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:Publishership"><span title="http://provenanceweb.org/ontology/pml#Publishership" class="dotted">http://provenanceweb.org/ontology/pml#Publishership</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:Attribution" title="http://www.w3.org/ns/prov#Attribution">prov:Attribution</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:RowColLocation">
+              <h3 id="class--row-column-location">
+                Class: <a href="#pml:RowColLocation"><span title="http://provenanceweb.org/ontology/pml#RowColLocation" class="dotted">Row Column Location</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:RowColLocation"><span title="http://provenanceweb.org/ontology/pml#RowColLocation" class="dotted">http://provenanceweb.org/ontology/pml#RowColLocation</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:Location" title="http://www.w3.org/ns/prov#Location">prov:Location</a>
+              
+              <a href="#blankNode" title="nodeID://b1184357">blankNode</a>
+              
+              <a href="#blankNode" title="nodeID://b1184358">blankNode</a>
+              
+              <a href="#blankNode" title="nodeID://b1184359">blankNode</a>
+              
+              <a href="#blankNode" title="nodeID://b1184360">blankNode</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:Sensor">
+              <h3 id="class--sensor">
+                Class: <a href="#pml:Sensor"><span title="http://provenanceweb.org/ontology/pml#Sensor" class="dotted">Sensor</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:Sensor"><span title="http://provenanceweb.org/ontology/pml#Sensor" class="dotted">http://provenanceweb.org/ontology/pml#Sensor</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>any device that receives a signal or stimulus (as heat or pressure or light or motion etc.) and records it. (WordNet)</p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:Agent" title="http://www.w3.org/ns/prov#Agent">prov:Agent</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:Source">
+              <h3 id="class--source">
+                Class: <a href="#pml:Source"><span title="http://provenanceweb.org/ontology/pml#Source" class="dotted">Source</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:Source"><span title="http://provenanceweb.org/ontology/pml#Source" class="dotted">http://provenanceweb.org/ontology/pml#Source</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>A source refers to the source of information. It is the place where we obtain information.</p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:Entity" title="http://www.w3.org/ns/prov#Entity">prov:Entity</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:TranslationMethod">
+              <h3 id="class--translation-method">
+                Class: <a href="#pml:TranslationMethod"><span title="http://provenanceweb.org/ontology/pml#TranslationMethod" class="dotted">Translation Method</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:TranslationMethod"><span title="http://provenanceweb.org/ontology/pml#TranslationMethod" class="dotted">http://provenanceweb.org/ontology/pml#TranslationMethod</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>Translation rules are special kinds of inference rules which are used to translate expressions from one language to the other.</p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#pml:ProceduralPlan" title="http://provenanceweb.org/ontology/pml#ProceduralPlan">pml:ProceduralPlan</a>
+              
+              <a href="#blankNode" title="nodeID://b1184361">blankNode</a>
+              
+              <a href="#blankNode" title="nodeID://b1184362">blankNode</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:WebService">
+              <h3 id="class--web-service">
+                Class: <a href="#pml:WebService"><span title="http://provenanceweb.org/ontology/pml#WebService" class="dotted">Web Service</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:WebService"><span title="http://provenanceweb.org/ontology/pml#WebService" class="dotted">http://provenanceweb.org/ontology/pml#WebService</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>services implemented by software and available on the Web</p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:SoftwareAgent" title="http://www.w3.org/ns/prov#SoftwareAgent">prov:SoftwareAgent</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:Webpage">
+              <h3 id="class--website">
+                Class: <a href="#pml:Webpage"><span title="http://provenanceweb.org/ontology/pml#Webpage" class="dotted">Website</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:Webpage"><span title="http://provenanceweb.org/ontology/pml#Webpage" class="dotted">http://provenanceweb.org/ontology/pml#Webpage</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>Collection of files and related resources accessible through the World Wide Web and organized under a particular domain name. Typical files found at a Web site are HTML documents with their associated graphic image files (GIF, JPEG, etc.), scripted programs (in Perl, CGI, Java, etc.), and similar resources. The site's files are usually accessed through hypertext or hyperlinks embedded in other files. A Web site may consist of a single HTML file, or it may comprise hundreds or thousands of related files. A Web site's usual starting point or opening page, called a home page, usually functions as a table of contents or index, with links to other sections of the site. Web sites are hosted on one or more Web servers, which transfer files to client computers or other servers that request them using the HTTP protocol. Although the term ?ite?implies a single physical location, the files and resources of a Web site may actually be spread among several servers in different geographic locations.(adapted from Britannica Concise Encyclopedia).</p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#pml:Document" title="http://provenanceweb.org/ontology/pml#Document">pml:Document</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="owl:Thing">
+              <h3 id="class--owl-thing">
+                Class: <a href="#owl:Thing"><span title="http://www.w3.org/2002/07/owl#Thing" class="dotted">owl:Thing</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#owl:Thing"><span title="http://www.w3.org/2002/07/owl#Thing" class="dotted">http://www.w3.org/2002/07/owl#Thing</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:Activity">
+              <h3 id="class--prov-activity">
+                Class: <a href="#prov:Activity"><span title="http://www.w3.org/ns/prov#Activity" class="dotted">prov:Activity</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:Activity"><span title="http://www.w3.org/ns/prov#Activity" class="dotted">http://www.w3.org/ns/prov#Activity</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:Agent">
+              <h3 id="class--prov-agent">
+                Class: <a href="#prov:Agent"><span title="http://www.w3.org/ns/prov#Agent" class="dotted">prov:Agent</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:Agent"><span title="http://www.w3.org/ns/prov#Agent" class="dotted">http://www.w3.org/ns/prov#Agent</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+              <a href="#pml:Author" title="http://provenanceweb.org/ontology/pml#Author">pml:Author</a>
+              
+              <a href="#pml:Owner" title="http://provenanceweb.org/ontology/pml#Owner">pml:Owner</a>
+              
+              <a href="#pml:Sensor" title="http://provenanceweb.org/ontology/pml#Sensor">pml:Sensor</a>
+              
+              <a href="#pml:Publisher" title="http://provenanceweb.org/ontology/pml#Publisher">pml:Publisher</a>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:AgentInfluence">
+              <h3 id="class--prov-agentinfluence">
+                Class: <a href="#prov:AgentInfluence"><span title="http://www.w3.org/ns/prov#AgentInfluence" class="dotted">prov:AgentInfluence</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:AgentInfluence"><span title="http://www.w3.org/ns/prov#AgentInfluence" class="dotted">http://www.w3.org/ns/prov#AgentInfluence</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#blankNode" title="nodeID://b1184363">blankNode</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:Attribution">
+              <h3 id="class--prov-attribution">
+                Class: <a href="#prov:Attribution"><span title="http://www.w3.org/ns/prov#Attribution" class="dotted">prov:Attribution</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:Attribution"><span title="http://www.w3.org/ns/prov#Attribution" class="dotted">http://www.w3.org/ns/prov#Attribution</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+              <a href="#pml:Authorship" title="http://provenanceweb.org/ontology/pml#Authorship">pml:Authorship</a>
+              
+              <a href="#pml:Ownership" title="http://provenanceweb.org/ontology/pml#Ownership">pml:Ownership</a>
+              
+              <a href="#pml:Publishership" title="http://provenanceweb.org/ontology/pml#Publishership">pml:Publishership</a>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:Bundle">
+              <h3 id="class--prov-bundle">
+                Class: <a href="#prov:Bundle"><span title="http://www.w3.org/ns/prov#Bundle" class="dotted">prov:Bundle</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:Bundle"><span title="http://www.w3.org/ns/prov#Bundle" class="dotted">http://www.w3.org/ns/prov#Bundle</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:Collection">
+              <h3 id="class--prov-collection">
+                Class: <a href="#prov:Collection"><span title="http://www.w3.org/ns/prov#Collection" class="dotted">prov:Collection</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:Collection"><span title="http://www.w3.org/ns/prov#Collection" class="dotted">http://www.w3.org/ns/prov#Collection</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:Entity">
+              <h3 id="class--prov-entity">
+                Class: <a href="#prov:Entity"><span title="http://www.w3.org/ns/prov#Entity" class="dotted">prov:Entity</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:Entity"><span title="http://www.w3.org/ns/prov#Entity" class="dotted">http://www.w3.org/ns/prov#Entity</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+              <a href="#pml:Information" title="http://provenanceweb.org/ontology/pml#Information">pml:Information</a>
+              
+              <a href="#pml:Format" title="http://provenanceweb.org/ontology/pml#Format">pml:Format</a>
+              
+              <a href="#pml:Language" title="http://provenanceweb.org/ontology/pml#Language">pml:Language</a>
+              
+              <a href="#pml:OwnedEntity" title="http://provenanceweb.org/ontology/pml#OwnedEntity">pml:OwnedEntity</a>
+              
+              <a href="#pml:InformationContainer" title="http://provenanceweb.org/ontology/pml#InformationContainer">pml:InformationContainer</a>
+              
+              <a href="#pml:Source" title="http://provenanceweb.org/ontology/pml#Source">pml:Source</a>
+              
+              <a href="#prov:Plan" title="http://www.w3.org/ns/prov#Plan">prov:Plan</a>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:Location">
+              <h3 id="class--prov-location">
+                Class: <a href="#prov:Location"><span title="http://www.w3.org/ns/prov#Location" class="dotted">prov:Location</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:Location"><span title="http://www.w3.org/ns/prov#Location" class="dotted">http://www.w3.org/ns/prov#Location</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+              <a href="#pml:RowColLocation" title="http://provenanceweb.org/ontology/pml#RowColLocation">pml:RowColLocation</a>
+              
+              <a href="#pml:Position" title="http://provenanceweb.org/ontology/pml#Position">pml:Position</a>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:Plan">
+              <h3 id="class--prov-plan">
+                Class: <a href="#prov:Plan"><span title="http://www.w3.org/ns/prov#Plan" class="dotted">prov:Plan</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:Plan"><span title="http://www.w3.org/ns/prov#Plan" class="dotted">http://www.w3.org/ns/prov#Plan</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+              <a href="#prov:Entity" title="http://www.w3.org/ns/prov#Entity">prov:Entity</a>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+              <a href="#pml:DeclarativeRule" title="http://provenanceweb.org/ontology/pml#DeclarativeRule">pml:DeclarativeRule</a>
+              
+              <a href="#pml:ProceduralPlan" title="http://provenanceweb.org/ontology/pml#ProceduralPlan">pml:ProceduralPlan</a>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:Role">
+              <h3 id="class--prov-role">
+                Class: <a href="#prov:Role"><span title="http://www.w3.org/ns/prov#Role" class="dotted">prov:Role</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:Role"><span title="http://www.w3.org/ns/prov#Role" class="dotted">http://www.w3.org/ns/prov#Role</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:SoftwareAgent">
+              <h3 id="class--prov-softwareagent">
+                Class: <a href="#prov:SoftwareAgent"><span title="http://www.w3.org/ns/prov#SoftwareAgent" class="dotted">prov:SoftwareAgent</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:SoftwareAgent"><span title="http://www.w3.org/ns/prov#SoftwareAgent" class="dotted">http://www.w3.org/ns/prov#SoftwareAgent</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+              <a href="#pml:InferenceEngine" title="http://provenanceweb.org/ontology/pml#InferenceEngine">pml:InferenceEngine</a>
+              
+              <a href="#pml:WebService" title="http://provenanceweb.org/ontology/pml#WebService">pml:WebService</a>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+          <div class="entity" id="blankNode">
+              <h3 id="class--blanknode">
+                Class: <a href="#blankNode"><span title="nodeID://b1184340" class="dotted">blankNode</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#blankNode"><span title="nodeID://b1184340" class="dotted">nodeID://b1184340</span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+            <dt>SubClass of</dt>
+            <dd>
+              
+            </dd>
+            <dt>SuperClass of</dt>
+            <dd>
+              
+            </dd>
+
+            <dt>in domain of</dt>
+            <dd>
+              <dl>
+              
+              </dl>
+            </dd>
+
+            <dt>in range of</dt>
+
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+          </dl>
+        </div>
+          
+
+
+      <h1>Predicates</h1>
+
+          
+          <div class="entity" id="pml:authorOf">
+              <h3 id="predicate">
+                Predicate: <a href="#pml:authorOf"><span title="http://provenanceweb.org/ontology/pml#authorOf" class="dotted"></span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:authorOf"><span title="http://provenanceweb.org/ontology/pml#authorOf" class="dotted">http://provenanceweb.org/ontology/pml#authorOf<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+              <dt><a href="#prov:contributed" title="http://www.w3.org/ns/prov#contributed">prov:contributed</a></dt>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:hasAuthor">
+              <h3 id="predicate-1">
+                Predicate: <a href="#pml:hasAuthor"><span title="http://provenanceweb.org/ontology/pml#hasAuthor" class="dotted"></span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:hasAuthor"><span title="http://provenanceweb.org/ontology/pml#hasAuthor" class="dotted">http://provenanceweb.org/ontology/pml#hasAuthor<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+              <dt><a href="#prov:wasAttributedTo" title="http://www.w3.org/ns/prov#wasAttributedTo">prov:wasAttributedTo</a></dt>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:hasCreationDateTime">
+              <h3 id="predicate--created">
+                Predicate: <a href="#pml:hasCreationDateTime"><span title="http://provenanceweb.org/ontology/pml#hasCreationDateTime" class="dotted">created</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:hasCreationDateTime"><span title="http://provenanceweb.org/ontology/pml#hasCreationDateTime" class="dotted">http://provenanceweb.org/ontology/pml#hasCreationDateTime<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>When the artifact has been first created.</p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+              <dt><a href="#prov:generatedAtTime" title="http://www.w3.org/ns/prov#generatedAtTime">prov:generatedAtTime</a></dt>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:hasDescription">
+              <h3 id="predicate--description">
+                Predicate: <a href="#pml:hasDescription"><span title="http://provenanceweb.org/ontology/pml#hasDescription" class="dotted">description</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:hasDescription"><span title="http://provenanceweb.org/ontology/pml#hasDescription" class="dotted">http://provenanceweb.org/ontology/pml#hasDescription<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>The detailed description of the identified thing, e.g. a web page describing KIF language. An identified thing may have zero to many descriptions that could be written in different languages, format, and etc.</p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:hasEncoding">
+              <h3 id="predicate--encoding">
+                Predicate: <a href="#pml:hasEncoding"><span title="http://provenanceweb.org/ontology/pml#hasEncoding" class="dotted">encoding</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:hasEncoding"><span title="http://provenanceweb.org/ontology/pml#hasEncoding" class="dotted">http://provenanceweb.org/ontology/pml#hasEncoding<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>The content encoding, e.g. &quot;base64&quot;. The value of this property helps applications determine the decoder of the raw string.</p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:hasFormat">
+              <h3 id="predicate--format">
+                Predicate: <a href="#pml:hasFormat"><span title="http://provenanceweb.org/ontology/pml#hasFormat" class="dotted">format</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:hasFormat"><span title="http://provenanceweb.org/ontology/pml#hasFormat" class="dotted">http://provenanceweb.org/ontology/pml#hasFormat<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>it specifies the format of information, e.g. &quot;pdf&quot;, &quot;ppt&quot; (Power Point). It is mainly used to determine the appropriate application for process/display purpose.</p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:hasFromCol">
+              <h3 id="predicate--from-column">
+                Predicate: <a href="#pml:hasFromCol"><span title="http://provenanceweb.org/ontology/pml#hasFromCol" class="dotted">from-column</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:hasFromCol"><span title="http://provenanceweb.org/ontology/pml#hasFromCol" class="dotted">http://provenanceweb.org/ontology/pml#hasFromCol<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>The from column of the fragment (inclusive, index based on 1)</p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:hasFromLanguage">
+              <h3 id="predicate--from-language">
+                Predicate: <a href="#pml:hasFromLanguage"><span title="http://provenanceweb.org/ontology/pml#hasFromLanguage" class="dotted">from-language</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:hasFromLanguage"><span title="http://provenanceweb.org/ontology/pml#hasFromLanguage" class="dotted">http://provenanceweb.org/ontology/pml#hasFromLanguage<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>language used by the source.</p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:hasFromOffset">
+              <h3 id="predicate--from-offset">
+                Predicate: <a href="#pml:hasFromOffset"><span title="http://provenanceweb.org/ontology/pml#hasFromOffset" class="dotted">from-offset</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:hasFromOffset"><span title="http://provenanceweb.org/ontology/pml#hasFromOffset" class="dotted">http://provenanceweb.org/ontology/pml#hasFromOffset<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>The from offset of the fragment (inclusive, index based on 0).</p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:hasFromRow">
+              <h3 id="predicate--from-row">
+                Predicate: <a href="#pml:hasFromRow"><span title="http://provenanceweb.org/ontology/pml#hasFromRow" class="dotted">from-row</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:hasFromRow"><span title="http://provenanceweb.org/ontology/pml#hasFromRow" class="dotted">http://provenanceweb.org/ontology/pml#hasFromRow<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>The from row of the fragment (inclusive, index based on 1)</p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:hasLanguage">
+              <h3 id="predicate--language">
+                Predicate: <a href="#pml:hasLanguage"><span title="http://provenanceweb.org/ontology/pml#hasLanguage" class="dotted">language</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:hasLanguage"><span title="http://provenanceweb.org/ontology/pml#hasLanguage" class="dotted">http://provenanceweb.org/ontology/pml#hasLanguage<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>it specifies the language used to encode information, e.g. &quot;Tony's specialty is shellfish&quot; is encoded in English. This property may also link to a registered formal language such as KIF.</p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:hasModificationDateTime">
+              <h3 id="predicate--last-modified">
+                Predicate: <a href="#pml:hasModificationDateTime"><span title="http://provenanceweb.org/ontology/pml#hasModificationDateTime" class="dotted">last modified</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:hasModificationDateTime"><span title="http://provenanceweb.org/ontology/pml#hasModificationDateTime" class="dotted">http://provenanceweb.org/ontology/pml#hasModificationDateTime<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>When the artifact has been modified.</p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+              <dt><a href="#prov:generatedAtTime" title="http://www.w3.org/ns/prov#generatedAtTime">prov:generatedAtTime</a></dt>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:hasOwner">
+              <h3 id="predicate--owner">
+                Predicate: <a href="#pml:hasOwner"><span title="http://provenanceweb.org/ontology/pml#hasOwner" class="dotted">owner</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:hasOwner"><span title="http://provenanceweb.org/ontology/pml#hasOwner" class="dotted">http://provenanceweb.org/ontology/pml#hasOwner<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>the owner of a thing.</p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+              <dt><a href="#prov:wasAttributedTo" title="http://www.w3.org/ns/prov#wasAttributedTo">prov:wasAttributedTo</a></dt>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:hasPublicationDateTime">
+              <h3 id="predicate--published-in">
+                Predicate: <a href="#pml:hasPublicationDateTime"><span title="http://provenanceweb.org/ontology/pml#hasPublicationDateTime" class="dotted">published in</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:hasPublicationDateTime"><span title="http://provenanceweb.org/ontology/pml#hasPublicationDateTime" class="dotted">http://provenanceweb.org/ontology/pml#hasPublicationDateTime<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>When the publication is published.</p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+              <dt><a href="#prov:generatedAtTime" title="http://www.w3.org/ns/prov#generatedAtTime">prov:generatedAtTime</a></dt>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:hasPublisher">
+              <h3 id="predicate--publisher">
+                Predicate: <a href="#pml:hasPublisher"><span title="http://provenanceweb.org/ontology/pml#hasPublisher" class="dotted">publisher</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:hasPublisher"><span title="http://provenanceweb.org/ontology/pml#hasPublisher" class="dotted">http://provenanceweb.org/ontology/pml#hasPublisher<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>An agent responsible for making the document publicly available. see also http://purl.org/dc/elements/1.1/publisher.</p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+              <dt><a href="#prov:wasAttributedTo" title="http://www.w3.org/ns/prov#wasAttributedTo">prov:wasAttributedTo</a></dt>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:hasToCol">
+              <h3 id="predicate--to-column">
+                Predicate: <a href="#pml:hasToCol"><span title="http://provenanceweb.org/ontology/pml#hasToCol" class="dotted">to-column</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:hasToCol"><span title="http://provenanceweb.org/ontology/pml#hasToCol" class="dotted">http://provenanceweb.org/ontology/pml#hasToCol<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>The to column of the fragment (inclusive, index based on 1)</p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:hasToLanguage">
+              <h3 id="predicate--to-language">
+                Predicate: <a href="#pml:hasToLanguage"><span title="http://provenanceweb.org/ontology/pml#hasToLanguage" class="dotted">to-language</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:hasToLanguage"><span title="http://provenanceweb.org/ontology/pml#hasToLanguage" class="dotted">http://provenanceweb.org/ontology/pml#hasToLanguage<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>language used by the target.</p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:hasToOffset">
+              <h3 id="predicate--to-offset">
+                Predicate: <a href="#pml:hasToOffset"><span title="http://provenanceweb.org/ontology/pml#hasToOffset" class="dotted">to-offset</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:hasToOffset"><span title="http://provenanceweb.org/ontology/pml#hasToOffset" class="dotted">http://provenanceweb.org/ontology/pml#hasToOffset<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>The to offset of the fragment (exclusive, index based on 0)</p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:hasToRow">
+              <h3 id="predicate--to-row">
+                Predicate: <a href="#pml:hasToRow"><span title="http://provenanceweb.org/ontology/pml#hasToRow" class="dotted">to-row</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:hasToRow"><span title="http://provenanceweb.org/ontology/pml#hasToRow" class="dotted">http://provenanceweb.org/ontology/pml#hasToRow<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>The to row of the fragment (inclusive, index based on 1)</p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:hasVersion">
+              <h3 id="predicate--version">
+                Predicate: <a href="#pml:hasVersion"><span title="http://provenanceweb.org/ontology/pml#hasVersion" class="dotted">version</span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:hasVersion"><span title="http://provenanceweb.org/ontology/pml#hasVersion" class="dotted">http://provenanceweb.org/ontology/pml#hasVersion<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p>the version number.</p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="pml:qualifiedAuthorship">
+              <h3 id="predicate-2">
+                Predicate: <a href="#pml:qualifiedAuthorship"><span title="http://provenanceweb.org/ontology/pml#qualifiedAuthorship" class="dotted"></span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#pml:qualifiedAuthorship"><span title="http://provenanceweb.org/ontology/pml#qualifiedAuthorship" class="dotted">http://provenanceweb.org/ontology/pml#qualifiedAuthorship<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+              <dt><a href="#prov:qualifiedAttribution" title="http://www.w3.org/ns/prov#qualifiedAttribution">prov:qualifiedAttribution</a></dt>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="dcterms:isPartOf">
+              <h3 id="predicate-3">
+                Predicate: <a href="#dcterms:isPartOf"><span title="http://purl.org/dc/terms/isPartOf" class="dotted"></span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#dcterms:isPartOf"><span title="http://purl.org/dc/terms/isPartOf" class="dotted">http://purl.org/dc/terms/isPartOf<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:agent">
+              <h3 id="predicate-4">
+                Predicate: <a href="#prov:agent"><span title="http://www.w3.org/ns/prov#agent" class="dotted"></span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:agent"><span title="http://www.w3.org/ns/prov#agent" class="dotted">http://www.w3.org/ns/prov#agent<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:agentOfInfluence">
+              <h3 id="predicate-5">
+                Predicate: <a href="#prov:agentOfInfluence"><span title="http://www.w3.org/ns/prov#agentOfInfluence" class="dotted"></span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:agentOfInfluence"><span title="http://www.w3.org/ns/prov#agentOfInfluence" class="dotted">http://www.w3.org/ns/prov#agentOfInfluence<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:atLocation">
+              <h3 id="predicate-6">
+                Predicate: <a href="#prov:atLocation"><span title="http://www.w3.org/ns/prov#atLocation" class="dotted"></span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:atLocation"><span title="http://www.w3.org/ns/prov#atLocation" class="dotted">http://www.w3.org/ns/prov#atLocation<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:contributed">
+              <h3 id="predicate-7">
+                Predicate: <a href="#prov:contributed"><span title="http://www.w3.org/ns/prov#contributed" class="dotted"></span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:contributed"><span title="http://www.w3.org/ns/prov#contributed" class="dotted">http://www.w3.org/ns/prov#contributed<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+              <dt><a href="#pml:authorOf" title="http://provenanceweb.org/ontology/pml#authorOf">pml:authorOf</a></dt>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:entity">
+              <h3 id="predicate-8">
+                Predicate: <a href="#prov:entity"><span title="http://www.w3.org/ns/prov#entity" class="dotted"></span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:entity"><span title="http://www.w3.org/ns/prov#entity" class="dotted">http://www.w3.org/ns/prov#entity<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:generatedAtTime">
+              <h3 id="predicate-9">
+                Predicate: <a href="#prov:generatedAtTime"><span title="http://www.w3.org/ns/prov#generatedAtTime" class="dotted"></span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:generatedAtTime"><span title="http://www.w3.org/ns/prov#generatedAtTime" class="dotted">http://www.w3.org/ns/prov#generatedAtTime<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+              <dt><a href="#pml:hasCreationDateTime" title="http://provenanceweb.org/ontology/pml#hasCreationDateTime">pml:hasCreationDateTime</a></dt>
+              
+              <dt><a href="#pml:hasModificationDateTime" title="http://provenanceweb.org/ontology/pml#hasModificationDateTime">pml:hasModificationDateTime</a></dt>
+              
+              <dt><a href="#pml:hasPublicationDateTime" title="http://provenanceweb.org/ontology/pml#hasPublicationDateTime">pml:hasPublicationDateTime</a></dt>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:hadRole">
+              <h3 id="predicate-10">
+                Predicate: <a href="#prov:hadRole"><span title="http://www.w3.org/ns/prov#hadRole" class="dotted"></span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:hadRole"><span title="http://www.w3.org/ns/prov#hadRole" class="dotted">http://www.w3.org/ns/prov#hadRole<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:qualifiedAttribution">
+              <h3 id="predicate-11">
+                Predicate: <a href="#prov:qualifiedAttribution"><span title="http://www.w3.org/ns/prov#qualifiedAttribution" class="dotted"></span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:qualifiedAttribution"><span title="http://www.w3.org/ns/prov#qualifiedAttribution" class="dotted">http://www.w3.org/ns/prov#qualifiedAttribution<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+              <dt><a href="#pml:qualifiedAuthorship" title="http://provenanceweb.org/ontology/pml#qualifiedAuthorship">pml:qualifiedAuthorship</a></dt>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+          <div class="entity" id="prov:wasAttributedTo">
+              <h3 id="predicate-12">
+                Predicate: <a href="#prov:wasAttributedTo"><span title="http://www.w3.org/ns/prov#wasAttributedTo" class="dotted"></span></a>
+             </h3>
+             <strong>IRI:</strong> <a href="#prov:wasAttributedTo"><span title="http://www.w3.org/ns/prov#wasAttributedTo" class="dotted">http://www.w3.org/ns/prov#wasAttributedTo<span></span></span></a>
+
+          <dl class="description">
+          <dd class="comment"><p></p>
+          </dd>
+
+            <dt>SubProperty of</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+            <dt>SuperProperty of</dt>
+            <dd>
+             <dl>
+              
+              <dt><a href="#pml:hasAuthor" title="http://provenanceweb.org/ontology/pml#hasAuthor">pml:hasAuthor</a></dt>
+              
+              <dt><a href="#pml:hasOwner" title="http://provenanceweb.org/ontology/pml#hasOwner">pml:hasOwner</a></dt>
+              
+              <dt><a href="#pml:hasPublisher" title="http://provenanceweb.org/ontology/pml#hasPublisher">pml:hasPublisher</a></dt>
+              
+             </dl>
+            </dd>
+            <dt>Has domain</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+
+            <dt>Has range</dt>
+            <dd>
+             <dl>
+              
+             </dl>
+            </dd>
+          </dl>
+        </div>
+          
+
+       </div>
+
+      <footer>
+        <h3 id="documentation-generated-using-docuspeakr"><strong>Documentation generated using <a href="https://github.com/alangrafu/docuspeakr">DocuSPeaKr</a></strong></h3>
+      </footer>
+  
+
+<div id="references" class="appendix section">
+<!-- OddPage -->
+<h2><span class="secno">A. </span>References</h2><div id="normative-references" class="section"><h3><span class="secno">A.1 </span>Normative references</h3><p>No normative references.</p></div><div id="informative-references" class="section"><h3><span class="secno">A.2 </span>Informative references</h3><p>No informative references.</p></div></div></body></html>
