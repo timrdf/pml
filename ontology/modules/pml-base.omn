@@ -1,9 +1,9 @@
 Prefix: ds: <http://inference-web.org/2.0/ds.owl#>
 Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
 Prefix: owl: <http://www.w3.org/2002/07/owl#>
-Prefix: pml: <http://provenance-web.org/ontology/pml#>
+Prefix: pml: <http://provenanceweb.org/ontology/pml#>
 Prefix: prov: <http://www.w3.org/ns/prov#>
-Prefix: pml-base: <http://provenance-web.org/ontology/pml-base#>
+Prefix: pml-base: <http://provenanceweb.org/ontology/pml-base#>
 Prefix: pmlp: <http://inference-web.org/2.0/pml-provenance.owl#>
 Prefix: xml: <http://www.w3.org/XML/1998/namespace>
 Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -12,7 +12,7 @@ Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 
 
-Ontology: <http://provenance-web.org/ontology/pml-base#>
+Ontology: <http://provenanceweb.org/ontology/pml-base#>
 
 Import: <http://www.w3.org/TR/prov-o/prov-20120724.owl>
 

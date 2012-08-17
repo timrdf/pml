@@ -1,6 +1,6 @@
 Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
 Prefix: owl: <http://www.w3.org/2002/07/owl#>
-Prefix: pml: <http://provenance-web.org/ontology/pml#>
+Prefix: pml: <http://provenanceweb.org/ontology/pml#>
 Prefix: pmlj: <http://inference-web.org/2.0/pml-justification.owl#>
 Prefix: pmltbase: <http://inference-web.org/2.0/pml-trust.owl>
 Prefix: pmlp: <http://inference-web.org/2.0/pml-provenance.owl#>
@@ -11,7 +11,7 @@ Prefix: pmlt: <http://inference-web.org/2.0/pml-trust.owl#>
 Prefix: prov: <http://www.w3.org/ns/prov#>
 
 
-Ontology: <http://provenance-web.org/ontology/pml-trust#>
+Ontology: <http://provenanceweb.org/ontology/pml-trust#>
 
 
 Annotations: 
