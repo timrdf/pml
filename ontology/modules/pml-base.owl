@@ -1,0 +1,844 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY terms "http://purl.org/dc/terms/" >
+    <!ENTITY prov "http://www.w3.org/ns/prov#" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY pml "http://provenance-web.org/ontology/pml#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY pml-base "http://provenance-web.org/ontology/pml-base#" >
+]>
+
+
+<rdf:RDF xmlns="http://provenance-web.org/ontology/pml-base#"
+     xml:base="http://provenance-web.org/ontology/pml-base"
+     xmlns:pml="http://provenance-web.org/ontology/pml#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:prov="http://www.w3.org/ns/prov#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:pml-base="http://provenance-web.org/ontology/pml-base#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://provenance-web.org/ontology/pml-base#">
+        <rdfs:label xml:lang="en">PML2 provenance ontology</rdfs:label>
+        <rdfs:comment xml:lang="en">The basic part of PML3 ontology. It is a fundamental component of PML3 ontology and extends W3C PROV-O (Provenance Ontology).</rdfs:comment>
+        <owl:versionInfo xml:lang="en">version 3.0, Authors: Tim Lebo, James P. McCusker, Deborah L. McGuinness, Li Ding, Paulo Pinheiro da Silva, Alyssa Glass, and Cynthia Chang</owl:versionInfo>
+        <owl:imports rdf:resource="http://www.w3.org/ns/prov#"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:AnnotationProperty rdf:about="&owl;versionInfo"/>
+    <owl:AnnotationProperty rdf:about="&prov;category"/>
+    <owl:AnnotationProperty rdf:about="&rdfs;label"/>
+    <owl:AnnotationProperty rdf:about="&prov;editorialNote"/>
+    <owl:AnnotationProperty rdf:about="&rdfs;comment"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#hasAuthor -->
+
+    <owl:ObjectProperty rdf:about="&pml;hasAuthor">
+        <rdfs:range rdf:resource="&pml;Author"/>
+        <rdfs:subPropertyOf rdf:resource="&prov;wasAttributedTo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#hasDescription -->
+
+    <owl:ObjectProperty rdf:about="&pml;hasDescription">
+        <rdfs:label xml:lang="en">description</rdfs:label>
+        <rdfs:comment xml:lang="en">The detailed description of the identified thing, e.g. a web page describing KIF language. An identified thing may have zero to many descriptions that could be written in different languages, format, and etc.</rdfs:comment>
+        <rdfs:range rdf:resource="&pml;Information"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#hasFormat -->
+
+    <owl:ObjectProperty rdf:about="&pml;hasFormat">
+        <rdfs:label xml:lang="en">format</rdfs:label>
+        <rdfs:comment xml:lang="en">it specifies the format of information, e.g. &quot;pdf&quot;, &quot;ppt&quot; (Power Point). It is mainly used to determine the appropriate application for process/display purpose.</rdfs:comment>
+        <rdfs:range rdf:resource="&pml;Format"/>
+        <rdfs:domain rdf:resource="&pml;Information"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#hasFromLanguage -->
+
+    <owl:ObjectProperty rdf:about="&pml;hasFromLanguage">
+        <rdfs:label xml:lang="en">from-language</rdfs:label>
+        <rdfs:comment xml:lang="en">language used by the source.</rdfs:comment>
+        <rdfs:range rdf:resource="&pml;Language"/>
+        <rdfs:domain rdf:resource="&pml;TranslationMethod"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#hasLanguage -->
+
+    <owl:ObjectProperty rdf:about="&pml;hasLanguage">
+        <rdfs:label xml:lang="en">language</rdfs:label>
+        <rdfs:comment xml:lang="en">it specifies the language used to encode information, e.g. &quot;Tony&#39;s specialty is shellfish&quot; is encoded in English. This property may also link to a registered formal language such as KIF.</rdfs:comment>
+        <rdfs:domain rdf:resource="&pml;Information"/>
+        <rdfs:range rdf:resource="&pml;Language"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#hasOwner -->
+
+    <owl:ObjectProperty rdf:about="&pml;hasOwner">
+        <rdfs:label xml:lang="en">owner</rdfs:label>
+        <rdfs:comment xml:lang="en">the owner of a thing.</rdfs:comment>
+        <rdfs:domain rdf:resource="&pml;OwnedEntity"/>
+        <rdfs:range rdf:resource="&pml;Owner"/>
+        <rdfs:subPropertyOf rdf:resource="&prov;wasAttributedTo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#hasPublisher -->
+
+    <owl:ObjectProperty rdf:about="&pml;hasPublisher">
+        <rdfs:label xml:lang="en">publisher</rdfs:label>
+        <rdfs:comment xml:lang="en">An agent responsible for making the document publicly available. see also http://purl.org/dc/elements/1.1/publisher.</rdfs:comment>
+        <rdfs:domain rdf:resource="&pml;Document"/>
+        <rdfs:subPropertyOf rdf:resource="&prov;wasAttributedTo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#hasToLanguage -->
+
+    <owl:ObjectProperty rdf:about="&pml;hasToLanguage">
+        <rdfs:label xml:lang="en">to-language</rdfs:label>
+        <rdfs:comment xml:lang="en">language used by the target.</rdfs:comment>
+        <rdfs:range rdf:resource="&pml;Language"/>
+        <rdfs:domain rdf:resource="&pml;TranslationMethod"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/dc/terms/isPartOf -->
+
+    <owl:ObjectProperty rdf:about="&terms;isPartOf"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#agent -->
+
+    <owl:ObjectProperty rdf:about="&prov;agent"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#atLocation -->
+
+    <owl:ObjectProperty rdf:about="&prov;atLocation"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#entity -->
+
+    <owl:ObjectProperty rdf:about="&prov;entity"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#wasAttributedTo -->
+
+    <owl:ObjectProperty rdf:about="&prov;wasAttributedTo"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#hasCreationDateTime -->
+
+    <owl:DatatypeProperty rdf:about="&pml;hasCreationDateTime">
+        <rdfs:label xml:lang="en">created</rdfs:label>
+        <rdfs:comment xml:lang="en">When the artifact has been first created.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+        <rdfs:domain rdf:resource="&prov;Bundle"/>
+        <rdfs:subPropertyOf rdf:resource="&prov;generatedAtTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#hasEncoding -->
+
+    <owl:DatatypeProperty rdf:about="&pml;hasEncoding">
+        <rdfs:label xml:lang="en">encoding</rdfs:label>
+        <rdfs:comment xml:lang="en">The content encoding, e.g. &quot;base64&quot;. The value of this property helps applications determine the decoder of the raw string.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:domain rdf:resource="&prov;Entity"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#hasFromCol -->
+
+    <owl:DatatypeProperty rdf:about="&pml;hasFromCol">
+        <rdfs:label xml:lang="en">from-column</rdfs:label>
+        <rdfs:comment xml:lang="en">The from column of the fragment (inclusive, index based on 1)</rdfs:comment>
+        <rdfs:domain rdf:resource="&pml;RowColLocation"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#hasFromOffset -->
+
+    <owl:DatatypeProperty rdf:about="&pml;hasFromOffset">
+        <rdfs:label xml:lang="en">from-offset</rdfs:label>
+        <rdfs:comment xml:lang="en">The from offset of the fragment (inclusive, index based on 0).</rdfs:comment>
+        <rdfs:domain rdf:resource="&pml;OffsetPosition"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#hasFromRow -->
+
+    <owl:DatatypeProperty rdf:about="&pml;hasFromRow">
+        <rdfs:label xml:lang="en">from-row</rdfs:label>
+        <rdfs:comment xml:lang="en">The from row of the fragment (inclusive, index based on 1)</rdfs:comment>
+        <rdfs:domain rdf:resource="&pml;RowColLocation"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#hasModificationDateTime -->
+
+    <owl:DatatypeProperty rdf:about="&pml;hasModificationDateTime">
+        <rdfs:label xml:lang="en">last modified</rdfs:label>
+        <rdfs:comment xml:lang="en">When the artifact has been modified.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+        <rdfs:domain rdf:resource="&prov;Bundle"/>
+        <rdfs:subPropertyOf rdf:resource="&prov;generatedAtTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#hasPublicationDateTime -->
+
+    <owl:DatatypeProperty rdf:about="&pml;hasPublicationDateTime">
+        <rdfs:label xml:lang="en">published in</rdfs:label>
+        <rdfs:comment xml:lang="en">When the publication is published.</rdfs:comment>
+        <rdfs:domain rdf:resource="&pml;Publication"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+        <rdfs:subPropertyOf rdf:resource="&prov;generatedAtTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#hasToCol -->
+
+    <owl:DatatypeProperty rdf:about="&pml;hasToCol">
+        <rdfs:label xml:lang="en">to-column</rdfs:label>
+        <rdfs:comment xml:lang="en">The to column of the fragment (inclusive, index based on 1)</rdfs:comment>
+        <rdfs:domain rdf:resource="&pml;RowColLocation"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#hasToOffset -->
+
+    <owl:DatatypeProperty rdf:about="&pml;hasToOffset">
+        <rdfs:label xml:lang="en">to-offset</rdfs:label>
+        <rdfs:comment xml:lang="en">The to offset of the fragment (exclusive, index based on 0)</rdfs:comment>
+        <rdfs:domain rdf:resource="&pml;OffsetPosition"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#hasToRow -->
+
+    <owl:DatatypeProperty rdf:about="&pml;hasToRow">
+        <rdfs:label xml:lang="en">to-row</rdfs:label>
+        <rdfs:comment xml:lang="en">The to row of the fragment (inclusive, index based on 1)</rdfs:comment>
+        <rdfs:domain rdf:resource="&pml;RowColLocation"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#hasVersion -->
+
+    <owl:DatatypeProperty rdf:about="&pml;hasVersion">
+        <rdfs:label xml:lang="en">version</rdfs:label>
+        <rdfs:comment xml:lang="en">the version number.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#generatedAtTime -->
+
+    <owl:DatatypeProperty rdf:about="&prov;generatedAtTime"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#Author -->
+
+    <owl:Class rdf:about="&pml;Author">
+        <rdfs:subClassOf rdf:resource="&prov;Agent"/>
+        <prov:category>base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#Authorship -->
+
+    <owl:Class rdf:about="&pml;Authorship">
+        <rdfs:subClassOf rdf:resource="&prov;Attribution"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&prov;atLocation"/>
+                <owl:onClass rdf:resource="&pml-base;Position"/>
+                <owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <prov:category xml:lang="en">base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#Dataset -->
+
+    <owl:Class rdf:about="&pml;Dataset">
+        <rdfs:label xml:lang="en">Dataset</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&pml;Document"/>
+        <rdfs:comment xml:lang="en">A dataset is a collection of data document whose information is encoded in a defined structure (for example, lists, tables, and databases). see also http://purl.org/dc/dcmitype/Dataset.</rdfs:comment>
+        <prov:category>base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#DeclarativeRule -->
+
+    <owl:Class rdf:about="&pml;DeclarativeRule">
+        <rdfs:label xml:lang="en">Declarative Rule</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&prov;Plan"/>
+        <rdfs:comment xml:lang="en">A declarative inference rule can be fully specified by patterns for premises and its conclusion.   For example, Modus Ponens, can be specified by the premise patterns ?A,  ?A -&amp;gt; ?B and the conclusion pattern ?B.</rdfs:comment>
+        <prov:category xml:lang="en">base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#Document -->
+
+    <owl:Class rdf:about="&pml;Document">
+        <rdfs:label xml:lang="en">Document</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&pml;InformationContainer"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&pml;hasVersion"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">A physical information container that is not actionable. They function like database.</rdfs:comment>
+        <prov:category>base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#DocumentFragment -->
+
+    <owl:Class rdf:about="&pml;DocumentFragment">
+        <rdfs:label xml:lang="en">Document Fragment</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&pml;InformationContainer"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&prov;atLocation"/>
+                <owl:someValuesFrom rdf:resource="&prov;Location"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&terms;isPartOf"/>
+                <owl:onClass rdf:resource="&pml;Document"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">A fragment of document that can be used as source.</rdfs:comment>
+        <prov:category xml:lang="en">base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#EmptyInformation -->
+
+    <owl:Class rdf:about="&pml;EmptyInformation">
+        <rdfs:label xml:lang="en">Empty Information</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&pml;Information"/>
+        <rdfs:comment xml:lang="en">An instance of information indicating no conclusion has been derived, i.e. empty set of statements. In this case, the rawstring may contain some english message indicating no answer.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#Format -->
+
+    <owl:Class rdf:about="&pml;Format">
+        <rdfs:label xml:lang="en">Format</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&prov;Entity"/>
+        <rdfs:comment xml:lang="en">A plan for the organization and arrangement of specified information. Examples: binary, text,  pdf, etc.</rdfs:comment>
+        <prov:category>base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#InferenceEngine -->
+
+    <owl:Class rdf:about="&pml;InferenceEngine">
+        <rdfs:label xml:lang="en">Inference Engine</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&prov;SoftwareAgent"/>
+        <rdfs:comment xml:lang="en">An inference engine represents an engine that is able to produce a justification for a conclusion. Note that the phrase &quot;inference engine&quot; applies not only to reasoners but also to other systems like search engines which may justify their answers by direct assertion</rdfs:comment>
+        <prov:category>base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#Information -->
+
+    <owl:Class rdf:about="&pml;Information">
+        <rdfs:label xml:lang="en">Information</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&prov;Entity"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&pml;hasLanguage"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&pml;hasFormat"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">A piece of information, e.g. a formula in logic languages, and an utterance/word/phrase/sentence/paragraph/article in natural language. It is used as a range of iw:hasContent. This class and two of its sub-classes enable users to specify four types of semantics  (i) Information Annotation - annotate just the format and language used by the content of information; (ii) Information With Content - additionally provide the content of information that is materialized as string without loading a web page; (iii) Information external - additionally provide the URL for fetching the content; and (iv) Information - with every thing including the content string and URL. The second semantics is especially useful when the content is short or mainly used locally. For example, when learning by instruction, the utterances used for learning can be stored within the PML document without being externally stored. By assigning URI reference to information, we can even use owl:sameAs to capture the equivalence of two pieces of information.</rdfs:comment>
+        <prov:category>base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#InformationContainer -->
+
+    <owl:Class rdf:about="&pml;InformationContainer">
+        <rdfs:label rdf:datatype="&xsd;string">Information Container</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&prov;Entity"/>
+        <prov:editorialNote rdf:datatype="&xsd;string">Do we mean frbr:Item or frbr:Manifestation?</prov:editorialNote>
+        <prov:category>base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#Language -->
+
+    <owl:Class rdf:about="&pml;Language">
+        <rdfs:label xml:lang="en">Language</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&prov;Entity"/>
+        <rdfs:comment xml:lang="en">The language used to encode the raw string, e.g. English, Knowledge Interchange Format (KIF) , and N3. Languages are in general registered at the core IWRegistry.</rdfs:comment>
+        <prov:category xml:lang="en">base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#OffsetPosition -->
+
+    <owl:Class rdf:about="&pml;OffsetPosition">
+        <rdfs:label xml:lang="en">Document Fragment by Offset</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&pml-base;Position"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&pml;hasToOffset"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">We may treat a document a one dimensional string, so we can mark a fragment with two offsets. We don&#39;t use byte because characters in text document may be multi-bytes.</rdfs:comment>
+        <prov:category xml:lang="en">base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#Ontology -->
+
+    <owl:Class rdf:about="&pml;Ontology">
+        <rdfs:label xml:lang="en">Ontology</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&pml;Document"/>
+        <rdfs:comment xml:lang="en">An Ontology is a document that describes a vocabulary of terms and their correlations.</rdfs:comment>
+        <prov:editorialNote xml:lang="en">This is a superclass of owl:Ontology.</prov:editorialNote>
+        <prov:category>base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#OwnedEntity -->
+
+    <owl:Class rdf:about="&pml;OwnedEntity">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&pml;hasOwner"/>
+                <owl:onClass rdf:resource="&pml;Owner"/>
+                <owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minQualifiedCardinality>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&prov;Entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#Owner -->
+
+    <owl:Class rdf:about="&pml;Owner">
+        <rdfs:subClassOf rdf:resource="&prov;Agent"/>
+        <prov:category>base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#Ownership -->
+
+    <owl:Class rdf:about="&pml;Ownership">
+        <rdfs:subClassOf rdf:resource="&prov;Attribution"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&prov;agent"/>
+                <owl:allValuesFrom rdf:resource="&pml;Owner"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&prov;entity"/>
+                <owl:allValuesFrom rdf:resource="&pml;OwnedEntity"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <prov:category xml:lang="en">base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#ProceduralPlan -->
+
+    <owl:Class rdf:about="&pml;ProceduralPlan">
+        <rdfs:label xml:lang="en">Procedural Plan</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&prov;Plan"/>
+        <rdfs:comment xml:lang="en">A method inference rule, uses patterns for premises and its conclusions, and additionally contains a method that must be applied.  In addition, 
+the conclusion needs to be a valid output of the method, using the premises.  For example, procedural attachment is a common encoding form for method rules.</rdfs:comment>
+        <prov:category xml:lang="en">base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#Publication -->
+
+    <owl:Class rdf:about="&pml;Publication">
+        <rdfs:label xml:lang="en">Publication</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&pml;Document"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&pml;hasPublicationDateTime"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">If we have two versions of the same publication, we need to create two instances of Publication. A publication may have multiple ISBNs.</rdfs:comment>
+        <prov:category>base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#RowColLocation -->
+
+    <owl:Class rdf:about="&pml;RowColLocation">
+        <rdfs:label xml:lang="en">Document Fragment by Row/Column</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&prov;Location"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&pml;hasToRow"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&pml;hasToCol"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&pml;hasFromCol"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&pml;hasFromRow"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <prov:category xml:lang="en">base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#Sensor -->
+
+    <owl:Class rdf:about="&pml;Sensor">
+        <rdfs:label xml:lang="en">Sensor</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&prov;Agent"/>
+        <rdfs:comment xml:lang="en">any device that receives a signal or stimulus (as heat or pressure or light or motion etc.) and records it. (WordNet)</rdfs:comment>
+        <prov:category>base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#Source -->
+
+    <owl:Class rdf:about="&pml;Source">
+        <rdfs:label xml:lang="en">Source</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&prov;Entity"/>
+        <rdfs:comment xml:lang="en">A source refers to the source of information. It is the place where we obtain information.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#TranslationMethod -->
+
+    <owl:Class rdf:about="&pml;TranslationMethod">
+        <rdfs:label xml:lang="en">Translation Method</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&pml;ProceduralPlan"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&pml;hasFromLanguage"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&pml;hasToLanguage"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">Translation rules are special kinds of inference rules which are used to translate expressions from one language to the other.</rdfs:comment>
+        <prov:category xml:lang="en">base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#WebService -->
+
+    <owl:Class rdf:about="&pml;WebService">
+        <rdfs:label xml:lang="en">Web Service</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&prov;SoftwareAgent"/>
+        <prov:category>base</prov:category>
+        <rdfs:comment xml:lang="en">services implemented by software and available on the Web</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#Website -->
+
+    <owl:Class rdf:about="&pml;Website">
+        <rdfs:label xml:lang="en">Website</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&pml;Document"/>
+        <rdfs:comment xml:lang="en">Collection of files and related resources accessible through the World Wide Web and organized under a particular domain name. Typical files found at a Web site are HTML documents with their associated graphic image files (GIF, JPEG, etc.), scripted programs (in Perl, CGI, Java, etc.), and similar resources. The site&#39;s files are usually accessed through hypertext or hyperlinks embedded in other files. A Web site may consist of a single HTML file, or it may comprise hundreds or thousands of related files. A Web site&#39;s usual starting point or opening page, called a home page, usually functions as a table of contents or index, with links to other sections of the site. Web sites are hosted on one or more Web servers, which transfer files to client computers or other servers that request them using the HTTP protocol. Although the term ?ite?implies a single physical location, the files and resources of a Web site may actually be spread among several servers in different geographic locations.(adapted from Britannica Concise Encyclopedia).</rdfs:comment>
+        <prov:category xml:lang="en">base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml-base#Position -->
+
+    <owl:Class rdf:about="&pml-base;Position">
+        <rdfs:subClassOf rdf:resource="&prov;Location"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&pml;hasFromOffset"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <prov:category xml:lang="en">base</prov:category>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#Thing -->
+
+    <owl:Class rdf:about="&owl;Thing"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Activity -->
+
+    <owl:Class rdf:about="&prov;Activity"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Agent -->
+
+    <owl:Class rdf:about="&prov;Agent"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#AgentInfluence -->
+
+    <owl:Class rdf:about="&prov;AgentInfluence">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&prov;agent"/>
+                <owl:onClass rdf:resource="&prov;Agent"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Attribution -->
+
+    <owl:Class rdf:about="&prov;Attribution"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Bundle -->
+
+    <owl:Class rdf:about="&prov;Bundle"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Collection -->
+
+    <owl:Class rdf:about="&prov;Collection"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Entity -->
+
+    <owl:Class rdf:about="&prov;Entity"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Location -->
+
+    <owl:Class rdf:about="&prov;Location"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Plan -->
+
+    <owl:Class rdf:about="&prov;Plan">
+        <rdfs:subClassOf rdf:resource="&pml;Information"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Role -->
+
+    <owl:Class rdf:about="&prov;Role"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#SoftwareAgent -->
+
+    <owl:Class rdf:about="&prov;SoftwareAgent"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#Author -->
+
+    <prov:Role rdf:about="&pml;Author">
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+        <prov:category>base</prov:category>
+    </prov:Role>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#Owner -->
+
+    <prov:Role rdf:about="&pml;Owner">
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+        <prov:category>base</prov:category>
+    </prov:Role>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#Source -->
+
+    <prov:Role rdf:about="&pml;Source">
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+        <rdfs:label xml:lang="en">Source</rdfs:label>
+        <rdfs:comment xml:lang="en">A source refers to the source of information. It is the place where we obtain information.</rdfs:comment>
+    </prov:Role>
+    
+
+
+    <!-- http://provenance-web.org/ontology/pml#nil -->
+
+    <owl:NamedIndividual rdf:about="&pml;nil">
+        <rdfs:label xml:lang="en">nil</rdfs:label>
+        <rdfs:comment xml:lang="en">The empty list, with no items in it. If the rest of a list is nil then the list has no more items in it.</rdfs:comment>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.1.0.20069) http://owlapi.sourceforge.net -->
+
