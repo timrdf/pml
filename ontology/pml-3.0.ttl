@@ -167,12 +167,12 @@
     a owl:Class ;
     rdfs:subClassOf prov:Attribution, [
         a owl:Restriction ;
-        owl:allValuesFrom :OwnedEntity ;
-        owl:onProperty prov:entity
-    ], [
-        a owl:Restriction ;
         owl:allValuesFrom :Owner ;
         owl:onProperty prov:agent
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom :OwnedEntity ;
+        owl:onProperty prov:entity
     ] ;
     prov:category "base" .
 
@@ -209,7 +209,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromRow
+        owl:onProperty :hasFromCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -217,11 +217,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromCol
+        owl:onProperty :hasToRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToRow
+        owl:onProperty :hasFromRow
     ] ;
     prov:category "base" .
 
