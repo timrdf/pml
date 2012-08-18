@@ -1,0 +1,526 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://provenanceweb.org/ns/pml#> .
+
+<http://provenanceweb.org/ns/pml#>
+    a owl:Ontology ;
+    rdfs:comment "The Provenance Markup Language (PML 3.0) is an OWL ontology that extends W3C's PROV-O with the best parts of PML 2.0."@en ;
+    rdfs:label "Provenance Markup Language (PML 3.0)"@en ;
+    owl:imports <http://www.w3.org/ns/inverses.owl>, <http://www.w3.org/ns/prov#> ;
+    owl:versionInfo "version 3.0, Authors: Timothy Lebo, James P. McCusker, Paulo Pinheiro, Cynthia Chang, and Deborah L. McGuinness"@en .
+
+:Author
+    a owl:Class, owl:NamedIndividual, prov:Role ;
+    rdfs:subClassOf prov:Agent ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:unionOf ([
+                a owl:Restriction ;
+                owl:onProperty :authorOf ;
+                owl:someValuesFrom owl:Thing
+            ]
+            [
+                a owl:Restriction ;
+                owl:onProperty prov:agentOfInfluence ;
+                owl:someValuesFrom [
+                    a owl:Restriction ;
+                    owl:hasValue :Author ;
+                    owl:onProperty prov:hadRole
+                ]
+            ]
+        )
+    ] ;
+    prov:category "base" .
+
+:Authorship
+    a owl:Class ;
+    rdfs:subClassOf prov:Attribution, [
+        a owl:Restriction ;
+        owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onClass :Position ;
+        owl:onProperty prov:atLocation
+    ] ;
+    prov:category "base" .
+
+:DeclarativeRule
+    a owl:Class ;
+    rdfs:comment "A declarative inference rule can be fully specified by patterns for premises and its conclusion.   For example, Modus Ponens, can be specified by the premise patterns ?A,  ?A -&gt; ?B and the conclusion pattern ?B."@en ;
+    rdfs:label "Declarative Rule"@en ;
+    rdfs:subClassOf prov:Plan ;
+    prov:category "base" .
+
+:Document
+    a owl:Class ;
+    rdfs:comment "A physical information container that is not actionable. They function like database."@en ;
+    rdfs:label "Document"@en ;
+    rdfs:subClassOf :InformationContainer, [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasVersion
+    ] ;
+    prov:category "base" .
+
+:DocumentFragment
+    a owl:Class ;
+    rdfs:comment "When a Document is treated as a one dimensional string, a fragment of the Document may be established with two offsets. The offsets are in units of characters (and not bytes because characters may be multiple bytes)."@en ;
+    rdfs:label "Document Fragment"@en ;
+    rdfs:subClassOf :InformationContainer, [
+        a owl:Restriction ;
+        owl:onProperty prov:atLocation ;
+        owl:someValuesFrom prov:Location
+    ], [
+        a owl:Restriction ;
+        owl:onClass :Document ;
+        owl:onProperty <http://purl.org/dc/terms/isPartOf> ;
+        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+    ] ;
+    prov:category "base" .
+
+:EmptyInformation
+    a owl:Class ;
+    rdfs:comment "An instance of information indicating no conclusion has been derived, i.e. empty set of statements. In this case, the rawstring may contain some english message indicating no answer."@en ;
+    rdfs:label "Empty Information"@en ;
+    rdfs:subClassOf :Information ;
+    prov:category "base" .
+
+:Format
+    a owl:Class ;
+    rdfs:comment "A plan for the organization and arrangement of specified information. Examples: binary, text,  pdf, etc."@en ;
+    rdfs:label "Format"@en ;
+    rdfs:subClassOf prov:Entity ;
+    prov:category "base" .
+
+:InferenceEngine
+    a owl:Class ;
+    rdfs:comment "An inference engine represents an engine that is able to produce a justification for a conclusion. Note that the phrase \"inference engine\" applies not only to reasoners but also to other systems like search engines which may justify their answers by direct assertion"@en ;
+    rdfs:label "Inference Engine"@en ;
+    rdfs:subClassOf prov:SoftwareAgent ;
+    prov:category "base" .
+
+:Information
+    a owl:Class ;
+    rdfs:comment "A piece of information, e.g. a formula in logic languages, and an utterance/word/phrase/sentence/paragraph/article in natural language. It is used as a range of iw:hasContent. This class and two of its sub-classes enable users to specify four types of semantics  (i) Information Annotation - annotate just the format and language used by the content of information; (ii) Information With Content - additionally provide the content of information that is materialized as string without loading a web page; (iii) Information external - additionally provide the URL for fetching the content; and (iv) Information - with every thing including the content string and URL. The second semantics is especially useful when the content is short or mainly used locally. For example, when learning by instruction, the utterances used for learning can be stored within the PML document without being externally stored. By assigning URI reference to information, we can even use owl:sameAs to capture the equivalence of two pieces of information."@en ;
+    rdfs:label "Information"@en ;
+    rdfs:subClassOf prov:Entity, [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasFormat
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasLanguage
+    ] ;
+    prov:category "base" .
+
+:InformationContainer
+    a owl:Class ;
+    rdfs:label "Information Container" ;
+    rdfs:subClassOf prov:Entity ;
+    prov:category "base" ;
+    prov:editorialNote "Do we mean frbr:Item or frbr:Manifestation?" .
+
+:Language
+    a owl:Class ;
+    rdfs:comment "The language used to encode the raw string, e.g. English, Knowledge Interchange Format (KIF) , and N3. Languages are in general registered at the core IWRegistry."@en ;
+    rdfs:label "Language"@en ;
+    rdfs:subClassOf prov:Entity ;
+    prov:category "base" .
+
+:OffsetPosition
+    a owl:Class ;
+    rdfs:comment ""@en ;
+    rdfs:label "Offset Position"@en ;
+    rdfs:subClassOf :Position, [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasToOffset
+    ] ;
+    prov:category "base" .
+
+:Ontology
+    a owl:Class ;
+    rdfs:comment "An Ontology is a document that describes a vocabulary of terms and their correlations."@en, "This is a proper superclass of owl:Ontology, since ontologies may be expressed in formalisms other than OWL."@en ;
+    rdfs:label "Ontology"@en ;
+    rdfs:subClassOf :Document ;
+    prov:category "base" .
+
+:OwnedEntity
+    a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onClass :Owner ;
+        owl:onProperty :hasOwner
+    ] ;
+    prov:category "base" .
+
+:Owner
+    a owl:Class, owl:NamedIndividual, prov:Role ;
+    rdfs:subClassOf prov:Agent ;
+    prov:category "base" .
+
+:Ownership
+    a owl:Class ;
+    rdfs:subClassOf prov:Attribution, [
+        a owl:Restriction ;
+        owl:allValuesFrom :OwnedEntity ;
+        owl:onProperty prov:entity
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom :Owner ;
+        owl:onProperty prov:agent
+    ] ;
+    prov:category "base" .
+
+:Position
+    a owl:Class ;
+    rdfs:subClassOf prov:Location, [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasFromOffset
+    ] ;
+    prov:category "base" .
+
+:ProceduralPlan
+    a owl:Class ;
+    rdfs:comment """A method inference rule, uses patterns for premises and its conclusions, and additionally contains a method that must be applied.  In addition, 
+the conclusion needs to be a valid output of the method, using the premises.  For example, procedural attachment is a common encoding form for method rules."""@en ;
+    rdfs:label "Procedural Plan"@en ;
+    rdfs:subClassOf prov:Plan ;
+    prov:category "base" .
+
+:Publisher
+    a owl:Class, owl:NamedIndividual, prov:Role ;
+    rdfs:subClassOf prov:Agent ;
+    prov:category "base" .
+
+:Publishership
+    a owl:Class ;
+    rdfs:subClassOf prov:Attribution ;
+    prov:category "base" .
+
+:RowColLocation
+    a owl:Class ;
+    rdfs:label "Row Column Location"@en ;
+    rdfs:subClassOf prov:Location, [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasFromRow
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasToCol
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasFromCol
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasToRow
+    ] ;
+    prov:category "base" .
+
+:Sensor
+    a owl:Class ;
+    rdfs:comment "any device that receives a signal or stimulus (as heat or pressure or light or motion etc.) and records it. (WordNet)"@en ;
+    rdfs:label "Sensor"@en ;
+    rdfs:subClassOf prov:Agent ;
+    prov:category "base" .
+
+:Source
+    a owl:Class, owl:NamedIndividual, prov:Role ;
+    rdfs:comment "A source refers to the source of information. It is the place where we obtain information."@en ;
+    rdfs:label "Source"@en ;
+    rdfs:subClassOf prov:Entity ;
+    prov:category "base" .
+
+:TranslationMethod
+    a owl:Class ;
+    rdfs:comment "Translation rules are special kinds of inference rules which are used to translate expressions from one language to the other."@en ;
+    rdfs:label "Translation Method"@en ;
+    rdfs:subClassOf :ProceduralPlan, [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasToLanguage
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasFromLanguage
+    ] ;
+    prov:category "base" .
+
+:WebService
+    a owl:Class ;
+    rdfs:comment "services implemented by software and available on the Web"@en ;
+    rdfs:label "Web Service"@en ;
+    rdfs:subClassOf prov:SoftwareAgent ;
+    prov:category "base" .
+
+:Webpage
+    a owl:Class ;
+    rdfs:comment "Collection of files and related resources accessible through the World Wide Web and organized under a particular domain name. Typical files found at a Web site are HTML documents with their associated graphic image files (GIF, JPEG, etc.), scripted programs (in Perl, CGI, Java, etc.), and similar resources. The site's files are usually accessed through hypertext or hyperlinks embedded in other files. A Web site may consist of a single HTML file, or it may comprise hundreds or thousands of related files. A Web site's usual starting point or opening page, called a home page, usually functions as a table of contents or index, with links to other sections of the site. Web sites are hosted on one or more Web servers, which transfer files to client computers or other servers that request them using the HTTP protocol. Although the term ?ite?implies a single physical location, the files and resources of a Web site may actually be spread among several servers in different geographic locations.(adapted from Britannica Concise Encyclopedia)."@en ;
+    rdfs:label "Website"@en ;
+    rdfs:subClassOf :Document ;
+    prov:category "base" .
+
+:authorOf
+    a owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:contributed ;
+    owl:inverseOf :hasAuthor .
+
+:hasAuthor
+    a owl:ObjectProperty ;
+    rdfs:range :Author ;
+    rdfs:subPropertyOf prov:wasAttributedTo ;
+    owl:propertyChainAxiom (:qualifiedAuthorship
+        prov:agent
+    ) .
+
+:hasCreationDateTime
+    a owl:DatatypeProperty ;
+    rdfs:comment "When the artifact has been first created."@en ;
+    rdfs:domain prov:Bundle ;
+    rdfs:label "created"@en ;
+    rdfs:range xsd:dateTime ;
+    rdfs:subPropertyOf prov:generatedAtTime .
+
+:hasDescription
+    a owl:ObjectProperty ;
+    rdfs:comment "The detailed description of the identified thing, e.g. a web page describing KIF language. An identified thing may have zero to many descriptions that could be written in different languages, format, and etc."@en ;
+    rdfs:label "description"@en ;
+    rdfs:range :Information .
+
+:hasEncoding
+    a owl:DatatypeProperty ;
+    rdfs:comment "The content encoding, e.g. \"base64\". The value of this property helps applications determine the decoder of the raw string."@en ;
+    rdfs:domain prov:Entity ;
+    rdfs:label "encoding"@en ;
+    rdfs:range xsd:string .
+
+:hasFormat
+    a owl:ObjectProperty ;
+    rdfs:comment "it specifies the format of information, e.g. \"pdf\", \"ppt\" (Power Point). It is mainly used to determine the appropriate application for process/display purpose."@en ;
+    rdfs:domain :Information ;
+    rdfs:label "format"@en ;
+    rdfs:range :Format .
+
+:hasFromCol
+    a owl:DatatypeProperty ;
+    rdfs:comment "The from column of the fragment (inclusive, index based on 1)"@en ;
+    rdfs:domain :RowColLocation ;
+    rdfs:label "from-column"@en ;
+    rdfs:range xsd:int .
+
+:hasFromLanguage
+    a owl:ObjectProperty ;
+    rdfs:comment "language used by the source."@en ;
+    rdfs:domain :TranslationMethod ;
+    rdfs:label "from-language"@en ;
+    rdfs:range :Language .
+
+:hasFromOffset
+    a owl:DatatypeProperty ;
+    rdfs:comment "The from offset of the fragment (inclusive, index based on 0)."@en ;
+    rdfs:domain :OffsetPosition ;
+    rdfs:label "from-offset"@en ;
+    rdfs:range xsd:int .
+
+:hasFromRow
+    a owl:DatatypeProperty ;
+    rdfs:comment "The from row of the fragment (inclusive, index based on 1)"@en ;
+    rdfs:domain :RowColLocation ;
+    rdfs:label "from-row"@en ;
+    rdfs:range xsd:int .
+
+:hasLanguage
+    a owl:ObjectProperty ;
+    rdfs:comment "it specifies the language used to encode information, e.g. \"Tony's specialty is shellfish\" is encoded in English. This property may also link to a registered formal language such as KIF."@en ;
+    rdfs:domain :Information ;
+    rdfs:label "language"@en ;
+    rdfs:range :Language .
+
+:hasModificationDateTime
+    a owl:DatatypeProperty ;
+    rdfs:comment "When the artifact has been modified."@en ;
+    rdfs:domain prov:Bundle ;
+    rdfs:label "last modified"@en ;
+    rdfs:range xsd:dateTime ;
+    rdfs:subPropertyOf prov:generatedAtTime .
+
+:hasOwner
+    a owl:ObjectProperty ;
+    rdfs:comment "the owner of a thing."@en ;
+    rdfs:domain :OwnedEntity ;
+    rdfs:label "owner"@en ;
+    rdfs:range :Owner ;
+    rdfs:subPropertyOf prov:wasAttributedTo .
+
+:hasPublicationDateTime
+    a owl:DatatypeProperty ;
+    rdfs:comment "When the publication is published."@en ;
+    rdfs:label "published in"@en ;
+    rdfs:range xsd:dateTime ;
+    rdfs:subPropertyOf prov:generatedAtTime .
+
+:hasPublisher
+    a owl:ObjectProperty ;
+    rdfs:comment "An agent responsible for making the document publicly available. see also http://purl.org/dc/elements/1.1/publisher."@en ;
+    rdfs:domain :Document ;
+    rdfs:label "publisher"@en ;
+    rdfs:subPropertyOf prov:wasAttributedTo .
+
+:hasToCol
+    a owl:DatatypeProperty ;
+    rdfs:comment "The to column of the fragment (inclusive, index based on 1)"@en ;
+    rdfs:domain :RowColLocation ;
+    rdfs:label "to-column"@en ;
+    rdfs:range xsd:int .
+
+:hasToLanguage
+    a owl:ObjectProperty ;
+    rdfs:comment "language used by the target."@en ;
+    rdfs:domain :TranslationMethod ;
+    rdfs:label "to-language"@en ;
+    rdfs:range :Language .
+
+:hasToOffset
+    a owl:DatatypeProperty ;
+    rdfs:comment "The to offset of the fragment (exclusive, index based on 0)"@en ;
+    rdfs:domain :OffsetPosition ;
+    rdfs:label "to-offset"@en ;
+    rdfs:range xsd:int .
+
+:hasToRow
+    a owl:DatatypeProperty ;
+    rdfs:comment "The to row of the fragment (inclusive, index based on 1)"@en ;
+    rdfs:domain :RowColLocation ;
+    rdfs:label "to-row"@en ;
+    rdfs:range xsd:int .
+
+:hasVersion
+    a owl:DatatypeProperty ;
+    rdfs:comment "the version number."@en ;
+    rdfs:label "version"@en ;
+    rdfs:range xsd:string .
+
+:nil
+    a owl:NamedIndividual ;
+    rdfs:comment "The empty list, with no items in it. If the rest of a list is nil then the list has no more items in it."@en ;
+    rdfs:label "nil"@en .
+
+:qualifiedAuthorship
+    a owl:ObjectProperty ;
+    rdfs:range :Authorship ;
+    rdfs:subPropertyOf prov:qualifiedAttribution .
+
+<http://purl.org/dc/terms/isPartOf>
+    a owl:ObjectProperty .
+
+rdf:PlainLiteral
+    a rdfs:Datatype .
+
+rdfs:Literal
+    a rdfs:Datatype .
+
+rdfs:comment
+    a owl:AnnotationProperty .
+
+rdfs:label
+    a owl:AnnotationProperty .
+
+xsd:anyURI
+    a rdfs:Datatype .
+
+xsd:dateTime
+    a rdfs:Datatype .
+
+xsd:double
+    a rdfs:Datatype .
+
+xsd:int
+    a rdfs:Datatype .
+
+xsd:string
+    a rdfs:Datatype .
+
+owl:Thing
+    a owl:Class .
+
+owl:versionInfo
+    a owl:AnnotationProperty .
+
+prov:Activity
+    a owl:Class .
+
+prov:Agent
+    a owl:Class .
+
+prov:AgentInfluence
+    a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onClass prov:Agent ;
+        owl:onProperty prov:agent ;
+        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+    ] .
+
+prov:Attribution
+    a owl:Class .
+
+prov:Bundle
+    a owl:Class .
+
+prov:Collection
+    a owl:Class .
+
+prov:Entity
+    a owl:Class .
+
+prov:Location
+    a owl:Class .
+
+prov:Plan
+    a owl:Class ;
+    rdfs:subClassOf prov:Entity .
+
+prov:Role
+    a owl:Class .
+
+prov:SoftwareAgent
+    a owl:Class .
+
+prov:agent
+    a owl:ObjectProperty .
+
+prov:agentOfInfluence
+    a owl:ObjectProperty .
+
+prov:atLocation
+    a owl:ObjectProperty .
+
+prov:category
+    a owl:AnnotationProperty .
+
+prov:contributed
+    a owl:ObjectProperty .
+
+prov:editorialNote
+    a owl:AnnotationProperty .
+
+prov:entity
+    a owl:ObjectProperty .
+
+prov:hadRole
+    a owl:ObjectProperty .
+
+prov:qualifiedAttribution
+    a owl:ObjectProperty .
+
+prov:wasAttributedTo
+    a owl:ObjectProperty .
+
