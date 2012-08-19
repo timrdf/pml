@@ -245,10 +245,6 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromRow
-    ], [
-        a owl:Restriction ;
-        owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasFromCol
     ], [
         a owl:Restriction ;
@@ -258,6 +254,10 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasToCol
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasFromRow
     ] ;
     prov:category "base" .
 
@@ -306,7 +306,8 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
 :authorOf
     a owl:ObjectProperty ;
-    rdfs:subPropertyOf prov:contributed .
+    rdfs:subPropertyOf prov:contributed ;
+    prov:category "base" .
 
 :hasAuthor
     a owl:ObjectProperty ;
@@ -316,7 +317,9 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     owl:inverseOf :authorOf ;
     owl:propertyChainAxiom (:qualifiedAuthorship
         prov:agent
-    ) .
+    ) ;
+    prov:category "base" ;
+    prov:inverse "authorOf"@en .
 
 :hasCreationDateTime
     a owl:DatatypeProperty ;
@@ -330,56 +333,64 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     a owl:ObjectProperty ;
     rdfs:comment "The detailed description of the identified thing, e.g. a web page describing KIF language. An identified thing may have zero to many descriptions that could be written in different languages, format, and etc."@en ;
     rdfs:label "description"@en ;
-    rdfs:range :Information .
+    rdfs:range :Information ;
+    prov:category "base" .
 
 :hasEncoding
     a owl:DatatypeProperty ;
     rdfs:comment "The content encoding, e.g. \"base64\". The value of this property helps applications determine the decoder of the raw string."@en ;
     rdfs:domain prov:Entity ;
     rdfs:label "encoding"@en ;
-    rdfs:range xsd:string .
+    rdfs:range xsd:string ;
+    prov:category "base" .
 
 :hasFormat
     a owl:ObjectProperty ;
     rdfs:comment "it specifies the format of information, e.g. \"pdf\", \"ppt\" (Power Point). It is mainly used to determine the appropriate application for process/display purpose."@en ;
     rdfs:domain :Information ;
     rdfs:label "format"@en ;
-    rdfs:range :Format .
+    rdfs:range :Format ;
+    prov:category "base" .
 
 :hasFromCol
     a owl:DatatypeProperty ;
     rdfs:comment "The from column of the fragment (inclusive, index based on 1)"@en ;
     rdfs:domain :RowColLocation ;
     rdfs:label "from-column"@en ;
-    rdfs:range xsd:int .
+    rdfs:range xsd:int ;
+    prov:category "base" .
 
 :hasFromLanguage
     a owl:ObjectProperty ;
     rdfs:comment "language used by the source."@en ;
     rdfs:domain :TranslationMethod ;
     rdfs:label "from-language"@en ;
-    rdfs:range :Language .
+    rdfs:range :Language ;
+    prov:category "base" .
 
 :hasFromOffset
     a owl:DatatypeProperty ;
     rdfs:comment "The from offset of the fragment (inclusive, index based on 0)."@en ;
     rdfs:domain :OffsetPosition ;
     rdfs:label "from-offset"@en ;
-    rdfs:range xsd:int .
+    rdfs:range xsd:int ;
+    prov:category "base" .
 
 :hasFromRow
     a owl:DatatypeProperty ;
     rdfs:comment "The from row of the fragment (inclusive, index based on 1)"@en ;
     rdfs:domain :RowColLocation ;
     rdfs:label "from-row"@en ;
-    rdfs:range xsd:int .
+    rdfs:range xsd:int ;
+    prov:category "base" .
 
 :hasLanguage
     a owl:ObjectProperty ;
     rdfs:comment "it specifies the language used to encode information, e.g. \"Tony's specialty is shellfish\" is encoded in English. This property may also link to a registered formal language such as KIF."@en ;
     rdfs:domain :Information ;
     rdfs:label "language"@en ;
-    rdfs:range :Language .
+    rdfs:range :Language ;
+    prov:category "base" .
 
 :hasModificationDateTime
     a owl:DatatypeProperty ;
@@ -396,7 +407,9 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:label "owner"@en ;
     rdfs:range :Owner ;
     rdfs:subPropertyOf prov:wasAttributedTo ;
-    owl:inverseOf :ownerOf .
+    owl:inverseOf :ownerOf ;
+    prov:category "base" ;
+    prov:inverse "ownerOf"@en .
 
 :hasPublicationDateTime
     a owl:DatatypeProperty ;
@@ -412,41 +425,48 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:label "publisher"@en ;
     rdfs:range :Publisher ;
     rdfs:subPropertyOf prov:wasAttributedTo ;
-    owl:inverseOf :publisherOf .
+    owl:inverseOf :publisherOf ;
+    prov:category "base" ;
+    prov:inverse "publisherOf"@en .
 
 :hasToCol
     a owl:DatatypeProperty ;
     rdfs:comment "The to column of the fragment (inclusive, index based on 1)"@en ;
     rdfs:domain :RowColLocation ;
     rdfs:label "to-column"@en ;
-    rdfs:range xsd:int .
+    rdfs:range xsd:int ;
+    prov:category "base" .
 
 :hasToLanguage
     a owl:ObjectProperty ;
     rdfs:comment "language used by the target."@en ;
     rdfs:domain :TranslationMethod ;
     rdfs:label "to-language"@en ;
-    rdfs:range :Language .
+    rdfs:range :Language ;
+    prov:category "base" .
 
 :hasToOffset
     a owl:DatatypeProperty ;
     rdfs:comment "The to offset of the fragment (exclusive, index based on 0)"@en ;
     rdfs:domain :OffsetPosition ;
     rdfs:label "to-offset"@en ;
-    rdfs:range xsd:int .
+    rdfs:range xsd:int ;
+    prov:category "base" .
 
 :hasToRow
     a owl:DatatypeProperty ;
     rdfs:comment "The to row of the fragment (inclusive, index based on 1)"@en ;
     rdfs:domain :RowColLocation ;
     rdfs:label "to-row"@en ;
-    rdfs:range xsd:int .
+    rdfs:range xsd:int ;
+    prov:category "base" .
 
 :hasVersion
     a owl:DatatypeProperty ;
     rdfs:comment "the version number."@en ;
     rdfs:label "version"@en ;
-    rdfs:range xsd:string .
+    rdfs:range xsd:string ;
+    prov:category "base" .
 
 :nil
     a owl:NamedIndividual ;
@@ -455,7 +475,8 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
 :ownerOf
     a owl:ObjectProperty ;
-    rdfs:subPropertyOf prov:contributed .
+    rdfs:subPropertyOf prov:contributed ;
+    prov:category "base" .
 
 :publisherOf
     a owl:ObjectProperty ;
@@ -464,20 +485,24 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 :qualifiedAuthorship
     a owl:ObjectProperty ;
     rdfs:range :Authorship ;
-    rdfs:subPropertyOf prov:qualifiedAttribution .
+    rdfs:subPropertyOf prov:qualifiedAttribution ;
+    prov:category "qualified" .
 
 :qualifiedOwnership
     a owl:ObjectProperty ;
     rdfs:range :Ownership ;
-    rdfs:subPropertyOf prov:qualifiedAttribution .
+    rdfs:subPropertyOf prov:qualifiedAttribution ;
+    prov:category "qualified" .
 
 :qualifiedPublishership
     a owl:ObjectProperty ;
     rdfs:range :Publishership ;
-    rdfs:subPropertyOf prov:qualifiedAttribution .
+    rdfs:subPropertyOf prov:qualifiedAttribution ;
+    prov:category "qualified" .
 
 <http://purl.org/dc/terms/isPartOf>
-    a owl:ObjectProperty .
+    a owl:ObjectProperty ;
+    prov:category "base" .
 
 rdf:PlainLiteral
     a rdfs:Datatype .
@@ -575,6 +600,9 @@ prov:entity
 
 prov:hadRole
     a owl:ObjectProperty .
+
+prov:inverse
+    a owl:AnnotationProperty .
 
 prov:qualifiedAttribution
     a owl:ObjectProperty .

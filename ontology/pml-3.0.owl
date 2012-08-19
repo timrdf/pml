@@ -290,12 +290,6 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromRow"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
         <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromCol"/>
       </owl:Restriction>
     </rdfs:subClassOf>
@@ -309,6 +303,12 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
         <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasToCol"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromRow"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>base</prov:category>
@@ -359,6 +359,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
   </owl:Class>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#authorOf">
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#contributed"/>
+    <prov:category>base</prov:category>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#hasAuthor">
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#Document"/>
@@ -376,6 +377,8 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
         </rdf:rest>
       </rdf:Description>
     </owl:propertyChainAxiom>
+    <prov:category>base</prov:category>
+    <prov:inverse xml:lang="en">authorOf</prov:inverse>
   </owl:ObjectProperty>
   <owl:DatatypeProperty rdf:about="http://provenanceweb.org/ns/pml#hasCreationDateTime">
     <rdfs:comment xml:lang="en">When the artifact has been first created.</rdfs:comment>
@@ -388,48 +391,56 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:comment xml:lang="en">The detailed description of the identified thing, e.g. a web page describing KIF language. An identified thing may have zero to many descriptions that could be written in different languages, format, and etc.</rdfs:comment>
     <rdfs:label xml:lang="en">description</rdfs:label>
     <rdfs:range rdf:resource="http://provenanceweb.org/ns/pml#Information"/>
+    <prov:category>base</prov:category>
   </owl:ObjectProperty>
   <owl:DatatypeProperty rdf:about="http://provenanceweb.org/ns/pml#hasEncoding">
     <rdfs:comment xml:lang="en">The content encoding, e.g. "base64". The value of this property helps applications determine the decoder of the raw string.</rdfs:comment>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/prov#Entity"/>
     <rdfs:label xml:lang="en">encoding</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <prov:category>base</prov:category>
   </owl:DatatypeProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#hasFormat">
     <rdfs:comment xml:lang="en">it specifies the format of information, e.g. "pdf", "ppt" (Power Point). It is mainly used to determine the appropriate application for process/display purpose.</rdfs:comment>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#Information"/>
     <rdfs:label xml:lang="en">format</rdfs:label>
     <rdfs:range rdf:resource="http://provenanceweb.org/ns/pml#Format"/>
+    <prov:category>base</prov:category>
   </owl:ObjectProperty>
   <owl:DatatypeProperty rdf:about="http://provenanceweb.org/ns/pml#hasFromCol">
     <rdfs:comment xml:lang="en">The from column of the fragment (inclusive, index based on 1)</rdfs:comment>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#RowColLocation"/>
     <rdfs:label xml:lang="en">from-column</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <prov:category>base</prov:category>
   </owl:DatatypeProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#hasFromLanguage">
     <rdfs:comment xml:lang="en">language used by the source.</rdfs:comment>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#TranslationMethod"/>
     <rdfs:label xml:lang="en">from-language</rdfs:label>
     <rdfs:range rdf:resource="http://provenanceweb.org/ns/pml#Language"/>
+    <prov:category>base</prov:category>
   </owl:ObjectProperty>
   <owl:DatatypeProperty rdf:about="http://provenanceweb.org/ns/pml#hasFromOffset">
     <rdfs:comment xml:lang="en">The from offset of the fragment (inclusive, index based on 0).</rdfs:comment>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#OffsetPosition"/>
     <rdfs:label xml:lang="en">from-offset</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <prov:category>base</prov:category>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://provenanceweb.org/ns/pml#hasFromRow">
     <rdfs:comment xml:lang="en">The from row of the fragment (inclusive, index based on 1)</rdfs:comment>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#RowColLocation"/>
     <rdfs:label xml:lang="en">from-row</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <prov:category>base</prov:category>
   </owl:DatatypeProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#hasLanguage">
     <rdfs:comment xml:lang="en">it specifies the language used to encode information, e.g. "Tony's specialty is shellfish" is encoded in English. This property may also link to a registered formal language such as KIF.</rdfs:comment>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#Information"/>
     <rdfs:label xml:lang="en">language</rdfs:label>
     <rdfs:range rdf:resource="http://provenanceweb.org/ns/pml#Language"/>
+    <prov:category>base</prov:category>
   </owl:ObjectProperty>
   <owl:DatatypeProperty rdf:about="http://provenanceweb.org/ns/pml#hasModificationDateTime">
     <rdfs:comment xml:lang="en">When the artifact has been modified.</rdfs:comment>
@@ -445,6 +456,8 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:range rdf:resource="http://provenanceweb.org/ns/pml#Owner"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#wasAttributedTo"/>
     <owl:inverseOf rdf:resource="http://provenanceweb.org/ns/pml#ownerOf"/>
+    <prov:category>base</prov:category>
+    <prov:inverse xml:lang="en">ownerOf</prov:inverse>
   </owl:ObjectProperty>
   <owl:DatatypeProperty rdf:about="http://provenanceweb.org/ns/pml#hasPublicationDateTime">
     <rdfs:comment xml:lang="en">When the publication is published.</rdfs:comment>
@@ -459,35 +472,42 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:range rdf:resource="http://provenanceweb.org/ns/pml#Publisher"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#wasAttributedTo"/>
     <owl:inverseOf rdf:resource="http://provenanceweb.org/ns/pml#publisherOf"/>
+    <prov:category>base</prov:category>
+    <prov:inverse xml:lang="en">publisherOf</prov:inverse>
   </owl:ObjectProperty>
   <owl:DatatypeProperty rdf:about="http://provenanceweb.org/ns/pml#hasToCol">
     <rdfs:comment xml:lang="en">The to column of the fragment (inclusive, index based on 1)</rdfs:comment>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#RowColLocation"/>
     <rdfs:label xml:lang="en">to-column</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <prov:category>base</prov:category>
   </owl:DatatypeProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#hasToLanguage">
     <rdfs:comment xml:lang="en">language used by the target.</rdfs:comment>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#TranslationMethod"/>
     <rdfs:label xml:lang="en">to-language</rdfs:label>
     <rdfs:range rdf:resource="http://provenanceweb.org/ns/pml#Language"/>
+    <prov:category>base</prov:category>
   </owl:ObjectProperty>
   <owl:DatatypeProperty rdf:about="http://provenanceweb.org/ns/pml#hasToOffset">
     <rdfs:comment xml:lang="en">The to offset of the fragment (exclusive, index based on 0)</rdfs:comment>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#OffsetPosition"/>
     <rdfs:label xml:lang="en">to-offset</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <prov:category>base</prov:category>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://provenanceweb.org/ns/pml#hasToRow">
     <rdfs:comment xml:lang="en">The to row of the fragment (inclusive, index based on 1)</rdfs:comment>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#RowColLocation"/>
     <rdfs:label xml:lang="en">to-row</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <prov:category>base</prov:category>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://provenanceweb.org/ns/pml#hasVersion">
     <rdfs:comment xml:lang="en">the version number.</rdfs:comment>
     <rdfs:label xml:lang="en">version</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <prov:category>base</prov:category>
   </owl:DatatypeProperty>
   <owl:NamedIndividual rdf:about="http://provenanceweb.org/ns/pml#nil">
     <rdfs:comment xml:lang="en">The empty list, with no items in it. If the rest of a list is nil then the list has no more items in it.</rdfs:comment>
@@ -495,6 +515,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
   </owl:NamedIndividual>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#ownerOf">
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#contributed"/>
+    <prov:category>base</prov:category>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#publisherOf">
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#contributed"/>
@@ -502,16 +523,21 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#qualifiedAuthorship">
     <rdfs:range rdf:resource="http://provenanceweb.org/ns/pml#Authorship"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#qualifiedAttribution"/>
+    <prov:category>qualified</prov:category>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#qualifiedOwnership">
     <rdfs:range rdf:resource="http://provenanceweb.org/ns/pml#Ownership"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#qualifiedAttribution"/>
+    <prov:category>qualified</prov:category>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#qualifiedPublishership">
     <rdfs:range rdf:resource="http://provenanceweb.org/ns/pml#Publishership"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#qualifiedAttribution"/>
+    <prov:category>qualified</prov:category>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://purl.org/dc/terms/isPartOf"/>
+  <owl:ObjectProperty rdf:about="http://purl.org/dc/terms/isPartOf">
+    <prov:category>base</prov:category>
+  </owl:ObjectProperty>
   <rdfs:Datatype rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"/>
   <rdfs:Datatype rdf:about="http://www.w3.org/2000/01/rdf-schema#Literal"/>
   <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#comment"/>
@@ -552,6 +578,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
   <owl:AnnotationProperty rdf:about="http://www.w3.org/ns/prov#editorialNote"/>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#entity"/>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#hadRole"/>
+  <owl:AnnotationProperty rdf:about="http://www.w3.org/ns/prov#inverse"/>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#qualifiedAttribution"/>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#wasAttributedTo"/>
 </rdf:RDF>
