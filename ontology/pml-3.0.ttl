@@ -69,13 +69,13 @@
     rdfs:label "Document Fragment"@en ;
     rdfs:subClassOf :InformationContainer, [
         a owl:Restriction ;
-        owl:onProperty prov:atLocation ;
-        owl:someValuesFrom prov:Location
-    ], [
-        a owl:Restriction ;
         owl:onClass :Document ;
         owl:onProperty <http://purl.org/dc/terms/isPartOf> ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+    ], [
+        a owl:Restriction ;
+        owl:onProperty prov:atLocation ;
+        owl:someValuesFrom prov:Location
     ] ;
     prov:category "base" .
 
@@ -107,11 +107,11 @@
     rdfs:subClassOf prov:Entity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFormat
+        owl:onProperty :hasLanguage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasLanguage
+        owl:onProperty :hasFormat
     ] ;
     prov:category "base" .
 
@@ -161,6 +161,24 @@
 :Owner
     a owl:Class, owl:NamedIndividual, prov:Role ;
     rdfs:subClassOf prov:Agent ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:unionOf ([
+                a owl:Restriction ;
+                owl:onProperty :ownerOf ;
+                owl:someValuesFrom owl:Thing
+            ]
+            [
+                a owl:Restriction ;
+                owl:onProperty prov:agentOfInfluence ;
+                owl:someValuesFrom [
+                    a owl:Restriction ;
+                    owl:hasValue :Owner ;
+                    owl:onProperty prov:hadRole
+                ]
+            ]
+        )
+    ] ;
     prov:category "base" .
 
 :Ownership
@@ -196,6 +214,24 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 :Publisher
     a owl:Class, owl:NamedIndividual, prov:Role ;
     rdfs:subClassOf prov:Agent ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:unionOf ([
+                a owl:Restriction ;
+                owl:onProperty :publisherOf ;
+                owl:someValuesFrom owl:Thing
+            ]
+            [
+                a owl:Restriction ;
+                owl:onProperty prov:agentOfInfluence ;
+                owl:someValuesFrom [
+                    a owl:Restriction ;
+                    owl:hasValue :Publisher ;
+                    owl:onProperty prov:hadRole
+                ]
+            ]
+        )
+    ] ;
     prov:category "base" .
 
 :Publishership
@@ -209,11 +245,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromCol
+        owl:onProperty :hasFromRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToCol
+        owl:onProperty :hasFromCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -221,7 +257,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromRow
+        owl:onProperty :hasToCol
     ] ;
     prov:category "base" .
 
@@ -246,11 +282,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf :ProceduralPlan, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToLanguage
+        owl:onProperty :hasFromLanguage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromLanguage
+        owl:onProperty :hasToLanguage
     ] ;
     prov:category "base" .
 
@@ -270,13 +306,14 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
 :authorOf
     a owl:ObjectProperty ;
-    rdfs:subPropertyOf prov:contributed ;
-    owl:inverseOf :hasAuthor .
+    rdfs:subPropertyOf prov:contributed .
 
 :hasAuthor
     a owl:ObjectProperty ;
+    rdfs:domain :Document ;
     rdfs:range :Author ;
     rdfs:subPropertyOf prov:wasAttributedTo ;
+    owl:inverseOf :authorOf ;
     owl:propertyChainAxiom (:qualifiedAuthorship
         prov:agent
     ) .
@@ -358,7 +395,8 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:domain :OwnedEntity ;
     rdfs:label "owner"@en ;
     rdfs:range :Owner ;
-    rdfs:subPropertyOf prov:wasAttributedTo .
+    rdfs:subPropertyOf prov:wasAttributedTo ;
+    owl:inverseOf :ownerOf .
 
 :hasPublicationDateTime
     a owl:DatatypeProperty ;
@@ -372,7 +410,9 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:comment "An agent responsible for making the document publicly available. see also http://purl.org/dc/elements/1.1/publisher."@en ;
     rdfs:domain :Document ;
     rdfs:label "publisher"@en ;
-    rdfs:subPropertyOf prov:wasAttributedTo .
+    rdfs:range :Publisher ;
+    rdfs:subPropertyOf prov:wasAttributedTo ;
+    owl:inverseOf :publisherOf .
 
 :hasToCol
     a owl:DatatypeProperty ;
@@ -413,9 +453,27 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:comment "The empty list, with no items in it. If the rest of a list is nil then the list has no more items in it."@en ;
     rdfs:label "nil"@en .
 
+:ownerOf
+    a owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:contributed .
+
+:publisherOf
+    a owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:contributed .
+
 :qualifiedAuthorship
     a owl:ObjectProperty ;
     rdfs:range :Authorship ;
+    rdfs:subPropertyOf prov:qualifiedAttribution .
+
+:qualifiedOwnership
+    a owl:ObjectProperty ;
+    rdfs:range :Ownership ;
+    rdfs:subPropertyOf prov:qualifiedAttribution .
+
+:qualifiedPublishership
+    a owl:ObjectProperty ;
+    rdfs:range :Publishership ;
     rdfs:subPropertyOf prov:qualifiedAttribution .
 
 <http://purl.org/dc/terms/isPartOf>
