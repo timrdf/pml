@@ -14,6 +14,7 @@
     <owl:versionInfo xml:lang="en">version 3.0, Authors: Timothy Lebo, James P. McCusker, Paulo Pinheiro, Cynthia Chang, and Deborah L. McGuinness</owl:versionInfo>
   </owl:Ontology>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#Author">
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</order>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
     <rdf:type rdf:resource="http://www.w3.org/ns/prov#Role"/>
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Agent"/>
@@ -67,7 +68,7 @@
     <prov:category>base</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#Document">
-    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</order>
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8</order>
     <rdfs:comment xml:lang="en">A physical information container that is not actionable. They function like database.</rdfs:comment>
     <rdfs:label xml:lang="en">Document</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://provenanceweb.org/ns/pml#InformationContainer"/>
@@ -80,21 +81,21 @@
     <prov:category>base</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#DocumentFragment">
-    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</order>
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11</order>
     <rdfs:comment xml:lang="en">When a Document is treated as a one dimensional string, a fragment of the Document may be established with two offsets. The offsets are in units of characters (and not bytes because characters may be multiple bytes).</rdfs:comment>
     <rdfs:label xml:lang="en">Document Fragment</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://provenanceweb.org/ns/pml#InformationContainer"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#atLocation"/>
-        <owl:someValuesFrom rdf:resource="http://www.w3.org/ns/prov#Location"/>
+        <owl:onClass rdf:resource="http://provenanceweb.org/ns/pml#Document"/>
+        <owl:onProperty rdf:resource="http://purl.org/dc/terms/isPartOf"/>
+        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:onClass rdf:resource="http://provenanceweb.org/ns/pml#Document"/>
-        <owl:onProperty rdf:resource="http://purl.org/dc/terms/isPartOf"/>
-        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+        <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#atLocation"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/ns/prov#Location"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>base</prov:category>
@@ -112,6 +113,7 @@
     <prov:category>base</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#InferenceEngine">
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</order>
     <rdfs:comment xml:lang="en">An inference engine represents an engine that is able to produce a justification for a conclusion. Note that the phrase "inference engine" applies not only to reasoners but also to other systems like search engines which may justify their answers by direct assertion</rdfs:comment>
     <rdfs:label xml:lang="en">Inference Engine</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#SoftwareAgent"/>
@@ -136,7 +138,7 @@
     <prov:category>base</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#InformationContainer">
-    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</order>
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7</order>
     <rdfs:label>Information Container</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
     <prov:category>base</prov:category>
@@ -161,7 +163,7 @@
     <prov:category>base</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#Ontology">
-    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</order>
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10</order>
     <rdfs:comment xml:lang="en">An Ontology is a document that describes a vocabulary of terms and their correlations.</rdfs:comment>
     <rdfs:comment xml:lang="en">This is a proper superclass of owl:Ontology, since ontologies may be expressed in formalisms other than OWL.</rdfs:comment>
     <rdfs:label xml:lang="en">Ontology</rdfs:label>
@@ -180,6 +182,7 @@
     <prov:category>base</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#Owner">
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</order>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
     <rdf:type rdf:resource="http://www.w3.org/ns/prov#Role"/>
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Agent"/>
@@ -219,14 +222,14 @@
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Attribution"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:allValuesFrom rdf:resource="http://provenanceweb.org/ns/pml#Owner"/>
-        <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#agent"/>
+        <owl:allValuesFrom rdf:resource="http://provenanceweb.org/ns/pml#OwnedEntity"/>
+        <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#entity"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:allValuesFrom rdf:resource="http://provenanceweb.org/ns/pml#OwnedEntity"/>
-        <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#entity"/>
+        <owl:allValuesFrom rdf:resource="http://provenanceweb.org/ns/pml#Owner"/>
+        <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#agent"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>base</prov:category>
@@ -249,6 +252,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <prov:category>base</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#Publisher">
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</order>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
     <rdf:type rdf:resource="http://www.w3.org/ns/prov#Role"/>
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Agent"/>
@@ -300,7 +304,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromRow"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasToCol"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
@@ -312,12 +316,13 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasToCol"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromRow"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>base</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#Sensor">
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</order>
     <rdfs:comment xml:lang="en">any device that receives a signal or stimulus (as heat or pressure or light or motion etc.) and records it. (WordNet)</rdfs:comment>
     <rdfs:label xml:lang="en">Sensor</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Agent"/>
@@ -338,25 +343,26 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasToLanguage"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromLanguage"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromLanguage"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasToLanguage"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>base</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#WebService">
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</order>
     <rdfs:comment xml:lang="en">services implemented by software and available on the Web</rdfs:comment>
     <rdfs:label xml:lang="en">Web Service</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#SoftwareAgent"/>
     <prov:category>base</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#Webpage">
-    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</order>
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9</order>
     <rdfs:comment xml:lang="en">Collection of files and related resources accessible through the World Wide Web and organized under a particular domain name. Typical files found at a Web site are HTML documents with their associated graphic image files (GIF, JPEG, etc.), scripted programs (in Perl, CGI, Java, etc.), and similar resources. The site's files are usually accessed through hypertext or hyperlinks embedded in other files. A Web site may consist of a single HTML file, or it may comprise hundreds or thousands of related files. A Web site's usual starting point or opening page, called a home page, usually functions as a table of contents or index, with links to other sections of the site. Web sites are hosted on one or more Web servers, which transfer files to client computers or other servers that request them using the HTTP protocol. Although the term ?ite?implies a single physical location, the files and resources of a Web site may actually be spread among several servers in different geographic locations.(adapted from Britannica Concise Encyclopedia).</rdfs:comment>
     <rdfs:label xml:lang="en">Website</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://provenanceweb.org/ns/pml#Document"/>
