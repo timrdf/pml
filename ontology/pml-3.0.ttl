@@ -37,6 +37,7 @@
     prov:category "base" .
 
 :Authorship
+    :order 1.1 ;
     a owl:Class ;
     rdfs:subClassOf prov:Attribution, [
         a owl:Restriction ;
@@ -114,11 +115,11 @@
     rdfs:subClassOf prov:Entity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFormat
+        owl:onProperty :hasLanguage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasLanguage
+        owl:onProperty :hasFormat
     ] ;
     prov:category "base" .
 
@@ -194,15 +195,16 @@
     prov:category "base" .
 
 :Ownership
+    :order 2.1 ;
     a owl:Class ;
     rdfs:subClassOf prov:Attribution, [
         a owl:Restriction ;
-        owl:allValuesFrom :OwnedEntity ;
-        owl:onProperty prov:entity
-    ], [
-        a owl:Restriction ;
         owl:allValuesFrom :Owner ;
         owl:onProperty prov:agent
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom :OwnedEntity ;
+        owl:onProperty prov:entity
     ] ;
     prov:category "base" .
 
@@ -249,6 +251,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:category "base" .
 
 :Publishership
+    :order 3.1 ;
     a owl:Class ;
     rdfs:subClassOf prov:Attribution ;
     prov:category "base" .
@@ -260,7 +263,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToCol
+        owl:onProperty :hasFromCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -268,11 +271,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromCol
+        owl:onProperty :hasToRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToRow
+        owl:onProperty :hasToCol
     ] ;
     prov:category "base" .
 
@@ -298,11 +301,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf :ProceduralPlan, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToLanguage
+        owl:onProperty :hasFromLanguage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromLanguage
+        owl:onProperty :hasToLanguage
     ] ;
     prov:category "base" .
 
@@ -509,18 +512,21 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subPropertyOf prov:contributed .
 
 :qualifiedAuthorship
+    :order 1.2 ;
     a owl:ObjectProperty ;
     rdfs:range :Authorship ;
     rdfs:subPropertyOf prov:qualifiedAttribution ;
     prov:category "qualified" .
 
 :qualifiedOwnership
+    :order 2.2 ;
     a owl:ObjectProperty ;
     rdfs:range :Ownership ;
     rdfs:subPropertyOf prov:qualifiedAttribution ;
     prov:category "qualified" .
 
 :qualifiedPublishership
+    :order 3.2 ;
     a owl:ObjectProperty ;
     rdfs:range :Publishership ;
     rdfs:subPropertyOf prov:qualifiedAttribution ;
