@@ -1,9 +1,11 @@
 Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
 Prefix: owl: <http://www.w3.org/2002/07/owl#>
+Prefix: pml: <http://provenanceweb.org/ns/pml#>
+Prefix: prov: <http://www.w3.org/ns/prov#>
 Prefix: xml: <http://www.w3.org/XML/1998/namespace>
 Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+Prefix: dc: <http://purl.org/dc/elements/1.1/>
 Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-Prefix: pml: <http://provenanceweb.org/ns/pml#>
 Prefix: skos: <http://www.w3.org/2004/02/skos/core#>
 
 
@@ -21,22 +23,22 @@ Annotations:
 AnnotationProperty: owl:versionInfo
 
     
-AnnotationProperty: <http://www.w3.org/ns/prov#category>
-
-    
-AnnotationProperty: <http://www.w3.org/ns/prov#editorialNote>
+AnnotationProperty: prov:category
 
     
 AnnotationProperty: rdfs:label
 
     
+AnnotationProperty: prov:editorialNote
+
+    
 AnnotationProperty: rdfs:comment
 
     
-Datatype: rdf:PlainLiteral
+Datatype: xsd:anyURI
 
     
-Datatype: xsd:anyURI
+Datatype: rdf:PlainLiteral
 
     
 Datatype: xsd:int
@@ -54,685 +56,684 @@ Datatype: xsd:double
 Datatype: rdfs:Literal
 
     
-ObjectProperty: <http://provenanceweb.org/ns/pml#authorOf>
-
-    SubPropertyOf: 
-        <http://www.w3.org/ns/prov#contributed>
-    
-    InverseOf: 
-        <http://provenanceweb.org/ns/pml#hasAuthor>
-    
-    
-ObjectProperty: <http://provenanceweb.org/ns/pml#hasLanguage>
+ObjectProperty: pml:hasFormat
 
     Annotations: 
-        rdfs:comment "it specifies the language used to encode information, e.g. \"Tony's specialty is shellfish\" is encoded in English. This property may also link to a registered formal language such as KIF."@en,
-        rdfs:label "language"@en
+        rdfs:label "format"@en,
+        rdfs:comment "it specifies the format of information, e.g. \"pdf\", \"ppt\" (Power Point). It is mainly used to determine the appropriate application for process/display purpose."@en
     
     Domain: 
-        <http://provenanceweb.org/ns/pml#Information>
+        pml:Information
     
     Range: 
-        <http://provenanceweb.org/ns/pml#Language>
+        pml:Format
     
     
-ObjectProperty: <http://www.w3.org/ns/prov#atLocation>
+ObjectProperty: prov:atLocation
 
     
-ObjectProperty: <http://provenanceweb.org/ns/pml#hasDescription>
-
-    Annotations: 
-        rdfs:comment "The detailed description of the identified thing, e.g. a web page describing KIF language. An identified thing may have zero to many descriptions that could be written in different languages, format, and etc."@en,
-        rdfs:label "description"@en
-    
-    Range: 
-        <http://provenanceweb.org/ns/pml#Information>
-    
-    
-ObjectProperty: <http://www.w3.org/ns/prov#wasAttributedTo>
-
-    
-ObjectProperty: <http://provenanceweb.org/ns/pml#qualifiedAuthorship>
+ObjectProperty: pml:hasAuthor
 
     SubPropertyOf: 
-        <http://www.w3.org/ns/prov#qualifiedAttribution>
-    
-    Range: 
-        <http://provenanceweb.org/ns/pml#Authorship>
-    
-    
-ObjectProperty: <http://www.w3.org/ns/prov#entity>
-
-    
-ObjectProperty: <http://www.w3.org/ns/prov#agent>
-
-    
-ObjectProperty: <http://provenanceweb.org/ns/pml#hasToLanguage>
-
-    Annotations: 
-        rdfs:comment "language used by the target."@en,
-        rdfs:label "to-language"@en
-    
-    Domain: 
-        <http://provenanceweb.org/ns/pml#TranslationMethod>
-    
-    Range: 
-        <http://provenanceweb.org/ns/pml#Language>
-    
-    
-ObjectProperty: <http://purl.org/dc/terms/isPartOf>
-
-    
-ObjectProperty: <http://www.w3.org/ns/prov#qualifiedAttribution>
-
-    
-ObjectProperty: <http://www.w3.org/ns/prov#hadRole>
-
-    
-ObjectProperty: <http://www.w3.org/ns/prov#contributed>
-
-    
-ObjectProperty: <http://provenanceweb.org/ns/pml#hasAuthor>
-
-    SubPropertyOf: 
-        <http://www.w3.org/ns/prov#wasAttributedTo>
+        prov:wasAttributedTo
     
     SubPropertyChain: 
-        <http://provenanceweb.org/ns/pml#qualifiedAuthorship> o <http://www.w3.org/ns/prov#agent>
+        pml:qualifiedAuthorship o prov:agent
     
     Range: 
-        <http://provenanceweb.org/ns/pml#Author>
+        pml:Author
     
     InverseOf: 
-        <http://provenanceweb.org/ns/pml#authorOf>
+        pml:authorOf
     
     
-ObjectProperty: <http://provenanceweb.org/ns/pml#hasFormat>
-
-    Annotations: 
-        rdfs:comment "it specifies the format of information, e.g. \"pdf\", \"ppt\" (Power Point). It is mainly used to determine the appropriate application for process/display purpose."@en,
-        rdfs:label "format"@en
-    
-    Domain: 
-        <http://provenanceweb.org/ns/pml#Information>
-    
-    Range: 
-        <http://provenanceweb.org/ns/pml#Format>
-    
-    
-ObjectProperty: <http://provenanceweb.org/ns/pml#hasOwner>
-
-    Annotations: 
-        rdfs:comment "the owner of a thing."@en,
-        rdfs:label "owner"@en
-    
-    SubPropertyOf: 
-        <http://www.w3.org/ns/prov#wasAttributedTo>
-    
-    Domain: 
-        <http://provenanceweb.org/ns/pml#OwnedEntity>
-    
-    Range: 
-        <http://provenanceweb.org/ns/pml#Owner>
-    
-    
-ObjectProperty: <http://provenanceweb.org/ns/pml#hasFromLanguage>
-
-    Annotations: 
-        rdfs:comment "language used by the source."@en,
-        rdfs:label "from-language"@en
-    
-    Domain: 
-        <http://provenanceweb.org/ns/pml#TranslationMethod>
-    
-    Range: 
-        <http://provenanceweb.org/ns/pml#Language>
-    
-    
-ObjectProperty: <http://www.w3.org/ns/prov#agentOfInfluence>
-
-    
-ObjectProperty: <http://provenanceweb.org/ns/pml#hasPublisher>
+ObjectProperty: pml:hasPublisher
 
     Annotations: 
         rdfs:comment "An agent responsible for making the document publicly available. see also http://purl.org/dc/elements/1.1/publisher."@en,
         rdfs:label "publisher"@en
     
     SubPropertyOf: 
-        <http://www.w3.org/ns/prov#wasAttributedTo>
+        prov:wasAttributedTo
     
     Domain: 
-        <http://provenanceweb.org/ns/pml#Document>
+        pml:Document
     
     
-DataProperty: <http://provenanceweb.org/ns/pml#hasToRow>
+ObjectProperty: prov:wasAttributedTo
+
+    
+ObjectProperty: pml:hasOwner
 
     Annotations: 
-        rdfs:comment "The to row of the fragment (inclusive, index based on 1)"@en,
-        rdfs:label "to-row"@en
+        rdfs:label "owner"@en,
+        rdfs:comment "the owner of a thing."@en
+    
+    SubPropertyOf: 
+        prov:wasAttributedTo
     
     Domain: 
-        <http://provenanceweb.org/ns/pml#RowColLocation>
+        pml:OwnedEntity
+    
+    Range: 
+        pml:Owner
+    
+    
+ObjectProperty: prov:entity
+
+    
+ObjectProperty: pml:hasDescription
+
+    Annotations: 
+        rdfs:comment "The detailed description of the identified thing, e.g. a web page describing KIF language. An identified thing may have zero to many descriptions that could be written in different languages, format, and etc."@en,
+        rdfs:label "description"@en
+    
+    Range: 
+        pml:Information
+    
+    
+ObjectProperty: prov:agent
+
+    
+ObjectProperty: pml:qualifiedAuthorship
+
+    SubPropertyOf: 
+        prov:qualifiedAttribution
+    
+    Range: 
+        pml:Authorship
+    
+    
+ObjectProperty: <http://purl.org/dc/terms/isPartOf>
+
+    
+ObjectProperty: prov:hadRole
+
+    
+ObjectProperty: prov:qualifiedAttribution
+
+    
+ObjectProperty: pml:hasLanguage
+
+    Annotations: 
+        rdfs:comment "it specifies the language used to encode information, e.g. \"Tony's specialty is shellfish\" is encoded in English. This property may also link to a registered formal language such as KIF."@en,
+        rdfs:label "language"@en
+    
+    Domain: 
+        pml:Information
+    
+    Range: 
+        pml:Language
+    
+    
+ObjectProperty: prov:contributed
+
+    
+ObjectProperty: pml:hasFromLanguage
+
+    Annotations: 
+        rdfs:comment "language used by the source."@en,
+        rdfs:label "from-language"@en
+    
+    Domain: 
+        pml:TranslationMethod
+    
+    Range: 
+        pml:Language
+    
+    
+ObjectProperty: pml:hasToLanguage
+
+    Annotations: 
+        rdfs:comment "language used by the target."@en,
+        rdfs:label "to-language"@en
+    
+    Domain: 
+        pml:TranslationMethod
+    
+    Range: 
+        pml:Language
+    
+    
+ObjectProperty: pml:authorOf
+
+    SubPropertyOf: 
+        prov:contributed
+    
+    InverseOf: 
+        pml:hasAuthor
+    
+    
+ObjectProperty: prov:agentOfInfluence
+
+    
+DataProperty: pml:hasPublicationDateTime
+
+    Annotations: 
+        rdfs:label "published in"@en,
+        rdfs:comment "When the publication is published."@en
+    
+    Range: 
+        xsd:dateTime
+    
+    SubPropertyOf: 
+        prov:generatedAtTime
+    
+    
+DataProperty: pml:hasFromCol
+
+    Annotations: 
+        rdfs:label "from-column"@en,
+        rdfs:comment "The from column of the fragment (inclusive, index based on 1)"@en
+    
+    Domain: 
+        pml:RowColLocation
     
     Range: 
         xsd:int
     
     
-DataProperty: <http://provenanceweb.org/ns/pml#hasEncoding>
-
-    Annotations: 
-        rdfs:comment "The content encoding, e.g. \"base64\". The value of this property helps applications determine the decoder of the raw string."@en,
-        rdfs:label "encoding"@en
-    
-    Domain: 
-        <http://www.w3.org/ns/prov#Entity>
-    
-    Range: 
-        xsd:string
-    
-    
-DataProperty: <http://provenanceweb.org/ns/pml#hasToOffset>
-
-    Annotations: 
-        rdfs:comment "The to offset of the fragment (exclusive, index based on 0)"@en,
-        rdfs:label "to-offset"@en
-    
-    Domain: 
-        <http://provenanceweb.org/ns/pml#OffsetPosition>
-    
-    Range: 
-        xsd:int
-    
-    
-DataProperty: <http://provenanceweb.org/ns/pml#hasFromCol>
-
-    Annotations: 
-        rdfs:comment "The from column of the fragment (inclusive, index based on 1)"@en,
-        rdfs:label "from-column"@en
-    
-    Domain: 
-        <http://provenanceweb.org/ns/pml#RowColLocation>
-    
-    Range: 
-        xsd:int
-    
-    
-DataProperty: <http://provenanceweb.org/ns/pml#hasModificationDateTime>
+DataProperty: pml:hasModificationDateTime
 
     Annotations: 
         rdfs:comment "When the artifact has been modified."@en,
         rdfs:label "last modified"@en
     
     Domain: 
-        <http://www.w3.org/ns/prov#Bundle>
+        prov:Bundle
     
     Range: 
         xsd:dateTime
     
     SubPropertyOf: 
-        <http://www.w3.org/ns/prov#generatedAtTime>
+        prov:generatedAtTime
     
     
-DataProperty: <http://provenanceweb.org/ns/pml#hasCreationDateTime>
+DataProperty: pml:hasToRow
 
     Annotations: 
-        rdfs:comment "When the artifact has been first created."@en,
-        rdfs:label "created"@en
+        rdfs:label "to-row"@en,
+        rdfs:comment "The to row of the fragment (inclusive, index based on 1)"@en
     
     Domain: 
-        <http://www.w3.org/ns/prov#Bundle>
-    
-    Range: 
-        xsd:dateTime
-    
-    SubPropertyOf: 
-        <http://www.w3.org/ns/prov#generatedAtTime>
-    
-    
-DataProperty: <http://www.w3.org/ns/prov#generatedAtTime>
-
-    
-DataProperty: <http://provenanceweb.org/ns/pml#hasFromOffset>
-
-    Annotations: 
-        rdfs:comment "The from offset of the fragment (inclusive, index based on 0)."@en,
-        rdfs:label "from-offset"@en
-    
-    Domain: 
-        <http://provenanceweb.org/ns/pml#OffsetPosition>
+        pml:RowColLocation
     
     Range: 
         xsd:int
     
     
-DataProperty: <http://provenanceweb.org/ns/pml#hasFromRow>
+DataProperty: pml:hasEncoding
 
     Annotations: 
-        rdfs:comment "The from row of the fragment (inclusive, index based on 1)"@en,
-        rdfs:label "from-row"@en
+        rdfs:comment "The content encoding, e.g. \"base64\". The value of this property helps applications determine the decoder of the raw string."@en,
+        rdfs:label "encoding"@en
     
     Domain: 
-        <http://provenanceweb.org/ns/pml#RowColLocation>
-    
-    Range: 
-        xsd:int
-    
-    
-DataProperty: <http://provenanceweb.org/ns/pml#hasPublicationDateTime>
-
-    Annotations: 
-        rdfs:comment "When the publication is published."@en,
-        rdfs:label "published in"@en
-    
-    Range: 
-        xsd:dateTime
-    
-    SubPropertyOf: 
-        <http://www.w3.org/ns/prov#generatedAtTime>
-    
-    
-DataProperty: <http://provenanceweb.org/ns/pml#hasVersion>
-
-    Annotations: 
-        rdfs:comment "the version number."@en,
-        rdfs:label "version"@en
+        prov:Entity
     
     Range: 
         xsd:string
     
     
-DataProperty: <http://provenanceweb.org/ns/pml#hasToCol>
+DataProperty: pml:hasToOffset
+
+    Annotations: 
+        rdfs:comment "The to offset of the fragment (exclusive, index based on 0)"@en,
+        rdfs:label "to-offset"@en
+    
+    Domain: 
+        pml:OffsetPosition
+    
+    Range: 
+        xsd:int
+    
+    
+DataProperty: prov:generatedAtTime
+
+    
+DataProperty: pml:hasFromOffset
+
+    Annotations: 
+        rdfs:label "from-offset"@en,
+        rdfs:comment "The from offset of the fragment (inclusive, index based on 0)."@en
+    
+    Domain: 
+        pml:OffsetPosition
+    
+    Range: 
+        xsd:int
+    
+    
+DataProperty: pml:hasToCol
 
     Annotations: 
         rdfs:comment "The to column of the fragment (inclusive, index based on 1)"@en,
         rdfs:label "to-column"@en
     
     Domain: 
-        <http://provenanceweb.org/ns/pml#RowColLocation>
+        pml:RowColLocation
     
     Range: 
         xsd:int
     
     
+DataProperty: pml:hasCreationDateTime
+
+    Annotations: 
+        rdfs:label "created"@en,
+        rdfs:comment "When the artifact has been first created."@en
+    
+    Domain: 
+        prov:Bundle
+    
+    Range: 
+        xsd:dateTime
+    
+    SubPropertyOf: 
+        prov:generatedAtTime
+    
+    
+DataProperty: pml:hasVersion
+
+    Annotations: 
+        rdfs:label "version"@en,
+        rdfs:comment "the version number."@en
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: pml:hasFromRow
+
+    Annotations: 
+        rdfs:comment "The from row of the fragment (inclusive, index based on 1)"@en,
+        rdfs:label "from-row"@en
+    
+    Domain: 
+        pml:RowColLocation
+    
+    Range: 
+        xsd:int
+    
+    
+Class: prov:Location
+
+    
 Class: owl:Thing
 
     
-Class: <http://www.w3.org/ns/prov#Location>
-
-    
-Class: <http://provenanceweb.org/ns/pml#Publishership>
+Class: pml:Author
 
     Annotations: 
-        <http://www.w3.org/ns/prov#category> "base"^^rdf:PlainLiteral,
-        <http://www.w3.org/ns/prov#category> "base"
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#Attribution>
-    
-    
-Class: <http://provenanceweb.org/ns/pml#Webpage>
-
-    Annotations: 
-        rdfs:comment "Collection of files and related resources accessible through the World Wide Web and organized under a particular domain name. Typical files found at a Web site are HTML documents with their associated graphic image files (GIF, JPEG, etc.), scripted programs (in Perl, CGI, Java, etc.), and similar resources. The site's files are usually accessed through hypertext or hyperlinks embedded in other files. A Web site may consist of a single HTML file, or it may comprise hundreds or thousands of related files. A Web site's usual starting point or opening page, called a home page, usually functions as a table of contents or index, with links to other sections of the site. Web sites are hosted on one or more Web servers, which transfer files to client computers or other servers that request them using the HTTP protocol. Although the term ?ite?implies a single physical location, the files and resources of a Web site may actually be spread among several servers in different geographic locations.(adapted from Britannica Concise Encyclopedia)."@en,
-        rdfs:label "Website"@en,
-        <http://www.w3.org/ns/prov#category> "base"^^rdf:PlainLiteral
-    
-    SubClassOf: 
-        <http://provenanceweb.org/ns/pml#Document>
-    
-    
-Class: <http://provenanceweb.org/ns/pml#TranslationMethod>
-
-    Annotations: 
-        rdfs:comment "Translation rules are special kinds of inference rules which are used to translate expressions from one language to the other."@en,
-        rdfs:label "Translation Method"@en,
-        <http://www.w3.org/ns/prov#category> "base"
-    
-    SubClassOf: 
-        <http://provenanceweb.org/ns/pml#ProceduralPlan>,
-        <http://provenanceweb.org/ns/pml#hasFromLanguage> max 1 owl:Thing,
-        <http://provenanceweb.org/ns/pml#hasToLanguage> max 1 owl:Thing
-    
-    
-Class: <http://provenanceweb.org/ns/pml#Author>
-
-    Annotations: 
-        <http://www.w3.org/ns/prov#category> "base"
+        prov:category "base"
     
     EquivalentTo: 
-        (<http://provenanceweb.org/ns/pml#authorOf> some owl:Thing)
-         or (<http://www.w3.org/ns/prov#agentOfInfluence> some (<http://www.w3.org/ns/prov#hadRole> value <http://provenanceweb.org/ns/pml#Author>))
+        (pml:authorOf some owl:Thing)
+         or (prov:agentOfInfluence some (prov:hadRole value pml:Author))
     
     SubClassOf: 
-        <http://www.w3.org/ns/prov#Agent>
+        prov:Agent
     
     
-Class: <http://provenanceweb.org/ns/pml#DeclarativeRule>
+Class: pml:Source
 
     Annotations: 
-        rdfs:comment "A declarative inference rule can be fully specified by patterns for premises and its conclusion.   For example, Modus Ponens, can be specified by the premise patterns ?A,  ?A -&gt; ?B and the conclusion pattern ?B."@en,
+        prov:category "base",
+        rdfs:comment "A source refers to the source of information. It is the place where we obtain information."@en,
+        rdfs:label "Source"@en
+    
+    SubClassOf: 
+        prov:Entity
+    
+    
+Class: pml:EmptyInformation
+
+    Annotations: 
+        prov:category "base",
+        rdfs:label "Empty Information"@en,
+        rdfs:comment "An instance of information indicating no conclusion has been derived, i.e. empty set of statements. In this case, the rawstring may contain some english message indicating no answer."@en
+    
+    SubClassOf: 
+        pml:Information
+    
+    
+Class: pml:DeclarativeRule
+
+    Annotations: 
         rdfs:label "Declarative Rule"@en,
-        <http://www.w3.org/ns/prov#category> "base"
+        prov:category "base",
+        rdfs:comment "A declarative inference rule can be fully specified by patterns for premises and its conclusion.   For example, Modus Ponens, can be specified by the premise patterns ?A,  ?A -&gt; ?B and the conclusion pattern ?B."@en
     
     SubClassOf: 
-        <http://www.w3.org/ns/prov#Plan>
+        prov:Plan
     
     
-Class: <http://provenanceweb.org/ns/pml#Publisher>
+Class: pml:Ownership
 
     Annotations: 
-        <http://www.w3.org/ns/prov#category> "base"
+        prov:category "base"
     
     SubClassOf: 
-        <http://www.w3.org/ns/prov#Agent>
+        prov:Attribution,
+        prov:agent only pml:Owner,
+        prov:entity only pml:OwnedEntity
     
     
-Class: <http://www.w3.org/ns/prov#Bundle>
+Class: prov:Bundle
 
     
-Class: <http://provenanceweb.org/ns/pml#Information>
+Class: pml:Publisher
 
     Annotations: 
-        rdfs:comment "A piece of information, e.g. a formula in logic languages, and an utterance/word/phrase/sentence/paragraph/article in natural language. It is used as a range of iw:hasContent. This class and two of its sub-classes enable users to specify four types of semantics  (i) Information Annotation - annotate just the format and language used by the content of information; (ii) Information With Content - additionally provide the content of information that is materialized as string without loading a web page; (iii) Information external - additionally provide the URL for fetching the content; and (iv) Information - with every thing including the content string and URL. The second semantics is especially useful when the content is short or mainly used locally. For example, when learning by instruction, the utterances used for learning can be stored within the PML document without being externally stored. By assigning URI reference to information, we can even use owl:sameAs to capture the equivalence of two pieces of information."@en,
-        rdfs:label "Information"@en,
-        <http://www.w3.org/ns/prov#category> "base"
+        prov:category "base"
     
     SubClassOf: 
-        <http://www.w3.org/ns/prov#Entity>,
-        <http://provenanceweb.org/ns/pml#hasFormat> max 1 owl:Thing,
-        <http://provenanceweb.org/ns/pml#hasLanguage> max 1 owl:Thing
+        prov:Agent
     
     
-Class: <http://provenanceweb.org/ns/pml#InferenceEngine>
+Class: pml:Owner
 
     Annotations: 
-        rdfs:comment "An inference engine represents an engine that is able to produce a justification for a conclusion. Note that the phrase \"inference engine\" applies not only to reasoners but also to other systems like search engines which may justify their answers by direct assertion"@en,
-        rdfs:label "Inference Engine"@en,
-        <http://www.w3.org/ns/prov#category> "base"
+        prov:category "base"
     
     SubClassOf: 
-        <http://www.w3.org/ns/prov#SoftwareAgent>
+        prov:Agent
     
     
-Class: <http://provenanceweb.org/ns/pml#Language>
-
-    Annotations: 
-        rdfs:comment "The language used to encode the raw string, e.g. English, Knowledge Interchange Format (KIF) , and N3. Languages are in general registered at the core IWRegistry."@en,
-        rdfs:label "Language"@en,
-        <http://www.w3.org/ns/prov#category> "base"
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#Entity>
-    
-    
-Class: <http://provenanceweb.org/ns/pml#Owner>
-
-    Annotations: 
-        <http://www.w3.org/ns/prov#category> "base"
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#Agent>
-    
-    
-Class: <http://provenanceweb.org/ns/pml#OwnedEntity>
-
-    Annotations: 
-        <http://www.w3.org/ns/prov#category> "base"
-    
-    EquivalentTo: 
-        <http://provenanceweb.org/ns/pml#hasOwner> min 1 <http://provenanceweb.org/ns/pml#Owner>
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#Entity>
-    
-    
-Class: <http://provenanceweb.org/ns/pml#WebService>
-
-    Annotations: 
-        rdfs:comment "services implemented by software and available on the Web"@en,
-        rdfs:label "Web Service"@en,
-        <http://www.w3.org/ns/prov#category> "base"
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#SoftwareAgent>
-    
-    
-Class: <http://provenanceweb.org/ns/pml#Position>
-
-    Annotations: 
-        <http://www.w3.org/ns/prov#category> "base"
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#Location>,
-        <http://provenanceweb.org/ns/pml#hasFromOffset> exactly 1 rdfs:Literal
-    
-    
-Class: <http://www.w3.org/ns/prov#Activity>
-
-    
-Class: <http://www.w3.org/ns/prov#Collection>
-
-    
-Class: <http://provenanceweb.org/ns/pml#InformationContainer>
-
-    Annotations: 
-        rdfs:label "Information Container",
-        <http://www.w3.org/ns/prov#category> "base",
-        <http://www.w3.org/ns/prov#editorialNote> "Do we mean frbr:Item or frbr:Manifestation?"
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#Entity>
-    
-    
-Class: <http://provenanceweb.org/ns/pml#ProceduralPlan>
+Class: pml:ProceduralPlan
 
     Annotations: 
         rdfs:comment "A method inference rule, uses patterns for premises and its conclusions, and additionally contains a method that must be applied.  In addition, 
 the conclusion needs to be a valid output of the method, using the premises.  For example, procedural attachment is a common encoding form for method rules."@en,
-        rdfs:label "Procedural Plan"@en,
-        <http://www.w3.org/ns/prov#category> "base"
+        prov:category "base",
+        rdfs:label "Procedural Plan"@en
     
     SubClassOf: 
-        <http://www.w3.org/ns/prov#Plan>
+        prov:Plan
     
     
-Class: <http://provenanceweb.org/ns/pml#Authorship>
+Class: pml:TranslationMethod
 
     Annotations: 
-        <http://www.w3.org/ns/prov#category> "base"
+        prov:category "base",
+        rdfs:comment "Translation rules are special kinds of inference rules which are used to translate expressions from one language to the other."@en,
+        rdfs:label "Translation Method"@en
     
     SubClassOf: 
-        <http://www.w3.org/ns/prov#Attribution>,
-        <http://www.w3.org/ns/prov#atLocation> max 1 <http://provenanceweb.org/ns/pml#Position>
+        pml:hasFromLanguage max 1 owl:Thing,
+        pml:ProceduralPlan,
+        pml:hasToLanguage max 1 owl:Thing
     
     
-Class: <http://provenanceweb.org/ns/pml#Format>
+Class: pml:Authorship
 
     Annotations: 
-        rdfs:comment "A plan for the organization and arrangement of specified information. Examples: binary, text,  pdf, etc."@en,
-        rdfs:label "Format"@en,
-        <http://www.w3.org/ns/prov#category> "base"
+        prov:category "base"
     
     SubClassOf: 
-        <http://www.w3.org/ns/prov#Entity>
+        prov:atLocation max 1 pml:Position,
+        prov:Attribution
     
     
-Class: <http://provenanceweb.org/ns/pml#EmptyInformation>
+Class: prov:Activity
+
+    
+Class: prov:Collection
+
+    
+Class: pml:OffsetPosition
 
     Annotations: 
-        rdfs:comment "An instance of information indicating no conclusion has been derived, i.e. empty set of statements. In this case, the rawstring may contain some english message indicating no answer."@en,
-        rdfs:label "Empty Information"@en,
-        <http://www.w3.org/ns/prov#category> "base"
-    
-    SubClassOf: 
-        <http://provenanceweb.org/ns/pml#Information>
-    
-    
-Class: <http://www.w3.org/ns/prov#AgentInfluence>
-
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#agent> exactly 1 <http://www.w3.org/ns/prov#Agent>
-    
-    
-Class: <http://provenanceweb.org/ns/pml#Document>
-
-    Annotations: 
-        rdfs:comment "A physical information container that is not actionable. They function like database."@en,
-        rdfs:label "Document"@en,
-        <http://www.w3.org/ns/prov#category> "base"
-    
-    SubClassOf: 
-        <http://provenanceweb.org/ns/pml#InformationContainer>,
-        <http://provenanceweb.org/ns/pml#hasVersion> max 1 rdfs:Literal
-    
-    
-Class: <http://provenanceweb.org/ns/pml#RowColLocation>
-
-    Annotations: 
-        rdfs:label "Row Column Location"@en,
-        <http://www.w3.org/ns/prov#category> "base"
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#Location>,
-        <http://provenanceweb.org/ns/pml#hasFromCol> exactly 1 rdfs:Literal,
-        <http://provenanceweb.org/ns/pml#hasFromRow> exactly 1 rdfs:Literal,
-        <http://provenanceweb.org/ns/pml#hasToCol> exactly 1 rdfs:Literal,
-        <http://provenanceweb.org/ns/pml#hasToRow> exactly 1 rdfs:Literal
-    
-    
-Class: <http://provenanceweb.org/ns/pml#Source>
-
-    Annotations: 
-        rdfs:comment "A source refers to the source of information. It is the place where we obtain information."@en,
-        rdfs:label "Source"@en,
-        <http://www.w3.org/ns/prov#category> "base"
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#Entity>
-    
-    
-Class: <http://www.w3.org/ns/prov#Entity>
-
-    
-Class: <http://provenanceweb.org/ns/pml#Sensor>
-
-    Annotations: 
-        rdfs:comment "any device that receives a signal or stimulus (as heat or pressure or light or motion etc.) and records it. (WordNet)"@en,
-        rdfs:label "Sensor"@en,
-        <http://www.w3.org/ns/prov#category> "base"
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#Agent>
-    
-    
-Class: <http://www.w3.org/ns/prov#Role>
-
-    
-Class: <http://www.w3.org/ns/prov#SoftwareAgent>
-
-    
-Class: <http://provenanceweb.org/ns/pml#DocumentFragment>
-
-    Annotations: 
-        rdfs:comment "When a Document is treated as a one dimensional string, a fragment of the Document may be established with two offsets. The offsets are in units of characters (and not bytes because characters may be multiple bytes)."@en,
-        rdfs:label "Document Fragment"@en,
-        <http://www.w3.org/ns/prov#category> "base"
-    
-    SubClassOf: 
-        <http://provenanceweb.org/ns/pml#InformationContainer>,
-        <http://www.w3.org/ns/prov#atLocation> some <http://www.w3.org/ns/prov#Location>,
-        <http://purl.org/dc/terms/isPartOf> exactly 1 <http://provenanceweb.org/ns/pml#Document>
-    
-    
-Class: <http://provenanceweb.org/ns/pml#Ownership>
-
-    Annotations: 
-        <http://www.w3.org/ns/prov#category> "base"
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#Attribution>,
-        <http://www.w3.org/ns/prov#agent> only <http://provenanceweb.org/ns/pml#Owner>,
-        <http://www.w3.org/ns/prov#entity> only <http://provenanceweb.org/ns/pml#OwnedEntity>
-    
-    
-Class: <http://provenanceweb.org/ns/pml#OffsetPosition>
-
-    Annotations: 
+        prov:category "base",
         rdfs:comment ""@en,
-        rdfs:label "Offset Position"@en,
-        <http://www.w3.org/ns/prov#category> "base"
+        rdfs:label "Offset Position"@en
     
     SubClassOf: 
-        <http://provenanceweb.org/ns/pml#Position>,
-        <http://provenanceweb.org/ns/pml#hasToOffset> exactly 1 rdfs:Literal
+        pml:Position,
+        pml:hasToOffset exactly 1 rdfs:Literal
     
     
-Class: <http://www.w3.org/ns/prov#Plan>
-
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#Entity>
-    
-    
-Class: <http://www.w3.org/ns/prov#Attribution>
-
-    
-Class: <http://www.w3.org/ns/prov#Agent>
-
-    
-Class: <http://provenanceweb.org/ns/pml#Ontology>
+Class: pml:Ontology
 
     Annotations: 
         rdfs:comment "An Ontology is a document that describes a vocabulary of terms and their correlations."@en,
-        rdfs:comment "This is a proper superclass of owl:Ontology, since ontologies may be expressed in formalisms other than OWL."@en,
+        prov:category "base",
         rdfs:label "Ontology"@en,
-        <http://www.w3.org/ns/prov#category> "base"
+        rdfs:comment "This is a proper superclass of owl:Ontology, since ontologies may be expressed in formalisms other than OWL."@en
     
     SubClassOf: 
-        <http://provenanceweb.org/ns/pml#Document>
+        pml:Document
     
     
-Individual: <http://provenanceweb.org/ns/pml#Source>
+Class: pml:OwnedEntity
 
     Annotations: 
-        rdfs:comment "A source refers to the source of information. It is the place where we obtain information."@en,
-        rdfs:label "Source"@en,
-        <http://www.w3.org/ns/prov#category> "base"
+        prov:category "base"
     
-    Types: 
-        <http://www.w3.org/ns/prov#Role>
+    EquivalentTo: 
+        pml:hasOwner min 1 pml:Owner
+    
+    SubClassOf: 
+        prov:Entity
     
     
-Individual: <http://provenanceweb.org/ns/pml#Author>
+Class: pml:Language
 
     Annotations: 
-        <http://www.w3.org/ns/prov#category> "base"
+        prov:category "base",
+        rdfs:label "Language"@en,
+        rdfs:comment "The language used to encode the raw string, e.g. English, Knowledge Interchange Format (KIF) , and N3. Languages are in general registered at the core IWRegistry."@en
     
-    Types: 
-        <http://www.w3.org/ns/prov#Role>
+    SubClassOf: 
+        prov:Entity
     
     
-Individual: <http://provenanceweb.org/ns/pml#Publisher>
+Class: pml:DocumentFragment
 
     Annotations: 
-        <http://www.w3.org/ns/prov#category> "base"
+        rdfs:label "Document Fragment"@en,
+        prov:category "base",
+        rdfs:comment "When a Document is treated as a one dimensional string, a fragment of the Document may be established with two offsets. The offsets are in units of characters (and not bytes because characters may be multiple bytes)."@en
     
-    Types: 
-        <http://www.w3.org/ns/prov#Role>
+    SubClassOf: 
+        prov:atLocation some prov:Location,
+        pml:InformationContainer,
+        <http://purl.org/dc/terms/isPartOf> exactly 1 pml:Document
     
     
-Individual: <http://provenanceweb.org/ns/pml#Owner>
+Class: pml:RowColLocation
 
     Annotations: 
-        <http://www.w3.org/ns/prov#category> "base"
+        rdfs:label "Row Column Location"@en,
+        prov:category "base"
+    
+    SubClassOf: 
+        prov:Location,
+        pml:hasFromRow exactly 1 rdfs:Literal,
+        pml:hasToRow exactly 1 rdfs:Literal,
+        pml:hasFromCol exactly 1 rdfs:Literal,
+        pml:hasToCol exactly 1 rdfs:Literal
+    
+    
+Class: prov:AgentInfluence
+
+    SubClassOf: 
+        prov:agent exactly 1 prov:Agent
+    
+    
+Class: pml:InferenceEngine
+
+    Annotations: 
+        rdfs:comment "An inference engine represents an engine that is able to produce a justification for a conclusion. Note that the phrase \"inference engine\" applies not only to reasoners but also to other systems like search engines which may justify their answers by direct assertion"@en,
+        prov:category "base",
+        rdfs:label "Inference Engine"@en
+    
+    SubClassOf: 
+        prov:SoftwareAgent
+    
+    
+Class: pml:Sensor
+
+    Annotations: 
+        prov:category "base",
+        rdfs:comment "any device that receives a signal or stimulus (as heat or pressure or light or motion etc.) and records it. (WordNet)"@en,
+        rdfs:label "Sensor"@en
+    
+    SubClassOf: 
+        prov:Agent
+    
+    
+Class: prov:Entity
+
+    
+Class: pml:Webpage
+
+    Annotations: 
+        prov:category "base",
+        rdfs:label "Website"@en,
+        rdfs:comment "Collection of files and related resources accessible through the World Wide Web and organized under a particular domain name. Typical files found at a Web site are HTML documents with their associated graphic image files (GIF, JPEG, etc.), scripted programs (in Perl, CGI, Java, etc.), and similar resources. The site's files are usually accessed through hypertext or hyperlinks embedded in other files. A Web site may consist of a single HTML file, or it may comprise hundreds or thousands of related files. A Web site's usual starting point or opening page, called a home page, usually functions as a table of contents or index, with links to other sections of the site. Web sites are hosted on one or more Web servers, which transfer files to client computers or other servers that request them using the HTTP protocol. Although the term ?ite?implies a single physical location, the files and resources of a Web site may actually be spread among several servers in different geographic locations.(adapted from Britannica Concise Encyclopedia)."@en
+    
+    SubClassOf: 
+        pml:Document
+    
+    
+Class: prov:SoftwareAgent
+
+    
+Class: prov:Role
+
+    
+Class: pml:Document
+
+    Annotations: 
+        prov:category "base",
+        rdfs:label "Document"@en,
+        rdfs:comment "A physical information container that is not actionable. They function like database."@en
+    
+    SubClassOf: 
+        pml:hasVersion max 1 rdfs:Literal,
+        pml:InformationContainer
+    
+    
+Class: pml:Information
+
+    Annotations: 
+        prov:category "base",
+        rdfs:label "Information"@en,
+        rdfs:comment "A piece of information, e.g. a formula in logic languages, and an utterance/word/phrase/sentence/paragraph/article in natural language. It is used as a range of iw:hasContent. This class and two of its sub-classes enable users to specify four types of semantics  (i) Information Annotation - annotate just the format and language used by the content of information; (ii) Information With Content - additionally provide the content of information that is materialized as string without loading a web page; (iii) Information external - additionally provide the URL for fetching the content; and (iv) Information - with every thing including the content string and URL. The second semantics is especially useful when the content is short or mainly used locally. For example, when learning by instruction, the utterances used for learning can be stored within the PML document without being externally stored. By assigning URI reference to information, we can even use owl:sameAs to capture the equivalence of two pieces of information."@en
+    
+    SubClassOf: 
+        pml:hasLanguage max 1 owl:Thing,
+        pml:hasFormat max 1 owl:Thing,
+        prov:Entity
+    
+    
+Class: pml:Format
+
+    Annotations: 
+        prov:category "base",
+        rdfs:comment "A plan for the organization and arrangement of specified information. Examples: binary, text,  pdf, etc."@en,
+        rdfs:label "Format"@en
+    
+    SubClassOf: 
+        prov:Entity
+    
+    
+Class: pml:Publishership
+
+    Annotations: 
+        prov:category "base"
+    
+    SubClassOf: 
+        prov:Attribution
+    
+    
+Class: pml:Position
+
+    Annotations: 
+        prov:category "base"
+    
+    SubClassOf: 
+        prov:Location,
+        pml:hasFromOffset exactly 1 rdfs:Literal
+    
+    
+Class: prov:Plan
+
+    SubClassOf: 
+        prov:Entity
+    
+    
+Class: prov:Agent
+
+    
+Class: pml:InformationContainer
+
+    Annotations: 
+        prov:category "base",
+        rdfs:label "Information Container",
+        prov:editorialNote "Do we mean frbr:Item or frbr:Manifestation?"
+    
+    SubClassOf: 
+        prov:Entity
+    
+    
+Class: prov:Attribution
+
+    
+Class: pml:WebService
+
+    Annotations: 
+        prov:category "base",
+        rdfs:label "Web Service"@en,
+        rdfs:comment "services implemented by software and available on the Web"@en
+    
+    SubClassOf: 
+        prov:SoftwareAgent
+    
+    
+Individual: pml:Author
+
+    Annotations: 
+        prov:category "base"
     
     Types: 
-        <http://www.w3.org/ns/prov#Role>
+        prov:Role
     
     
-Individual: <http://provenanceweb.org/ns/pml#nil>
+Individual: pml:Publisher
+
+    Annotations: 
+        prov:category "base"
+    
+    Types: 
+        prov:Role
+    
+    
+Individual: pml:nil
 
     Annotations: 
         rdfs:comment "The empty list, with no items in it. If the rest of a list is nil then the list has no more items in it."@en,
         rdfs:label "nil"@en
+    
+    
+Individual: pml:Owner
+
+    Annotations: 
+        prov:category "base"
+    
+    Types: 
+        prov:Role
+    
+    
+Individual: pml:Source
+
+    Annotations: 
+        prov:category "base",
+        rdfs:comment "A source refers to the source of information. It is the place where we obtain information."@en,
+        rdfs:label "Source"@en
+    
+    Types: 
+        prov:Role
     
     
