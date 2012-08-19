@@ -53,6 +53,7 @@
     prov:category "base" .
 
 :Document
+    :order 2 ;
     a owl:Class ;
     rdfs:comment "A physical information container that is not actionable. They function like database."@en ;
     rdfs:label "Document"@en ;
@@ -64,18 +65,19 @@
     prov:category "base" .
 
 :DocumentFragment
+    :order 6 ;
     a owl:Class ;
     rdfs:comment "When a Document is treated as a one dimensional string, a fragment of the Document may be established with two offsets. The offsets are in units of characters (and not bytes because characters may be multiple bytes)."@en ;
     rdfs:label "Document Fragment"@en ;
     rdfs:subClassOf :InformationContainer, [
         a owl:Restriction ;
+        owl:onProperty prov:atLocation ;
+        owl:someValuesFrom prov:Location
+    ], [
+        a owl:Restriction ;
         owl:onClass :Document ;
         owl:onProperty <http://purl.org/dc/terms/isPartOf> ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
-    ], [
-        a owl:Restriction ;
-        owl:onProperty prov:atLocation ;
-        owl:someValuesFrom prov:Location
     ] ;
     prov:category "base" .
 
@@ -116,6 +118,7 @@
     prov:category "base" .
 
 :InformationContainer
+    :order 1 ;
     a owl:Class ;
     rdfs:label "Information Container" ;
     rdfs:subClassOf prov:Entity ;
@@ -141,6 +144,7 @@
     prov:category "base" .
 
 :Ontology
+    :order 4 ;
     a owl:Class ;
     rdfs:comment "An Ontology is a document that describes a vocabulary of terms and their correlations."@en, "This is a proper superclass of owl:Ontology, since ontologies may be expressed in formalisms other than OWL."@en ;
     rdfs:label "Ontology"@en ;
@@ -253,11 +257,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToCol
+        owl:onProperty :hasFromRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromRow
+        owl:onProperty :hasToCol
     ] ;
     prov:category "base" .
 
@@ -282,11 +286,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf :ProceduralPlan, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromLanguage
+        owl:onProperty :hasToLanguage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToLanguage
+        owl:onProperty :hasFromLanguage
     ] ;
     prov:category "base" .
 
@@ -298,6 +302,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:category "base" .
 
 :Webpage
+    :order 3 ;
     a owl:Class ;
     rdfs:comment "Collection of files and related resources accessible through the World Wide Web and organized under a particular domain name. Typical files found at a Web site are HTML documents with their associated graphic image files (GIF, JPEG, etc.), scripted programs (in Perl, CGI, Java, etc.), and similar resources. The site's files are usually accessed through hypertext or hyperlinks embedded in other files. A Web site may consist of a single HTML file, or it may comprise hundreds or thousands of related files. A Web site's usual starting point or opening page, called a home page, usually functions as a table of contents or index, with links to other sections of the site. Web sites are hosted on one or more Web servers, which transfer files to client computers or other servers that request them using the HTTP protocol. Although the term ?ite?implies a single physical location, the files and resources of a Web site may actually be spread among several servers in different geographic locations.(adapted from Britannica Concise Encyclopedia)."@en ;
     rdfs:label "Website"@en ;
@@ -473,6 +478,9 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:comment "The empty list, with no items in it. If the rest of a list is nil then the list has no more items in it."@en ;
     rdfs:label "nil"@en .
 
+:order
+    a owl:AnnotationProperty .
+
 :ownerOf
     a owl:ObjectProperty ;
     rdfs:subPropertyOf prov:contributed ;
@@ -526,6 +534,9 @@ xsd:double
     a rdfs:Datatype .
 
 xsd:int
+    a rdfs:Datatype .
+
+xsd:integer
     a rdfs:Datatype .
 
 xsd:string
