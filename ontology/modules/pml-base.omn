@@ -80,11 +80,23 @@ ObjectProperty: pml:hasAuthor
     SubPropertyChain: 
         pml:qualifiedAuthorship o prov:agent
     
+    Domain: 
+        pml:Document
+    
     Range: 
         pml:Author
     
     InverseOf: 
         pml:authorOf
+    
+    
+ObjectProperty: pml:qualifiedOwnership
+
+    SubPropertyOf: 
+        prov:qualifiedAttribution
+    
+    Range: 
+        pml:Ownership
     
     
 ObjectProperty: pml:hasPublisher
@@ -99,9 +111,24 @@ ObjectProperty: pml:hasPublisher
     Domain: 
         pml:Document
     
+    Range: 
+        pml:Publisher
+    
+    InverseOf: 
+        pml:publisherOf
+    
     
 ObjectProperty: prov:wasAttributedTo
 
+    
+ObjectProperty: pml:qualifiedPublishership
+
+    SubPropertyOf: 
+        prov:qualifiedAttribution
+    
+    Range: 
+        pml:Publishership
+    
     
 ObjectProperty: pml:hasOwner
 
@@ -118,9 +145,21 @@ ObjectProperty: pml:hasOwner
     Range: 
         pml:Owner
     
+    InverseOf: 
+        pml:ownerOf
+    
     
 ObjectProperty: prov:entity
 
+    
+ObjectProperty: pml:publisherOf
+
+    SubPropertyOf: 
+        prov:contributed
+    
+    InverseOf: 
+        pml:hasPublisher
+    
     
 ObjectProperty: pml:hasDescription
 
@@ -193,6 +232,15 @@ ObjectProperty: pml:hasToLanguage
     
     Range: 
         pml:Language
+    
+    
+ObjectProperty: pml:ownerOf
+
+    SubPropertyOf: 
+        prov:contributed
+    
+    InverseOf: 
+        pml:hasOwner
     
     
 ObjectProperty: pml:authorOf
@@ -427,6 +475,10 @@ Class: pml:Publisher
     Annotations: 
         prov:category "base"
     
+    EquivalentTo: 
+        (pml:publisherOf some owl:Thing)
+         or (prov:agentOfInfluence some (prov:hadRole value pml:Publisher))
+    
     SubClassOf: 
         prov:Agent
     
@@ -435,6 +487,10 @@ Class: pml:Owner
 
     Annotations: 
         prov:category "base"
+    
+    EquivalentTo: 
+        (pml:ownerOf some owl:Thing)
+         or (prov:agentOfInfluence some (prov:hadRole value pml:Owner))
     
     SubClassOf: 
         prov:Agent
