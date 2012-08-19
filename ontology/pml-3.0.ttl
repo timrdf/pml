@@ -74,13 +74,13 @@
     rdfs:label "Document Fragment"@en ;
     rdfs:subClassOf :InformationContainer, [
         a owl:Restriction ;
+        owl:onProperty prov:atLocation ;
+        owl:someValuesFrom prov:Location
+    ], [
+        a owl:Restriction ;
         owl:onClass :Document ;
         owl:onProperty <http://purl.org/dc/terms/isPartOf> ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
-    ], [
-        a owl:Restriction ;
-        owl:onProperty prov:atLocation ;
-        owl:someValuesFrom prov:Location
     ] ;
     prov:category "base" .
 
@@ -270,15 +270,15 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasFromCol
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasToCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasFromRow
-    ], [
-        a owl:Restriction ;
-        owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromCol
     ] ;
     prov:category "base" .
 
@@ -355,7 +355,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subPropertyOf prov:generatedAtTime .
 
 :hasDescription
-    :order 6.6 ;
+    :order 0.1 ;
     a owl:ObjectProperty ;
     rdfs:comment "The detailed description of the identified thing, e.g. a web page describing KIF language. An identified thing may have zero to many descriptions that could be written in different languages, format, and etc."@en ;
     rdfs:label "description"@en ;
@@ -363,7 +363,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:category "base" .
 
 :hasEncoding
-    :order 6.4 ;
+    :order 0 ;
     a owl:DatatypeProperty ;
     rdfs:comment "The content encoding, e.g. \"base64\". The value of this property helps applications determine the decoder of the raw string."@en ;
     rdfs:domain prov:Entity ;
@@ -501,7 +501,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:category "base" .
 
 :hasVersion
-    :order 6.5 ;
+    :order 0.3 ;
     a owl:DatatypeProperty ;
     rdfs:comment "the version number."@en ;
     rdfs:label "version"@en ;
