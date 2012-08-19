@@ -83,6 +83,7 @@
     prov:category "base" .
 
 :EmptyInformation
+    :order 17 ;
     a owl:Class ;
     rdfs:comment "An instance of information indicating no conclusion has been derived, i.e. empty set of statements. In this case, the rawstring may contain some english message indicating no answer."@en ;
     rdfs:label "Empty Information"@en ;
@@ -90,6 +91,7 @@
     prov:category "base" .
 
 :Format
+    :order 14 ;
     a owl:Class ;
     rdfs:comment "A plan for the organization and arrangement of specified information. Examples: binary, text,  pdf, etc."@en ;
     rdfs:label "Format"@en ;
@@ -105,17 +107,18 @@
     prov:category "base" .
 
 :Information
+    :order 12 ;
     a owl:Class ;
     rdfs:comment "A piece of information, e.g. a formula in logic languages, and an utterance/word/phrase/sentence/paragraph/article in natural language. It is used as a range of iw:hasContent. This class and two of its sub-classes enable users to specify four types of semantics  (i) Information Annotation - annotate just the format and language used by the content of information; (ii) Information With Content - additionally provide the content of information that is materialized as string without loading a web page; (iii) Information external - additionally provide the URL for fetching the content; and (iv) Information - with every thing including the content string and URL. The second semantics is especially useful when the content is short or mainly used locally. For example, when learning by instruction, the utterances used for learning can be stored within the PML document without being externally stored. By assigning URI reference to information, we can even use owl:sameAs to capture the equivalence of two pieces of information."@en ;
     rdfs:label "Information"@en ;
     rdfs:subClassOf prov:Entity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFormat
+        owl:onProperty :hasLanguage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasLanguage
+        owl:onProperty :hasFormat
     ] ;
     prov:category "base" .
 
@@ -128,6 +131,7 @@
     prov:editorialNote "Do we mean frbr:Item or frbr:Manifestation?" .
 
 :Language
+    :order 16 ;
     a owl:Class ;
     rdfs:comment "The language used to encode the raw string, e.g. English, Knowledge Interchange Format (KIF) , and N3. Languages are in general registered at the core IWRegistry."@en ;
     rdfs:label "Language"@en ;
@@ -192,12 +196,12 @@
     a owl:Class ;
     rdfs:subClassOf prov:Attribution, [
         a owl:Restriction ;
-        owl:allValuesFrom :OwnedEntity ;
-        owl:onProperty prov:entity
-    ], [
-        a owl:Restriction ;
         owl:allValuesFrom :Owner ;
         owl:onProperty prov:agent
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom :OwnedEntity ;
+        owl:onProperty prov:entity
     ] ;
     prov:category "base" .
 
@@ -253,19 +257,19 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToRow
-    ], [
-        a owl:Restriction ;
-        owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasToCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromCol
+        owl:onProperty :hasFromRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromRow
+        owl:onProperty :hasToRow
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasFromCol
     ] ;
     prov:category "base" .
 
@@ -291,11 +295,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf :ProceduralPlan, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromLanguage
+        owl:onProperty :hasToLanguage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToLanguage
+        owl:onProperty :hasFromLanguage
     ] ;
     prov:category "base" .
 
@@ -321,6 +325,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:category "base" .
 
 :hasAuthor
+    :order .5 ;
     a owl:ObjectProperty ;
     rdfs:domain :Document ;
     rdfs:range :Author ;
@@ -356,6 +361,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:category "base" .
 
 :hasFormat
+    :order 13 ;
     a owl:ObjectProperty ;
     rdfs:comment "it specifies the format of information, e.g. \"pdf\", \"ppt\" (Power Point). It is mainly used to determine the appropriate application for process/display purpose."@en ;
     rdfs:domain :Information ;
@@ -396,6 +402,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:category "base" .
 
 :hasLanguage
+    :order 15 ;
     a owl:ObjectProperty ;
     rdfs:comment "it specifies the language used to encode information, e.g. \"Tony's specialty is shellfish\" is encoded in English. This property may also link to a registered formal language such as KIF."@en ;
     rdfs:domain :Information ;
@@ -412,6 +419,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subPropertyOf prov:generatedAtTime .
 
 :hasOwner
+    :order 1.5 ;
     a owl:ObjectProperty ;
     rdfs:comment "the owner of a thing."@en ;
     rdfs:domain :OwnedEntity ;
@@ -430,6 +438,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subPropertyOf prov:generatedAtTime .
 
 :hasPublisher
+    :order 2.5 ;
     a owl:ObjectProperty ;
     rdfs:comment "An agent responsible for making the document publicly available. see also http://purl.org/dc/elements/1.1/publisher."@en ;
     rdfs:domain :Document ;
@@ -534,6 +543,9 @@ xsd:anyURI
     a rdfs:Datatype .
 
 xsd:dateTime
+    a rdfs:Datatype .
+
+xsd:decimal
     a rdfs:Datatype .
 
 xsd:double

@@ -101,12 +101,14 @@
     <prov:category>base</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#EmptyInformation">
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">17</order>
     <rdfs:comment xml:lang="en">An instance of information indicating no conclusion has been derived, i.e. empty set of statements. In this case, the rawstring may contain some english message indicating no answer.</rdfs:comment>
     <rdfs:label xml:lang="en">Empty Information</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://provenanceweb.org/ns/pml#Information"/>
     <prov:category>base</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#Format">
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">14</order>
     <rdfs:comment xml:lang="en">A plan for the organization and arrangement of specified information. Examples: binary, text,  pdf, etc.</rdfs:comment>
     <rdfs:label xml:lang="en">Format</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
@@ -120,19 +122,20 @@
     <prov:category>base</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#Information">
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</order>
     <rdfs:comment xml:lang="en">A piece of information, e.g. a formula in logic languages, and an utterance/word/phrase/sentence/paragraph/article in natural language. It is used as a range of iw:hasContent. This class and two of its sub-classes enable users to specify four types of semantics  (i) Information Annotation - annotate just the format and language used by the content of information; (ii) Information With Content - additionally provide the content of information that is materialized as string without loading a web page; (iii) Information external - additionally provide the URL for fetching the content; and (iv) Information - with every thing including the content string and URL. The second semantics is especially useful when the content is short or mainly used locally. For example, when learning by instruction, the utterances used for learning can be stored within the PML document without being externally stored. By assigning URI reference to information, we can even use owl:sameAs to capture the equivalence of two pieces of information.</rdfs:comment>
     <rdfs:label xml:lang="en">Information</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFormat"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasLanguage"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasLanguage"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFormat"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>base</prov:category>
@@ -145,6 +148,7 @@
     <prov:editorialNote>Do we mean frbr:Item or frbr:Manifestation?</prov:editorialNote>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#Language">
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">16</order>
     <rdfs:comment xml:lang="en">The language used to encode the raw string, e.g. English, Knowledge Interchange Format (KIF) , and N3. Languages are in general registered at the core IWRegistry.</rdfs:comment>
     <rdfs:label xml:lang="en">Language</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
@@ -222,14 +226,14 @@
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Attribution"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:allValuesFrom rdf:resource="http://provenanceweb.org/ns/pml#OwnedEntity"/>
-        <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#entity"/>
+        <owl:allValuesFrom rdf:resource="http://provenanceweb.org/ns/pml#Owner"/>
+        <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#agent"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:allValuesFrom rdf:resource="http://provenanceweb.org/ns/pml#Owner"/>
-        <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#agent"/>
+        <owl:allValuesFrom rdf:resource="http://provenanceweb.org/ns/pml#OwnedEntity"/>
+        <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#entity"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>base</prov:category>
@@ -298,25 +302,25 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasToRow"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
         <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasToCol"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromCol"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromRow"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromRow"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasToRow"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromCol"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>base</prov:category>
@@ -343,13 +347,13 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromLanguage"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasToLanguage"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasToLanguage"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromLanguage"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>base</prov:category>
@@ -373,6 +377,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <prov:category>base</prov:category>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#hasAuthor">
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">.5</order>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#Document"/>
     <rdfs:range rdf:resource="http://provenanceweb.org/ns/pml#Author"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#wasAttributedTo"/>
@@ -412,6 +417,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <prov:category>base</prov:category>
   </owl:DatatypeProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#hasFormat">
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">13</order>
     <rdfs:comment xml:lang="en">it specifies the format of information, e.g. "pdf", "ppt" (Power Point). It is mainly used to determine the appropriate application for process/display purpose.</rdfs:comment>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#Information"/>
     <rdfs:label xml:lang="en">format</rdfs:label>
@@ -447,6 +453,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <prov:category>base</prov:category>
   </owl:DatatypeProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#hasLanguage">
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">15</order>
     <rdfs:comment xml:lang="en">it specifies the language used to encode information, e.g. "Tony's specialty is shellfish" is encoded in English. This property may also link to a registered formal language such as KIF.</rdfs:comment>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#Information"/>
     <rdfs:label xml:lang="en">language</rdfs:label>
@@ -461,6 +468,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#generatedAtTime"/>
   </owl:DatatypeProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#hasOwner">
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.5</order>
     <rdfs:comment xml:lang="en">the owner of a thing.</rdfs:comment>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#OwnedEntity"/>
     <rdfs:label xml:lang="en">owner</rdfs:label>
@@ -477,6 +485,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#generatedAtTime"/>
   </owl:DatatypeProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#hasPublisher">
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.5</order>
     <rdfs:comment xml:lang="en">An agent responsible for making the document publicly available. see also http://purl.org/dc/elements/1.1/publisher.</rdfs:comment>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#Document"/>
     <rdfs:label xml:lang="en">publisher</rdfs:label>
@@ -556,6 +565,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
   <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#label"/>
   <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#anyURI"/>
   <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#dateTime"/>
+  <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#decimal"/>
   <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#double"/>
   <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#int"/>
   <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#integer"/>
