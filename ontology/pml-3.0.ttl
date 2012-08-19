@@ -48,6 +48,7 @@
     prov:category "base" .
 
 :DeclarativeRule
+    :order 19 ;
     a owl:Class ;
     rdfs:comment "A declarative inference rule can be fully specified by patterns for premises and its conclusion.   For example, Modus Ponens, can be specified by the premise patterns ?A,  ?A -&gt; ?B and the conclusion pattern ?B."@en ;
     rdfs:label "Declarative Rule"@en ;
@@ -115,11 +116,11 @@
     rdfs:subClassOf prov:Entity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFormat
+        owl:onProperty :hasLanguage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasLanguage
+        owl:onProperty :hasFormat
     ] ;
     prov:category "base" .
 
@@ -160,6 +161,7 @@
     prov:category "base" .
 
 :OwnedEntity
+    :order 2.3 ;
     a owl:Class ;
     rdfs:subClassOf prov:Entity ;
     owl:equivalentClass [
@@ -199,12 +201,12 @@
     a owl:Class ;
     rdfs:subClassOf prov:Attribution, [
         a owl:Restriction ;
-        owl:allValuesFrom :Owner ;
-        owl:onProperty prov:agent
-    ], [
-        a owl:Restriction ;
         owl:allValuesFrom :OwnedEntity ;
         owl:onProperty prov:entity
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom :Owner ;
+        owl:onProperty prov:agent
     ] ;
     prov:category "base" .
 
@@ -219,6 +221,7 @@
     prov:category "base" .
 
 :ProceduralPlan
+    :order 18 ;
     a owl:Class ;
     rdfs:comment """A method inference rule, uses patterns for premises and its conclusions, and additionally contains a method that must be applied.  In addition, 
 the conclusion needs to be a valid output of the method, using the premises.  For example, procedural attachment is a common encoding form for method rules."""@en ;
@@ -267,11 +270,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromRow
+        owl:onProperty :hasToRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToRow
+        owl:onProperty :hasFromRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -295,6 +298,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:category "base" .
 
 :TranslationMethod
+    :order 20 ;
     a owl:Class ;
     rdfs:comment "Translation rules are special kinds of inference rules which are used to translate expressions from one language to the other."@en ;
     rdfs:label "Translation Method"@en ;
@@ -359,6 +363,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:category "base" .
 
 :hasEncoding
+    :order 6.4 ;
     a owl:DatatypeProperty ;
     rdfs:comment "The content encoding, e.g. \"base64\". The value of this property helps applications determine the decoder of the raw string."@en ;
     rdfs:domain prov:Entity ;
