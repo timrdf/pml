@@ -74,13 +74,13 @@
     rdfs:label "Document Fragment"@en ;
     rdfs:subClassOf :InformationContainer, [
         a owl:Restriction ;
-        owl:onProperty prov:atLocation ;
-        owl:someValuesFrom prov:Location
-    ], [
-        a owl:Restriction ;
         owl:onClass :Document ;
         owl:onProperty <http://purl.org/dc/terms/isPartOf> ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+    ], [
+        a owl:Restriction ;
+        owl:onProperty prov:atLocation ;
+        owl:someValuesFrom prov:Location
     ] ;
     prov:category "base" .
 
@@ -116,11 +116,11 @@
     rdfs:subClassOf prov:Entity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasLanguage
+        owl:onProperty :hasFormat
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFormat
+        owl:onProperty :hasLanguage
     ] ;
     prov:category "base" .
 
@@ -201,12 +201,12 @@
     a owl:Class ;
     rdfs:subClassOf prov:Attribution, [
         a owl:Restriction ;
-        owl:allValuesFrom :Owner ;
-        owl:onProperty prov:agent
-    ], [
-        a owl:Restriction ;
         owl:allValuesFrom :OwnedEntity ;
         owl:onProperty prov:entity
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom :Owner ;
+        owl:onProperty prov:agent
     ] ;
     prov:category "base" .
 
@@ -266,7 +266,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromCol
+        owl:onProperty :hasToRow
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasToCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -274,11 +278,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToRow
-    ], [
-        a owl:Restriction ;
-        owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToCol
+        owl:onProperty :hasFromCol
     ] ;
     prov:category "base" .
 
@@ -381,6 +381,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:category "base" .
 
 :hasFromCol
+    :order 11.82 ;
     a owl:DatatypeProperty ;
     rdfs:comment "The from column of the fragment (inclusive, index based on 1)"@en ;
     rdfs:domain :RowColLocation ;
@@ -398,6 +399,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:category "base" .
 
 :hasFromOffset
+    :order 11.76 ;
     a owl:DatatypeProperty ;
     rdfs:comment "The from offset of the fragment (inclusive, index based on 0)."@en ;
     rdfs:domain :OffsetPosition ;
@@ -406,6 +408,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:category "base" .
 
 :hasFromRow
+    :order 11.81 ;
     a owl:DatatypeProperty ;
     rdfs:comment "The from row of the fragment (inclusive, index based on 1)"@en ;
     rdfs:domain :RowColLocation ;
@@ -462,6 +465,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:inverse "publisherOf"@en .
 
 :hasToCol
+    :order 11.84 ;
     a owl:DatatypeProperty ;
     rdfs:comment "The to column of the fragment (inclusive, index based on 1)"@en ;
     rdfs:domain :RowColLocation ;
@@ -479,6 +483,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:category "base" .
 
 :hasToOffset
+    :order 11.6 ;
     a owl:DatatypeProperty ;
     rdfs:comment "The to offset of the fragment (exclusive, index based on 0)"@en ;
     rdfs:domain :OffsetPosition ;
@@ -487,6 +492,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:category "base" .
 
 :hasToRow
+    :order 11.83 ;
     a owl:DatatypeProperty ;
     rdfs:comment "The to row of the fragment (inclusive, index based on 1)"@en ;
     rdfs:domain :RowColLocation ;
