@@ -72,13 +72,13 @@
     rdfs:label "Document Fragment"@en ;
     rdfs:subClassOf :InformationContainer, [
         a owl:Restriction ;
-        owl:onProperty prov:atLocation ;
-        owl:someValuesFrom prov:Location
-    ], [
-        a owl:Restriction ;
         owl:onClass :Document ;
         owl:onProperty <http://purl.org/dc/terms/isPartOf> ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+    ], [
+        a owl:Restriction ;
+        owl:onProperty prov:atLocation ;
+        owl:someValuesFrom prov:Location
     ] ;
     prov:category "base" .
 
@@ -139,6 +139,7 @@
     prov:category "base" .
 
 :OffsetPosition
+    :order 11.75 ;
     a owl:Class ;
     rdfs:comment ""@en ;
     rdfs:label "Offset Position"@en ;
@@ -206,6 +207,7 @@
     prov:category "base" .
 
 :Position
+    :order 11.5 ;
     a owl:Class ;
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
@@ -252,9 +254,14 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:category "base" .
 
 :RowColLocation
+    :order 11.8 ;
     a owl:Class ;
     rdfs:label "Row Column Location"@en ;
     rdfs:subClassOf prov:Location, [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasToRow
+    ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasToCol
@@ -262,10 +269,6 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasFromRow
-    ], [
-        a owl:Restriction ;
-        owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -321,8 +324,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
 :authorOf
     a owl:ObjectProperty ;
-    rdfs:subPropertyOf prov:contributed ;
-    prov:category "base" .
+    rdfs:subPropertyOf prov:contributed .
 
 :hasAuthor
     :order .5 ;
@@ -482,6 +484,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:category "base" .
 
 :hasVersion
+    :order 6.5 ;
     a owl:DatatypeProperty ;
     rdfs:comment "the version number."@en ;
     rdfs:label "version"@en ;
@@ -498,8 +501,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
 :ownerOf
     a owl:ObjectProperty ;
-    rdfs:subPropertyOf prov:contributed ;
-    prov:category "base" .
+    rdfs:subPropertyOf prov:contributed .
 
 :publisherOf
     a owl:ObjectProperty ;
