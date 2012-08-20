@@ -12,6 +12,11 @@
     owl:imports <http://www.w3.org/ns/inverses.owl>, <http://www.w3.org/ns/prov#> ;
     owl:versionInfo "version 3.0, Authors: Timothy Lebo, James P. McCusker, Paulo Pinheiro, Cynthia Chang, and Deborah L. McGuinness"@en .
 
+:AbstractionRule
+    a owl:Class ;
+    rdfs:label "Abstraction Rule" ;
+    rdfs:subClassOf :ProceduralPlan .
+
 :Author
     :order 1 ;
     a owl:Class, owl:NamedIndividual, prov:Role ;
@@ -46,6 +51,20 @@
         owl:onProperty prov:atLocation
     ] ;
     prov:category "base" .
+
+:BeliefElement
+    a owl:Class ;
+    rdfs:comment "The abstract trust concept that associate from an agent to a piece of information. The belief relation shows an agents belief status on the specified information. The specific belief status (e.g. believes, disbelieves, ignorant) and corresponding value metrics are defined in the decendents of this class. "@en ;
+    rdfs:label "Belief"@en ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasBelievingAgent
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasBelievedInformation
+    ] .
 
 :DeclarativeRule
     :order 19 ;
@@ -92,6 +111,28 @@
     rdfs:subClassOf :Information ;
     prov:category "base" .
 
+:FloatBelief
+    a owl:Class ;
+    rdfs:comment "An agent's overall belief on a piece of information quantified by a float value between 0 and 1. "@en ;
+    rdfs:label "Float Belief"@en ;
+    rdfs:subClassOf :BeliefElement, :FloatMetric .
+
+:FloatMetric
+    a owl:Class ;
+    rdfs:comment "A specific valuation metric that is defined on [0,1] as float number. 0 means fully negative point, 0.5 means nutral point, and 1 means fully positive point."@en ;
+    rdfs:label "float metric"@en ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasFloatValue
+    ] .
+
+:FloatTrust
+    a owl:Class ;
+    rdfs:comment "An agent's overall trust on an information source quantified by a float value between 0 and 1. "@en ;
+    rdfs:label "Float trust"@en ;
+    rdfs:subClassOf :FloatMetric, :TrustElement .
+
 :Format
     :order 14 ;
     a owl:Class ;
@@ -108,6 +149,32 @@
     rdfs:subClassOf prov:SoftwareAgent ;
     prov:category "base" .
 
+:InferenceStep
+    a owl:Class ;
+    rdfs:comment "An inference step represents a justification for the conclusion of the corresponding node set. Instances of inference step are usually anonymous as part of node set. For this reason, inference steps usually have no URIs. Moreover, an application should treat node set and its inference steps in whole."@en ;
+    rdfs:label "Inference Step"@en ;
+    rdfs:subClassOf prov:Activity, [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasSourceUsage
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasAntecedent
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasInferenceEngine
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :fromAnswerOrQuery
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasConfidenceValue
+    ] .
+
 :Information
     :order 12 ;
     a owl:Class ;
@@ -116,11 +183,11 @@
     rdfs:subClassOf prov:Entity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasLanguage
+        owl:onProperty :hasFormat
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFormat
+        owl:onProperty :hasLanguage
     ] ;
     prov:category "base" .
 
@@ -201,12 +268,12 @@
     a owl:Class ;
     rdfs:subClassOf prov:Attribution, [
         a owl:Restriction ;
-        owl:allValuesFrom :Owner ;
-        owl:onProperty prov:agent
-    ], [
-        a owl:Restriction ;
         owl:allValuesFrom :OwnedEntity ;
         owl:onProperty prov:entity
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom :Owner ;
+        owl:onProperty prov:agent
     ] ;
     prov:category "base" .
 
@@ -259,6 +326,26 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Attribution ;
     prov:category "base" .
 
+:Query
+    a owl:Class ;
+    rdfs:comment "A Query is a formal representation of user's question. For example, the content of the query can be '(type TonysSpecialty ?x)' which is encoded in KIF. An inference engine will take the query's content as input and find corresponding answers, each of which is a tree of node sets representing the proof traces obtained from the inference engine. "@en ;
+    rdfs:label "Query"@en ;
+    rdfs:subClassOf prov:Entity, [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :isFromEngine
+    ] .
+
+:Question
+    a owl:Class ;
+    rdfs:comment "A Question refers to natural language version of a user's query. For example, a question can be \"What is the type of Tony's Specialty?\"  A question is usually additional information to an instance of Query as additional annotation."@en ;
+    rdfs:label "Question"@en ;
+    rdfs:subClassOf prov:Entity, [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasAnswerPattern
+    ] .
+
 :RowColLocation
     :order 11.8 ;
     a owl:Class ;
@@ -266,7 +353,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToRow
+        owl:onProperty :hasFromRow
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasToCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -274,11 +365,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromRow
-    ], [
-        a owl:Restriction ;
-        owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToCol
+        owl:onProperty :hasToRow
     ] ;
     prov:category "base" .
 
@@ -305,13 +392,27 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf :ProceduralPlan, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromLanguage
+        owl:onProperty :hasToLanguage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToLanguage
+        owl:onProperty :hasFromLanguage
     ] ;
     prov:category "base" .
+
+:TrustElement
+    a owl:Class ;
+    rdfs:comment "The abstract trust concept that associate from an agent to a source. The trust relation summarizes an agent's overall believes about information from the specified source. The specific trust metrics are defined in the decendents of this class."@en ;
+    rdfs:label "Trust"@en ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasTrustor
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasTrustee
+    ] .
 
 :WebService
     :order 4 ;
@@ -333,6 +434,49 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     a owl:ObjectProperty ;
     rdfs:subPropertyOf prov:contributed .
 
+:fromAnswer
+    a owl:ObjectProperty ;
+    rdfs:comment "the root node set that answers the specific query but not necessarily the present nodeset that hosts this inference step."@en ;
+    rdfs:label "root-node-set"@en ;
+    rdfs:subPropertyOf :fromAnswerOrQuery .
+
+:fromAnswerOrQuery
+    a owl:ObjectProperty ;
+    rdfs:comment "abstract property modifying an inference step. It is use to impose the exclusion restriction on fromAnswer and fromQuery"@en ;
+    rdfs:domain :InferenceStep ;
+    rdfs:label "source-answer-or-query"@en ;
+    rdfs:subPropertyOf prov:generated .
+
+:fromQuery
+    a owl:ObjectProperty ;
+    rdfs:comment "the query that is answered by the present node set that hosts this inference step"@en ;
+    rdfs:label "source-query"@en ;
+    rdfs:range :Query ;
+    rdfs:subPropertyOf :fromAnswerOrQuery .
+
+:hasAnswer
+    a owl:ObjectProperty ;
+    rdfs:comment "links to one of many alternative answers to this query."@en ;
+    rdfs:domain :Query ;
+    rdfs:label "answer"@en ;
+    rdfs:subPropertyOf prov:hadDerivation .
+
+:hasAnswerPattern
+    a owl:DatatypeProperty ;
+    rdfs:comment "Usually it is an English Pattern for the question. We may apply (string-replace) the variable mappings from the answer node set to generate the answer of the question. We may generate different queries for the same question, e.g. find Li's friends: I can (i) run JTP (KIF) to derive John's friends or (ii) query (SPARQL) a FOAF RDF database using foaf:knows. "@en ;
+    rdfs:domain :Question ;
+    rdfs:label "answer pattern"@en ;
+    rdfs:range xsd:string .
+
+:hasAntecedent
+    a owl:ObjectProperty ;
+    rdfs:comment """The Antecedents of an inference step (i.e., the object of iw:hasAntecedent) is a collection of node sets each of whose conclusions is a premise of the application of the inference step's rule. The collection can contain any number of node sets including none. PML supports the order of premises in two folds:
+(i) The fact that the premises are ordered may be relevant for some rules such as ordered resolution that uses the order to match premises with the schemas of the associated rule. To this end, users may declare one iw:hasAntecedent that links to an instance of rdf:List, which is an ordered list of the antecedent node sets. 
+(II) For other rules such as modus Ponens, the order of the premises is irrelevant; therefore, Antecedents can be viewed as a bag of premises. To this end, users may declare multiple iw:hasAntecedent each of which links to an antecedent node set."""@en ;
+    rdfs:domain :InferenceStep ;
+    rdfs:label "antecedent"@en ;
+    rdfs:subPropertyOf prov:used .
+
 :hasAuthor
     :order .5 ;
     a owl:ObjectProperty ;
@@ -345,6 +489,29 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ) ;
     prov:category "base" ;
     prov:inverse "authorOf"@en .
+
+:hasBelievedInformation
+    a owl:ObjectProperty ;
+    rdfs:comment "the information being believed in."@en ;
+    rdfs:domain :BeliefElement ;
+    rdfs:label "believedIn"@en ;
+    rdfs:range :Information .
+
+:hasBelievingAgent
+    a owl:ObjectProperty ;
+    rdfs:comment "the agent that hold the belief assertion."@en ;
+    rdfs:domain :BeliefElement ;
+    rdfs:label "believedBy"@en ;
+    rdfs:range prov:Agent .
+
+:hasConclusion
+    a owl:ObjectProperty ;
+    rdfs:comment "links to the conclusion of the present node set. The conclusion is the one after applied variable mapping of the node set's inference steps. The content/language/format of conclusion is the only information needed in comparing conclusions. "@en ;
+    rdfs:label "conclusion"@en ;
+    rdfs:subPropertyOf prov:generated .
+
+:hasConfidenceValue
+    a owl:DatatypeProperty .
 
 :hasCreationDateTime
     a owl:DatatypeProperty ;
@@ -362,6 +529,13 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:range :Information ;
     prov:category "base" .
 
+:hasDischarge
+    a owl:ObjectProperty ;
+    rdfs:comment "dismiss causal dependency from the conclusion of the present nodeset to an (recursive) antecedent nodeset of the present inference step. In particular, OR-elimination can only be implemented by hasDischarge"@en ;
+    rdfs:domain :InferenceStep ;
+    rdfs:label "discharge"@en ;
+    rdfs:subPropertyOf prov:invalidated .
+
 :hasEncoding
     :order 0 ;
     a owl:DatatypeProperty ;
@@ -370,6 +544,13 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:label "encoding"@en ;
     rdfs:range xsd:string ;
     prov:category "base" .
+
+:hasFloatValue
+    a owl:DatatypeProperty ;
+    rdfs:comment "The value of the metric, and We may consider better datatype in future."@en ;
+    rdfs:domain :FloatMetric ;
+    rdfs:label "value"@en ;
+    rdfs:range xsd:float .
 
 :hasFormat
     :order 13 ;
@@ -416,6 +597,14 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:range xsd:int ;
     prov:category "base" .
 
+:hasInferenceEngine
+    a owl:ObjectProperty ;
+    rdfs:comment "links to the inference engine that derives this inference step."@en ;
+    rdfs:domain :InferenceStep ;
+    rdfs:label "inference engine"@en ;
+    rdfs:range :InferenceEngine ;
+    rdfs:subPropertyOf prov:wasAssociatedWith .
+
 :hasLanguage
     :order 15 ;
     a owl:ObjectProperty ;
@@ -424,6 +613,13 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:label "language"@en ;
     rdfs:range :Language ;
     prov:category "base" .
+
+:hasMetaBinding
+    a owl:ObjectProperty ;
+    rdfs:comment "Given a formal representation of inference rule (e.g. PPDR), we may represent the structure of inference rule (i.e. we don't need to represent rules as an opaque one). Therefore, the inference engine might have a chance to capture how each-part of the inference rule may be mapped to some sentences. This mapping is metabinding."@en ;
+    rdfs:domain :InferenceStep ;
+    rdfs:label "meta binding"@en ;
+    rdfs:subPropertyOf prov:used .
 
 :hasModificationDateTime
     a owl:DatatypeProperty ;
@@ -464,6 +660,13 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:category "base" ;
     prov:inverse "publisherOf"@en .
 
+:hasSourceUsage
+    a owl:ObjectProperty ;
+    rdfs:comment "links to the source usage that is used in deriving this inference step."@en ;
+    rdfs:domain :InferenceStep ;
+    rdfs:label "source usage"@en ;
+    rdfs:subPropertyOf prov:used .
+
 :hasToCol
     :order 11.84 ;
     a owl:DatatypeProperty ;
@@ -500,6 +703,27 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:range xsd:int ;
     prov:category "base" .
 
+:hasTrustee
+    a owl:ObjectProperty ;
+    rdfs:comment "the information source that is trusted in providing information."@en ;
+    rdfs:domain :TrustElement ;
+    rdfs:label "trustee"@en ;
+    rdfs:range :Source .
+
+:hasTrustor
+    a owl:ObjectProperty ;
+    rdfs:comment "the agent that hold the trust relation with the trustee."@en ;
+    rdfs:domain :TrustElement ;
+    rdfs:label "trustor"@en ;
+    rdfs:range prov:Agent .
+
+:hasVariableMapping
+    a owl:ObjectProperty ;
+    rdfs:comment "Variable mapping captures the result (substitution) of unifying variables of premises/antecedents of a conclusion. Each VariableMapping of an inference step (i.e., the object of iw:hasVariableMapping) records the mapping from a 'variable'  to a 'term' (both variable and term are first logic concepts). Each variable mapping maps to one substitution. Note that variable mapping only captures string-replace alike substitution, we do not assume any understanding/parsing of the sentences mentioned in antecedents. In each inference step, the variable binding should be applied to the conclusions of corresponding antecedents. "@en ;
+    rdfs:domain :InferenceStep ;
+    rdfs:label "variable mapping"@en ;
+    rdfs:subPropertyOf prov:used .
+
 :hasVersion
     :order 0.3 ;
     a owl:DatatypeProperty ;
@@ -507,6 +731,33 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:label "version"@en ;
     rdfs:range xsd:string ;
     prov:category "base" .
+
+:isConsequentOf
+    a owl:ObjectProperty ;
+    rdfs:comment "links to an inference step that derives the conclusion of the present node set."@en ;
+    rdfs:label "because"@en ;
+    rdfs:range :InferenceStep ;
+    rdfs:subPropertyOf prov:wasGeneratedBy .
+
+:isExplanationOf
+    a owl:ObjectProperty ;
+    rdfs:comment "links to a node set (and its antecedents) that is explained by the present node set. This is used for connecting the orginal justifications to the NodeSet that abstracts this node set (and its antecedents)."@en ;
+    rdfs:label "explains"@en ;
+    rdfs:subPropertyOf prov:hadDerivation .
+
+:isFromEngine
+    a owl:ObjectProperty ;
+    rdfs:domain :Query ;
+    rdfs:label "answer-generator"@en ;
+    rdfs:range :InferenceEngine ;
+    rdfs:subPropertyOf prov:wasAttributedTo .
+
+:isQueryFor
+    a owl:ObjectProperty ;
+    rdfs:domain :Query ;
+    rdfs:label "query-for"@en ;
+    rdfs:range :Question ;
+    rdfs:subPropertyOf prov:specializationOf .
 
 :nil
     a owl:NamedIndividual ;
@@ -545,6 +796,19 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subPropertyOf prov:qualifiedAttribution ;
     prov:category "qualified" .
 
+<http://provenanceweb.org/ns/pml-proof#>
+    a owl:Ontology ;
+    rdfs:comment "The proof-theoretic part of PML3 ontology. It is a fundamental component of PML3 ontology."@en ;
+    rdfs:label "PML3 proof ontology"@en ;
+    owl:imports <http://provenanceweb.org/ns/pml-base#>, <http://www.w3.org/ns/inverses.owl>, <http://www.w3.org/ns/prov#> ;
+    owl:versionInfo "version 3.0, Authors: Timothy Lebo, James P. McCusker, Deborah L. McGuinness, Li Ding, Paulo Pinheiro da Silva, Alyssa Glass, and Cynthia Chang"@en .
+
+<http://provenanceweb.org/ns/pml-trust#>
+    a owl:Ontology ;
+    rdfs:comment "The trust part of PML2 ontology. It is a fundamental component of PML2 ontology."@en ;
+    rdfs:label "PML2 trust ontology"@en ;
+    owl:versionInfo "version 2.0, Authors: Deborah L. McGuinness, Honglei Zeng,  Li Ding, Paulo Pinheiro da Silva, Alyssa Glass, and Cynthia Chang"@en .
+
 <http://purl.org/dc/terms/isPartOf>
     a owl:ObjectProperty ;
     prov:category "base" .
@@ -571,6 +835,9 @@ xsd:decimal
     a rdfs:Datatype .
 
 xsd:double
+    a rdfs:Datatype .
+
+xsd:float
     a rdfs:Datatype .
 
 xsd:int
@@ -649,7 +916,16 @@ prov:editorialNote
 prov:entity
     a owl:ObjectProperty .
 
+prov:generated
+    a owl:ObjectProperty .
+
+prov:hadDerivation
+    a owl:ObjectProperty .
+
 prov:hadRole
+    a owl:ObjectProperty .
+
+prov:invalidated
     a owl:ObjectProperty .
 
 prov:inverse
@@ -658,6 +934,18 @@ prov:inverse
 prov:qualifiedAttribution
     a owl:ObjectProperty .
 
+prov:specializationOf
+    a owl:ObjectProperty .
+
+prov:used
+    a owl:ObjectProperty .
+
+prov:wasAssociatedWith
+    a owl:ObjectProperty .
+
 prov:wasAttributedTo
+    a owl:ObjectProperty .
+
+prov:wasGeneratedBy
     a owl:ObjectProperty .
 
