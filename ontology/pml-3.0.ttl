@@ -60,11 +60,11 @@
     rdfs:subClassOf [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievedInformation
+        owl:onProperty :hasBelievingAgent
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievingAgent
+        owl:onProperty :hasBelievedInformation
     ] .
 
 :DeclarativeRule
@@ -165,15 +165,15 @@
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :fromAnswerOrQuery
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasAntecedent
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasInferenceEngine
-    ], [
-        a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :fromAnswerOrQuery
     ] ;
     prov:category "proof" .
 
@@ -270,12 +270,12 @@
     a owl:Class ;
     rdfs:subClassOf prov:Attribution, [
         a owl:Restriction ;
-        owl:allValuesFrom :OwnedEntity ;
-        owl:onProperty prov:entity
-    ], [
-        a owl:Restriction ;
         owl:allValuesFrom :Owner ;
         owl:onProperty prov:agent
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom :OwnedEntity ;
+        owl:onProperty prov:entity
     ] ;
     prov:category "base" .
 
@@ -359,7 +359,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromRow
+        owl:onProperty :hasFromCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -367,7 +367,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromCol
+        owl:onProperty :hasFromRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -740,6 +740,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:category "base" .
 
 :isConsequentOf
+    :order 26 ;
     a owl:ObjectProperty ;
     rdfs:comment "links to an inference step that derives the conclusion of the present node set."@en, "proof" ;
     rdfs:label "because"@en ;
