@@ -162,15 +162,15 @@
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasAntecedent
-    ], [
-        a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasConfidenceValue
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasSourceUsage
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasAntecedent
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
@@ -364,15 +364,15 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToRow
-    ], [
-        a owl:Restriction ;
-        owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasFromRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasToCol
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasToRow
     ] ;
     prov:category "base" .
 
@@ -399,11 +399,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf :ProceduralPlan, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromLanguage
+        owl:onProperty :hasToLanguage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToLanguage
+        owl:onProperty :hasFromLanguage
     ] ;
     prov:category "base" .
 
@@ -464,10 +464,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 :hasAnswer
     :order 24 ;
     a owl:ObjectProperty ;
-    rdfs:comment "links to one of many alternative answers to this query."@en, "proof" ;
+    rdfs:comment "links to one of many alternative answers to this query."@en ;
     rdfs:domain :Query ;
     rdfs:label "answer"@en ;
-    rdfs:subPropertyOf prov:hadDerivation .
+    rdfs:subPropertyOf prov:hadDerivation ;
+    prov:category "proof" .
 
 :hasAnswerPattern
     a owl:DatatypeProperty ;
@@ -481,10 +482,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     a owl:ObjectProperty ;
     rdfs:comment """The Antecedents of an inference step (i.e., the object of iw:hasAntecedent) is a collection of node sets each of whose conclusions is a premise of the application of the inference step's rule. The collection can contain any number of node sets including none. PML supports the order of premises in two folds:
 (i) The fact that the premises are ordered may be relevant for some rules such as ordered resolution that uses the order to match premises with the schemas of the associated rule. To this end, users may declare one iw:hasAntecedent that links to an instance of rdf:List, which is an ordered list of the antecedent node sets. 
-(II) For other rules such as modus Ponens, the order of the premises is irrelevant; therefore, Antecedents can be viewed as a bag of premises. To this end, users may declare multiple iw:hasAntecedent each of which links to an antecedent node set."""@en, "proof" ;
+(II) For other rules such as modus Ponens, the order of the premises is irrelevant; therefore, Antecedents can be viewed as a bag of premises. To this end, users may declare multiple iw:hasAntecedent each of which links to an antecedent node set."""@en ;
     rdfs:domain :InferenceStep ;
     rdfs:label "antecedent"@en ;
-    rdfs:subPropertyOf prov:used .
+    rdfs:subPropertyOf prov:used ;
+    prov:category "proof" .
 
 :hasAuthor
     :order .5 ;
@@ -744,10 +746,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 :isConsequentOf
     :order 26 ;
     a owl:ObjectProperty ;
-    rdfs:comment "links to an inference step that derives the conclusion of the present node set."@en, "proof" ;
+    rdfs:comment "links to an inference step that derives the conclusion of the present node set."@en ;
     rdfs:label "because"@en ;
     rdfs:range :InferenceStep ;
-    rdfs:subPropertyOf prov:wasGeneratedBy .
+    rdfs:subPropertyOf prov:wasGeneratedBy ;
+    prov:category "proof" .
 
 :isExplanationOf
     a owl:ObjectProperty ;
@@ -758,20 +761,20 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 :isFromEngine
     :order 25 ;
     a owl:ObjectProperty ;
-    rdfs:comment "proof" ;
     rdfs:domain :Query ;
     rdfs:label "answer-generator"@en ;
     rdfs:range :InferenceEngine ;
-    rdfs:subPropertyOf prov:wasAttributedTo .
+    rdfs:subPropertyOf prov:wasAttributedTo ;
+    prov:category "proof" .
 
 :isQueryFor
     :order 23 ;
     a owl:ObjectProperty ;
-    rdfs:comment "proof" ;
     rdfs:domain :Query ;
     rdfs:label "query-for"@en ;
     rdfs:range :Question ;
-    rdfs:subPropertyOf prov:specializationOf .
+    rdfs:subPropertyOf prov:specializationOf ;
+    prov:category "proof" .
 
 :nil
     a owl:NamedIndividual ;
