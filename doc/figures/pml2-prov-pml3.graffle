@@ -462,7 +462,7 @@ e.g. existedAtTime}</string>
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 
 \f0\fs32 \cf2 \expnd0\expndtw0\kerning0
-F:}</string>
+F: PROV-O}</string>
 						<key>VerticalPad</key>
 						<integer>2</integer>
 					</dict>
@@ -2199,7 +2199,7 @@ A}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-08-18 18:34:56 +0000</string>
+	<string>2012-08-20 14:27:16 +0000</string>
 	<key>Modifier</key>
 	<string>lebot</string>
 	<key>NotesVisible</key>
@@ -2236,16 +2236,6 @@ A}</string>
 		<array>
 			<string>int</string>
 			<string>0</string>
-		</array>
-		<key>NSPrinter</key>
-		<array>
-			<string>coded</string>
-			<string>BAtzdHJlYW10eXBlZIHoA4QBQISEhAlOU1ByaW50ZXIAhIQITlNPYmplY3QAhZKEhIQITlNTdHJpbmcBlIQBKxkxMzcuMjQzLjE3OS4yMzcgY3ViZSBmYXJthoY=</string>
-		</array>
-		<key>NSPrinterName</key>
-		<array>
-			<string>string</string>
-			<string>137.243.179.237 cube farm</string>
 		</array>
 		<key>NSRightMargin</key>
 		<array>
