@@ -168,9 +168,22 @@
     <prov:category>base</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#InferenceStep">
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">27</order>
     <rdfs:comment xml:lang="en">An inference step represents a justification for the conclusion of the corresponding node set. Instances of inference step are usually anonymous as part of node set. For this reason, inference steps usually have no URIs. Moreover, an application should treat node set and its inference steps in whole.</rdfs:comment>
     <rdfs:label xml:lang="en">Inference Step</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Activity"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasInferenceEngine"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasAntecedent"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
@@ -187,18 +200,6 @@
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
         <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#fromAnswerOrQuery"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasAntecedent"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasInferenceEngine"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>proof</prov:category>
@@ -466,13 +467,13 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasToLanguage"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromLanguage"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromLanguage"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasToLanguage"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>base</prov:category>
@@ -542,6 +543,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </owl:DatatypeProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#hasAntecedent">
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">28</order>
     <rdfs:comment xml:lang="en">The Antecedents of an inference step (i.e., the object of iw:hasAntecedent) is a collection of node sets each of whose conclusions is a premise of the application of the inference step's rule. The collection can contain any number of node sets including none. PML supports the order of premises in two folds:
 (i) The fact that the premises are ordered may be relevant for some rules such as ordered resolution that uses the order to match premises with the schemas of the associated rule. To this end, users may declare one iw:hasAntecedent that links to an instance of rdf:List, which is an ordered list of the antecedent node sets. 
 (II) For other rules such as modus Ponens, the order of the premises is irrelevant; therefore, Antecedents can be viewed as a bag of premises. To this end, users may declare multiple iw:hasAntecedent each of which links to an antecedent node set.</rdfs:comment>
