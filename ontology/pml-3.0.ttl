@@ -60,11 +60,11 @@
     rdfs:subClassOf [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievingAgent
+        owl:onProperty :hasBelievedInformation
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievedInformation
+        owl:onProperty :hasBelievingAgent
     ] .
 
 :DeclarativeRule
@@ -157,10 +157,6 @@
     rdfs:subClassOf prov:Activity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasInferenceEngine
-    ], [
-        a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasConfidenceValue
     ], [
         a owl:Restriction ;
@@ -169,11 +165,15 @@
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :fromAnswerOrQuery
+        owl:onProperty :hasAntecedent
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasAntecedent
+        owl:onProperty :hasInferenceEngine
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :fromAnswerOrQuery
     ] ;
     prov:category "proof" .
 
@@ -359,15 +359,15 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasFromRow
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasToRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasFromCol
-    ], [
-        a owl:Restriction ;
-        owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -398,11 +398,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf :ProceduralPlan, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromLanguage
+        owl:onProperty :hasToLanguage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToLanguage
+        owl:onProperty :hasFromLanguage
     ] ;
     prov:category "base" .
 
@@ -413,11 +413,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasTrustor
+        owl:onProperty :hasTrustee
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasTrustee
+        owl:onProperty :hasTrustor
     ] .
 
 :WebService
@@ -461,6 +461,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subPropertyOf :fromAnswerOrQuery .
 
 :hasAnswer
+    :order 24 ;
     a owl:ObjectProperty ;
     rdfs:comment "links to one of many alternative answers to this query."@en, "proof" ;
     rdfs:domain :Query ;
@@ -752,6 +753,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subPropertyOf prov:hadDerivation .
 
 :isFromEngine
+    :order 25 ;
     a owl:ObjectProperty ;
     rdfs:comment "proof" ;
     rdfs:domain :Query ;
@@ -760,8 +762,9 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subPropertyOf prov:wasAttributedTo .
 
 :isQueryFor
+    :order 23 ;
     a owl:ObjectProperty ;
-    rdfs:comment 23, "proof" ;
+    rdfs:comment "proof" ;
     rdfs:domain :Query ;
     rdfs:label "query-for"@en ;
     rdfs:range :Question ;
