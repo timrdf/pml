@@ -60,11 +60,11 @@
     rdfs:subClassOf [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievedInformation
+        owl:onProperty :hasBelievingAgent
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievingAgent
+        owl:onProperty :hasBelievedInformation
     ] .
 
 :DeclarativeRule
@@ -94,13 +94,13 @@
     rdfs:label "Document Fragment"@en ;
     rdfs:subClassOf :InformationContainer, [
         a owl:Restriction ;
-        owl:onProperty prov:atLocation ;
-        owl:someValuesFrom prov:Location
-    ], [
-        a owl:Restriction ;
         owl:onClass :Document ;
         owl:onProperty <http://purl.org/dc/terms/isPartOf> ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+    ], [
+        a owl:Restriction ;
+        owl:onProperty prov:atLocation ;
+        owl:someValuesFrom prov:Location
     ] ;
     prov:category "base" .
 
@@ -165,15 +165,15 @@
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasSourceUsage
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :fromAnswerOrQuery
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasAntecedent
-    ], [
-        a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasSourceUsage
     ] ;
     prov:category "proof" .
 
@@ -185,11 +185,11 @@
     rdfs:subClassOf prov:Entity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFormat
+        owl:onProperty :hasLanguage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasLanguage
+        owl:onProperty :hasFormat
     ] ;
     prov:category "base" .
 
@@ -270,12 +270,12 @@
     a owl:Class ;
     rdfs:subClassOf prov:Attribution, [
         a owl:Restriction ;
-        owl:allValuesFrom :Owner ;
-        owl:onProperty prov:agent
-    ], [
-        a owl:Restriction ;
         owl:allValuesFrom :OwnedEntity ;
         owl:onProperty prov:entity
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom :Owner ;
+        owl:onProperty prov:agent
     ] ;
     prov:category "base" .
 
@@ -329,6 +329,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     prov:category "base" .
 
 :Query
+    :order 22 ;
     a owl:Class ;
     rdfs:comment "A Query is a formal representation of user's question. For example, the content of the query can be '(type TonysSpecialty ?x)' which is encoded in KIF. An inference engine will take the query's content as input and find corresponding answers, each of which is a tree of node sets representing the proof traces obtained from the inference engine."@en ;
     rdfs:label "Query"@en ;
@@ -362,7 +363,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToCol
+        owl:onProperty :hasFromCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -370,7 +371,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromCol
+        owl:onProperty :hasToCol
     ] ;
     prov:category "base" .
 
@@ -760,7 +761,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
 :isQueryFor
     a owl:ObjectProperty ;
-    rdfs:comment "proof" ;
+    rdfs:comment 23, "proof" ;
     rdfs:domain :Query ;
     rdfs:label "query-for"@en ;
     rdfs:range :Question ;
