@@ -7,4 +7,47 @@
 @prefix ex:      <http://example.com/vocab#> .
 @prefix :        <http://example.com/> .
 
-# TODO
+<http://dbpedia.org/resource/Introduction_to_Algorithms>
+   a prov:Entity;
+   pml:hasAuthor <http://dbpedia.org/resource/Thomas_H._Cormen>,
+                 <http://dbpedia.org/resource/Charles_E._Leiserson>,
+                 <http://dbpedia.org/resource/Ron_Rivest>,
+                 <http://dbpedia.org/resource/Clifford_Stein>;
+   pml:qualifiedAuthorship :clrs_authorship_c,
+                           :clrs_authorship_l,
+                           :clrs_authorship_r,
+                           :clrs_authorship_s;
+.
+
+:clrs_authorship_c
+   a pml:Authorship;
+   prov:agent <http://dbpedia.org/resource/Thomas_H._Cormen>;
+   prov:atLocation :first;
+   pml:hadIndex 1; # TODO: this is less crufty..
+.
+
+:clrs_authorship_l
+   a pml:Authorship;
+   prov:agent <http://dbpedia.org/resource/Charles_E._Leiserson>;
+   prov:atLocation :second;
+   pml:hadIndex 2; # TODO: this is less crufty..
+.
+
+:clrs_authorship_r
+   a pml:Authorship;
+   prov:agent <http://dbpedia.org/resource/Ron_Rivest>;
+   prov:atLocation :third;
+   pml:hadIndex 3; # TODO: this is less crufty..
+.
+
+:clrs_authorship_s
+   a pml:Authorship;
+   prov:agent  <http://dbpedia.org/resource/Clifford_Stein>;
+   prov:atLocation :fourth;
+   pml:hadIndex 4; # TODO: this is less crufty..
+.
+
+:first  a pml:Position, prov:Location; prov:value 1 .
+:second a pml:Position, prov:Location; prov:value 2 .
+:third  a pml:Position, prov:Location; prov:value 3 .
+:fourth a pml:Position, prov:Location; prov:value 4 .
