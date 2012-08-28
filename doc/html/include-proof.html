@@ -1,6 +1,155 @@
      <section id="description-proof-terms">
       <h3>PML 3 Proof Terms</h3>
 
+      <p>There are two key constructs that make it possible to operate
+      proof-theoretically with the PROV Ontology. One is the ability
+      to tie processual provenance to derivational provenance. We
+      enable this by defining <a
+       href="#hadAntecedent">pml:hadAntecedent</a>, a subproperty of
+      <a href="http://www.w3.org/ns/prov#used">prov:used</a> We also
+      define a qualified form of <a
+       href="#hadAntecedent">pml:hadAntecedent</a> called <a
+       href="#Antecedent">pml:Antecedent</a>. The other is the ability
+      to check activities against plans for those activities. Since
+      this requires no additional classes or properties, we discuss it
+      below.</p>
+
+      <h4>prov:Plans as classes of Activiities</h4>
+
+      <p>It is possible to mark successful the execution of a prov:Plan by an
+      activity. This is needed because the base specification only
+      defines plans as something that prov:Agents have during
+      a prov:Activity, but does not say anything about how that
+      activity conforms to that plan. It is possible to declare that a
+      prov:Activity conforms to a prov:Plan by making the activity an
+      instantiation of that plan. Conversely, an
+      failed prov:Activity would belong to the complement of the
+      prov:Plan.</p>
+
+      <p>Since this strategy uses <a
+      href="http://www.w3.org/TR/owl2-new-features/#F12:_Punning">OWL
+      2 punning</a> it may be useful to describe the method. In
+      non-OWL Full OWL 2, "punning" is used to separate the class,
+      property, and individual attributes of a resource into separate
+      denotations, that for a class, property, and individual. Any
+      assertions about the class are never used to infer triples
+      about the individual or property. The respective assertions hold
+      for individuals and properties. This allows users of OWL 2 to,
+      for instance, speak of the species Eagle as both a class of all
+      Eagles (which all have certain attributes which can be defined
+      via subsumption, domains and ranges, and property restrictions),
+      and the species Eagle which is true about the species, but not
+      the individuals of the species. One thing that is true is that
+      the species Eagle belongs to the meta class "Plant and Animal
+      Species". This allows for direct metamodeling within the OWL
+      framework without having to result to OWL Full inferences. We
+      see this same relationship between the class prov:Activity and the
+      meta-class prov:Plan, instances of which define activities.</p>
+
+      <p>An example can be more illustrative than
+      a prose description. Here is an example using Modus Ponens (in TTL):</p>
+
+<pre>
+logic:ModusPonens a prov:Plan; owl:Class;
+   rdfs:subClassOf prov:Activity.
+ 
+:mpAct1 a prov:Activity, logic:ModusPonens.
+   prov:qualifiedAssociation [
+     prov:agent :Jim;
+     prov:hadPlan logic:ModusPonens
+   ];
+   prov:wasAssociatedWith :Jim;
+   prov:used [
+     a prov:Entity, logic:ConditionalStatement;
+     prov:value "X is a man => X is a mortal."
+   ];
+   prov:used [
+     a prov:Entity, logic:Statement;
+     prov:value "Socrates is a man."
+   ].
+ 
+:mpConclusion a logic:Statement, prov:Entity;
+   prov:value "Socrates is a mortal.";
+   prov:wasGeneratedBy :mpAct1.
+</pre>
+
+    <p>The core of this technique is that Modus Ponens is both an
+    instance of plan and also a class. All instances of Modus Ponens
+    are also activities. mpAct1 is an activity and an instance of
+    Modus Ponens, and was associated with Jim, who had the plan Modus
+    Ponens. The activity used a conditional statement, "X is a man, =>
+    X is a mortal." and a statement "Socrates is a man."  to generate
+    a statement "Socrates is a mortal." Because the activity was an
+    instance of Modus Ponens, and Jim had the plan of Modus Ponens, we
+    can determine that the plan succeeded. Conversely, if mpAct1 was
+    an instance of the complement of Modus Ponens, we could determine
+    that Jim's plan failed. Similarly, if the plan were to be an
+    instance of a subclass of Modus Ponens, for instance, a particular
+    Forward Chaining algorithm, we would still determine that Jim's
+    plan succeeded because mpAct1 would be an instance of Modus Ponens
+    by subsumption.</p>
+
+    <p>While PROV's Plan is something of intent, we use OWL 2 punning
+    to extend it to something which has also occurred. This provides
+    us with several advantages:</p>
+
+    <ol>
+
+      <li>It is possible to directly query for activities that
+      follow certain plans, and follow the inheritance hierarchy of
+      it, simply by querying for instances of the plan in question. A
+      query engine backed by reasoning would be able to follow the
+      subsumption hierarchy, while a non-reasoning query engine could
+      still search for direct assertions of type. For instances, more
+      abstract plans, such as modus ponens, are super classes of more
+      specific algorithms, such as forward chaining, and particular
+      implementations, such as the forward chaining implementation
+      from the Jena rule inference engine. Querying for instances of
+      Modus Ponens would then also return instances of forward
+      chaining by a Jena rule inference engine through simple class
+      subsumption.</li>
+
+      <li>It is possible to express when an activity doesn't go
+      according to plan, simply by expressing a disjoint class of the plan of
+      an agent.</li>
+      
+      <li>It is possible to partially define a plan in terms of the
+      provenance it will produce as OWL restrictions on the
+      Plan-as-class, as shown below.</li>
+    </ol>
+
+    <p>This third advantage can be shown by extending the modus ponens
+    example (in Manchester Notation):</p>
+
+<pre>
+Class: logic:ModusPonens
+   SubClassOf: pml:InferenceStep, prov:Activity
+   EquivalentClass: 
+           prov:used exactly 1 logic:ConditionalStatement 
+       and prov:used exactly 2 logic:Statement
+       and prov:used only logic:Statement
+       and prov:generated exactly 1 logic:Statement
+ 
+Class: logic:Statement
+ 
+Class: logic:ConditionalStatement
+   SubClassOf logic:Statement
+</pre>
+    
+    <p>We are defining modus ponens by stating that it takes two
+    statements, one of them being a conditional statement, and
+    produces another statement. This obviously isn't a full definition
+    of ModusPonens, but it does define it as a black box, in that it
+    defines what inputs and outputs can be expected.</p>
+
+    <p>By following this definition, we know that any activity that is
+    a successful use of Modus Ponens uses a certain number and type of
+    logical statements and that it produces a logical statement. By
+    punning the plan and class together, we provide a natural way to
+    mix the parts of the plan that can be defined in OWL with other
+    specifications on the prov:Plan-as-individual.
+    
+
       <div id="proof-figure" style="text-align: center;" class="figure">
             <img src="https://raw.github.com/timrdf/pml/master/doc/figures/pml-3-proof.png"
                  style="width: 30%; min-width: 25em; max-width: 60em" 
@@ -9,3 +158,5 @@
       </div>
 
      </section>
+
+      
