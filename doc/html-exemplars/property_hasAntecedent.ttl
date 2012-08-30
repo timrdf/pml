@@ -7,4 +7,15 @@
 @prefix ex:      <http://example.com/vocab#> .
 @prefix :        <http://example.com/> .
 
-# TODO
+:specimenX a prov:Entitiy.
+:scalpel a prov:Entity.
+
+:specimenCutEvent a prov:Activity;
+ pml:hasAntecedent :specimenX;
+ prov:used :scalpel.
+
+:specimenX.1 a prov:Entity;
+ prov:wasGeneratedBy :specimenCutEvent.
+
+:specimenX.2 a prov:Entity;
+ prov:wasGeneratedBy :specimenCutEvent.
