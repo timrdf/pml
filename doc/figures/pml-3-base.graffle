@@ -222,7 +222,7 @@
 	<array>
 		<dict>
 			<key>Bounds</key>
-			<string>{{428.1921901982376, 511.06292638233992}, {81, 19}}</string>
+			<string>{{428.19220245647517, 511.02254697707588}, {81, 19}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -289,7 +289,7 @@ hasFormat}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{420.30894432082459, 550.50773900230479}, {97, 19}}</string>
+			<string>{{420.31344789302244, 550.48090737573875}, {97, 19}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -807,8 +807,8 @@ DeclarativeRule}</string>
 			<integer>882</integer>
 			<key>Points</key>
 			<array>
-				<string>{414.86812869426052, 543.00017239095905}</string>
-				<string>{535.29211920527666, 580.96991786902959}</string>
+				<string>{414.86815516307587, 542.98236561434544}</string>
+				<string>{535.30214090032268, 580.93196292757261}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -1331,8 +1331,8 @@ prov:Plan}</string>
 			<integer>876</integer>
 			<key>Points</key>
 			<array>
-				<string>{414.89076015764397, 518.13034045543088}</string>
-				<string>{534.7145304163663, 523.54807037488888}</string>
+				<string>{414.89076637871483, 518.10485020356703}</string>
+				<string>{534.71455803631136, 523.48942012585417}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -2582,8 +2582,8 @@ prov:Location}</string>
 			<key>ControlPoints</key>
 			<array>
 				<string>{12.358700000000001, 4.7106804999999996}</string>
-				<string>{1.2090977901762017, 19.859071042262087}</string>
-				<string>{-1.2091544357533621, -19.859070626627982}</string>
+				<string>{6.0000033178521335, -10.581208049380621}</string>
+				<string>{-6, 10.581221911664613}</string>
 				<string>{13.047700000000001, -4.6650995999999996}</string>
 			</array>
 			<key>Head</key>
@@ -2597,8 +2597,8 @@ prov:Location}</string>
 			<integer>832</integer>
 			<key>Points</key>
 			<array>
-				<string>{414.87310959935724, 496.16554911677594}</string>
-				<string>{452.88075906991781, 485.63242148026245}</string>
+				<string>{644.4239034991283, 464.67515885127796}</string>
+				<string>{660, 474.41877808833539}</string>
 				<string>{414.39127046823313, 479.15177129168984}</string>
 			</array>
 			<key>Rotation</key>
@@ -2633,9 +2633,7 @@ prov:Location}</string>
 			<key>Tail</key>
 			<dict>
 				<key>ID</key>
-				<integer>856</integer>
-				<key>Info</key>
-				<integer>7</integer>
+				<integer>842</integer>
 			</dict>
 		</dict>
 		<dict>
@@ -2772,7 +2770,7 @@ prov:Location}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-08-17 18:28:13 +0000</string>
+	<string>2012-08-19 17:42:44 +0000</string>
 	<key>Modifier</key>
 	<string>lebot</string>
 	<key>NotesVisible</key>
@@ -2875,7 +2873,7 @@ prov:Location}</string>
 		<key>SidebarWidth</key>
 		<integer>120</integer>
 		<key>VisibleRegion</key>
-		<string>{{1.3333333333333333, 146}, {914.66666666666663, 588}}</string>
+		<string>{{1.3333333333333333, 88}, {914.66666666666663, 588}}</string>
 		<key>Zoom</key>
 		<real>1.5</real>
 		<key>ZoomValues</key>

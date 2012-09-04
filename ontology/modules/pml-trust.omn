@@ -11,7 +11,7 @@ Prefix: prov: <http://www.w3.org/ns/prov#>
 
 
 Ontology: <http://provenanceweb.org/ns/pml-trust#>
-
+Import: <http://www.w3.org/ns/prov#>
 
 Annotations: 
     rdfs:label "PML2 trust ontology"@en,
