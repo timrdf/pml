@@ -16,6 +16,16 @@
 
       <h4>prov:Plans as classes of Activiities</h4>
 
+      <p>In PROV, only things that have happened can be directly
+      asserted. If something hasn't happened yet, it is considered to
+      be a plan or expectation of what will happen. Because of this,
+      we cannot directly encode plans as graphs of provenance, but
+      instead, we need to look to defining classes of things which
+      might happen in the future. It is sensible to use OWL to define
+      these as much as possible. Towards this end, we pun instances
+      of prov:Plan to also be subclasses of prov:Activity.</p>
+
+
       <p>It is possible to mark successful the execution of a prov:Plan by an
       activity. This is needed because the base specification only
       defines plans as something that prov:Agents have during
@@ -147,7 +157,7 @@ Class: logic:ConditionalStatement
     logical statements and that it produces a logical statement. By
     punning the plan and class together, we provide a natural way to
     mix the parts of the plan that can be defined in OWL with other
-    specifications on the prov:Plan-as-individual.
+    specifications on the prov:Plan-as-individual.</h4>
     
 
     <h4>Variable Mapping</h4>
