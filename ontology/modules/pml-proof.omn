@@ -213,6 +213,12 @@ ObjectProperty: pml:isConsequentOf
 ObjectProperty: <http://www.w3.org/ns/prov#invalidated>
 
     
+ObjectProperty: <http://www.w3.org/ns/prov#wasDerivedFrom>
+
+    SubPropertyChain: 
+        <http://www.w3.org/ns/prov#wasGeneratedBy> o pml:hasAntecedent
+    
+    
 ObjectProperty: pml:isQueryFor
 
     Annotations: 
