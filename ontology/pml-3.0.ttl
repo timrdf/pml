@@ -154,7 +154,7 @@
     rdfs:comment "An inference engine represents an engine that is able to produce a justification for a conclusion. Note that the phrase \"inference engine\" applies not only to reasoners but also to other systems like search engines which may justify their answers by direct assertion"@en ;
     rdfs:label "Inference Engine"@en ;
     rdfs:subClassOf prov:SoftwareAgent ;
-    prov:category "base", "proof" .
+    prov:category "base" .
 
 :InferenceStep
     a owl:Class ;
@@ -163,19 +163,19 @@
     rdfs:subClassOf prov:Activity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :fromAnswerOrQuery
-    ], [
-        a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasInferenceEngine
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasSourceUsage
+        owl:onProperty :hasConfidenceValue
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasConfidenceValue
+        owl:onProperty :fromAnswerOrQuery
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasSourceUsage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
@@ -191,11 +191,11 @@
     rdfs:subClassOf prov:Entity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasLanguage
+        owl:onProperty :hasFormat
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFormat
+        owl:onProperty :hasLanguage
     ] ;
     prov:category "base" .
 
@@ -365,15 +365,15 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasFromCol
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasFromRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasToCol
-    ], [
-        a owl:Restriction ;
-        owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -419,11 +419,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasTrustee
+        owl:onProperty :hasTrustor
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasTrustor
+        owl:onProperty :hasTrustee
     ] .
 
 :WebService
