@@ -66,11 +66,11 @@
     rdfs:subClassOf [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievedInformation
+        owl:onProperty :hasBelievingAgent
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievingAgent
+        owl:onProperty :hasBelievedInformation
     ] ;
     prov:category "trust" .
 
@@ -167,19 +167,19 @@
     rdfs:subClassOf prov:Activity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasInferenceEngine
-    ], [
-        a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :fromAnswerOrQuery
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasConfidenceValue
+        owl:onProperty :hasAntecedent
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasAntecedent
+        owl:onProperty :hasInferenceEngine
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasConfidenceValue
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
@@ -280,12 +280,12 @@
     a owl:Class ;
     rdfs:subClassOf prov:Attribution, [
         a owl:Restriction ;
-        owl:allValuesFrom :OwnedEntity ;
-        owl:onProperty prov:entity
-    ], [
-        a owl:Restriction ;
         owl:allValuesFrom :Owner ;
         owl:onProperty prov:agent
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom :OwnedEntity ;
+        owl:onProperty prov:entity
     ] ;
     prov:category "base" ;
     prov:unqualifiedForm :hasOwner .
@@ -369,11 +369,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToCol
+        owl:onProperty :hasToRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToRow
+        owl:onProperty :hasFromRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -381,7 +381,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromRow
+        owl:onProperty :hasToCol
     ] ;
     prov:category "base" .
 
@@ -408,11 +408,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf :ProceduralPlan, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromLanguage
+        owl:onProperty :hasToLanguage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToLanguage
+        owl:onProperty :hasFromLanguage
     ] ;
     prov:category "base" .
 
@@ -548,7 +548,8 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:domain prov:Bundle ;
     rdfs:label "created"@en ;
     rdfs:range xsd:dateTime ;
-    rdfs:subPropertyOf prov:generatedAtTime .
+    rdfs:subPropertyOf prov:generatedAtTime ;
+    prov:category "base" .
 
 :hasDescription
     :order 0.1 ;
@@ -652,7 +653,8 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:domain prov:Bundle ;
     rdfs:label "last modified"@en ;
     rdfs:range xsd:dateTime ;
-    rdfs:subPropertyOf prov:generatedAtTime .
+    rdfs:subPropertyOf prov:generatedAtTime ;
+    prov:category "base" .
 
 :hasOwner
     :order 1.5 ;
@@ -672,7 +674,8 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:comment "When the publication is published."@en ;
     rdfs:label "published in"@en ;
     rdfs:range xsd:dateTime ;
-    rdfs:subPropertyOf prov:generatedAtTime .
+    rdfs:subPropertyOf prov:generatedAtTime ;
+    prov:category "base" .
 
 :hasPublisher
     :order 2.5 ;
