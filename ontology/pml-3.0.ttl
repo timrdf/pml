@@ -16,12 +16,12 @@
     a owl:Class ;
     rdfs:label "Abstraction Rule" ;
     rdfs:subClassOf :ProceduralPlan ;
-    prov:category "trust" .
+    prov:category "proof" .
 
 :Antecedent
     a owl:Class ;
     rdfs:subClassOf prov:Usage ;
-    prov:category "trust" .
+    prov:category "proof" .
 
 :Author
     :order 1 ;
@@ -100,13 +100,13 @@
     rdfs:label "Document Fragment"@en ;
     rdfs:subClassOf :InformationContainer, [
         a owl:Restriction ;
-        owl:onProperty prov:atLocation ;
-        owl:someValuesFrom prov:Location
-    ], [
-        a owl:Restriction ;
         owl:onClass :Document ;
         owl:onProperty <http://purl.org/dc/terms/isPartOf> ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+    ], [
+        a owl:Restriction ;
+        owl:onProperty prov:atLocation ;
+        owl:someValuesFrom prov:Location
     ] ;
     prov:category "base" .
 
@@ -154,7 +154,7 @@
     rdfs:comment "An inference engine represents an engine that is able to produce a justification for a conclusion. Note that the phrase \"inference engine\" applies not only to reasoners but also to other systems like search engines which may justify their answers by direct assertion"@en ;
     rdfs:label "Inference Engine"@en ;
     rdfs:subClassOf prov:SoftwareAgent ;
-    prov:category "base", "trust" .
+    prov:category "base", "proof" .
 
 :InferenceStep
     a owl:Class ;
@@ -163,15 +163,7 @@
     rdfs:subClassOf prov:Activity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasSourceUsage
-    ], [
-        a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :fromAnswerOrQuery
-    ], [
-        a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasConfidenceValue
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
@@ -179,9 +171,17 @@
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasSourceUsage
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasConfidenceValue
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasAntecedent
     ] ;
-    prov:category "trust" .
+    prov:category "proof" .
 
 :Information
     :order 12 ;
@@ -345,7 +345,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :isFromEngine
     ] ;
-    prov:category "trust" .
+    prov:category "proof" .
 
 :Question
     a owl:Class ;
@@ -356,7 +356,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasAnswerPattern
     ] ;
-    prov:category "trust" .
+    prov:category "proof" .
 
 :RowColLocation
     :order 11.8 ;
@@ -365,11 +365,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToCol
+        owl:onProperty :hasFromRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToRow
+        owl:onProperty :hasToCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -377,7 +377,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromRow
+        owl:onProperty :hasToRow
     ] ;
     prov:category "base" .
 
@@ -404,11 +404,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf :ProceduralPlan, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromLanguage
+        owl:onProperty :hasToLanguage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToLanguage
+        owl:onProperty :hasFromLanguage
     ] ;
     prov:category "base" .
 
@@ -419,11 +419,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasTrustor
+        owl:onProperty :hasTrustee
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasTrustee
+        owl:onProperty :hasTrustor
     ] .
 
 :WebService
@@ -448,14 +448,14 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
 :fromAnswer
     a owl:ObjectProperty ;
-    rdfs:comment "trust" ;
+    rdfs:comment "proof" ;
     rdfs:label "root-node-set"@en ;
     rdfs:subPropertyOf :fromAnswerOrQuery ;
     prov:definition "the root node set that answers the specific query but not necessarily the present nodeset that hosts this inference step."@en .
 
 :fromAnswerOrQuery
     a owl:ObjectProperty ;
-    rdfs:comment "trust" ;
+    rdfs:comment "proof" ;
     rdfs:domain :InferenceStep ;
     rdfs:label "source-answer-or-query"@en ;
     rdfs:subPropertyOf prov:generated ;
@@ -464,7 +464,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
 :fromQuery
     a owl:ObjectProperty ;
-    rdfs:comment "trust" ;
+    rdfs:comment "proof" ;
     rdfs:label "source-query"@en ;
     rdfs:range :Query ;
     rdfs:subPropertyOf :fromAnswerOrQuery ;
@@ -472,7 +472,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
 :hasAnswer
     a owl:ObjectProperty ;
-    rdfs:comment "trust" ;
+    rdfs:comment "proof" ;
     rdfs:domain :Query ;
     rdfs:label "answer"@en ;
     rdfs:subPropertyOf prov:hadDerivation ;
@@ -484,7 +484,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:domain :Question ;
     rdfs:label "answer pattern"@en ;
     rdfs:range xsd:string ;
-    prov:category "trust" .
+    prov:category "proof" .
 
 :hasAntecedent
     a owl:ObjectProperty ;
@@ -494,7 +494,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     owl:propertyChainAxiom (:qualifiedAntecedent
         prov:entity
     ) ;
-    prov:category "trust" ;
+    prov:category "proof" ;
     prov:definition "An antecedent of an activity is an entity that is used by in such a way that the generated entities are derived from them. This provides a link between processual and derivational provenance that will allow proof-theoretic analysis to be applied to PROV and PML provenance assertions."@en .
 
 :hasAuthor
@@ -529,7 +529,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     a owl:ObjectProperty ;
     rdfs:label "conclusion"@en ;
     rdfs:subPropertyOf prov:generated ;
-    prov:category "trust" ;
+    prov:category "proof" ;
     prov:definition "links to the conclusion of the present node set. The conclusion is the one after applied variable mapping of the node set's inference steps. The content/language/format of conclusion is the only information needed in comparing conclusions."@en .
 
 :hasConfidenceValue
@@ -556,7 +556,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:domain :InferenceStep ;
     rdfs:label "discharge"@en ;
     rdfs:subPropertyOf prov:invalidated ;
-    prov:category "trust" ;
+    prov:category "proof" ;
     prov:definition "dismiss causal dependency from the conclusion of the present nodeset to an (recursive) antecedent nodeset of the present inference step. In particular, OR-elimination can only be implemented by hasDischarge"@en .
 
 :hasEncoding
@@ -627,7 +627,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:label "inference engine"@en ;
     rdfs:range :InferenceEngine ;
     rdfs:subPropertyOf prov:wasAssociatedWith ;
-    prov:category "trust" .
+    prov:category "proof" .
 
 :hasLanguage
     :order 15 ;
@@ -750,11 +750,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:label "because"@en ;
     rdfs:range :InferenceStep ;
     rdfs:subPropertyOf prov:wasGeneratedBy ;
-    prov:category "trust" .
+    prov:category "proof" .
 
 :isExplanationOf
     a owl:ObjectProperty ;
-    rdfs:comment "trust" ;
+    rdfs:comment "proof" ;
     rdfs:label "explains"@en ;
     rdfs:subPropertyOf prov:hadDerivation ;
     prov:definition "links to a node set (and its antecedents) that is explained by the present node set. This is used for connecting the orginal justifications to the NodeSet that abstracts this node set (and its antecedents)."@en .
@@ -765,11 +765,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:label "answer-generator"@en ;
     rdfs:range :InferenceEngine ;
     rdfs:subPropertyOf prov:wasAttributedTo ;
-    prov:category "trust" .
+    prov:category "proof" .
 
 :isQueryFor
     a owl:ObjectProperty ;
-    rdfs:comment "trust" ;
+    rdfs:comment "proof" ;
     rdfs:domain :Query ;
     rdfs:label "query-for"@en ;
     rdfs:range :Question ;
