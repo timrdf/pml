@@ -73,18 +73,18 @@
     <prov:unqualifiedForm rdf:resource="http://provenanceweb.org/ns/pml#hasAuthor"/>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#BeliefElement">
-    <rdfs:comment xml:lang="en">The abstract trust concept that associate from an agent to a piece of information. The belief relation shows an agents belief status on the specified information. The specific belief status (e.g. believes, disbelieves, ignorant) and corresponding value metrics are defined in the decendents of this class. </rdfs:comment>
+    <rdfs:comment xml:lang="en">The abstract trust concept that associate from an agent to a piece of information. The belief relation shows an agents belief status on the specified information. The specific belief status (e.g. believes, disbelieves, ignorant) and corresponding value metrics are defined in the decendents of this class.</rdfs:comment>
     <rdfs:label xml:lang="en">Belief</rdfs:label>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasBelievingAgent"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasBelievedInformation"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasBelievedInformation"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasBelievingAgent"/>
       </owl:Restriction>
     </rdfs:subClassOf>
   </owl:Class>
@@ -136,10 +136,11 @@
     <prov:category>base</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#FloatBelief">
-    <rdfs:comment xml:lang="en">An agent's overall belief on a piece of information quantified by a float value between 0 and 1. </rdfs:comment>
+    <rdfs:comment xml:lang="en">An agent's overall belief on a piece of information quantified by a float value between 0 and 1.</rdfs:comment>
     <rdfs:label xml:lang="en">Float Belief</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://provenanceweb.org/ns/pml#BeliefElement"/>
     <rdfs:subClassOf rdf:resource="http://provenanceweb.org/ns/pml#FloatMetric"/>
+    <prov:category>trust</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#FloatMetric">
     <rdfs:comment xml:lang="en">A specific valuation metric that is defined on [0,1] as float number. 0 means fully negative point, 0.5 means nutral point, and 1 means fully positive point.</rdfs:comment>
@@ -152,10 +153,11 @@
     </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#FloatTrust">
-    <rdfs:comment xml:lang="en">An agent's overall trust on an information source quantified by a float value between 0 and 1. </rdfs:comment>
+    <rdfs:comment xml:lang="en">An agent's overall trust on an information source quantified by a float value between 0 and 1.</rdfs:comment>
     <rdfs:label xml:lang="en">Float trust</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://provenanceweb.org/ns/pml#FloatMetric"/>
     <rdfs:subClassOf rdf:resource="http://provenanceweb.org/ns/pml#TrustElement"/>
+    <prov:category>trust</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#Format">
     <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">14</order>
@@ -179,7 +181,13 @@
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasInferenceEngine"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#fromAnswerOrQuery"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasAntecedent"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
@@ -191,19 +199,13 @@
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#fromAnswerOrQuery"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
         <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasSourceUsage"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasAntecedent"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasInferenceEngine"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>proof</prov:category>
@@ -424,12 +426,6 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromCol"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
         <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromRow"/>
       </owl:Restriction>
     </rdfs:subClassOf>
@@ -437,6 +433,12 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
         <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasToCol"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromCol"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
@@ -592,12 +594,14 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#hasBelievedInformation">
     <rdfs:comment xml:lang="en">the information being believed in.</rdfs:comment>
+    <rdfs:comment>trust</rdfs:comment>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#BeliefElement"/>
     <rdfs:label xml:lang="en">believedIn</rdfs:label>
     <rdfs:range rdf:resource="http://provenanceweb.org/ns/pml#Information"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#hasBelievingAgent">
     <rdfs:comment xml:lang="en">the agent that hold the belief assertion.</rdfs:comment>
+    <rdfs:comment>trust</rdfs:comment>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#BeliefElement"/>
     <rdfs:label xml:lang="en">believedBy</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Agent"/>
@@ -640,6 +644,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://provenanceweb.org/ns/pml#hasFloatValue">
     <rdfs:comment xml:lang="en">The value of the metric, and We may consider better datatype in future.</rdfs:comment>
+    <rdfs:comment>trust</rdfs:comment>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#FloatMetric"/>
     <rdfs:label xml:lang="en">value</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
@@ -780,12 +785,14 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
   </owl:DatatypeProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#hasTrustee">
     <rdfs:comment xml:lang="en">the information source that is trusted in providing information.</rdfs:comment>
+    <rdfs:comment>trust</rdfs:comment>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#TrustElement"/>
     <rdfs:label xml:lang="en">trustee</rdfs:label>
     <rdfs:range rdf:resource="http://provenanceweb.org/ns/pml#Source"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#hasTrustor">
     <rdfs:comment xml:lang="en">the agent that hold the trust relation with the trustee.</rdfs:comment>
+    <rdfs:comment>trust</rdfs:comment>
     <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#TrustElement"/>
     <rdfs:label xml:lang="en">trustor</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Agent"/>

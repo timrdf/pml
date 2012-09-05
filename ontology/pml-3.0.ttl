@@ -61,16 +61,16 @@
 
 :BeliefElement
     a owl:Class ;
-    rdfs:comment "The abstract trust concept that associate from an agent to a piece of information. The belief relation shows an agents belief status on the specified information. The specific belief status (e.g. believes, disbelieves, ignorant) and corresponding value metrics are defined in the decendents of this class. "@en ;
+    rdfs:comment "The abstract trust concept that associate from an agent to a piece of information. The belief relation shows an agents belief status on the specified information. The specific belief status (e.g. believes, disbelieves, ignorant) and corresponding value metrics are defined in the decendents of this class."@en ;
     rdfs:label "Belief"@en ;
     rdfs:subClassOf [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievingAgent
+        owl:onProperty :hasBelievedInformation
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievedInformation
+        owl:onProperty :hasBelievingAgent
     ] .
 
 :DeclarativeRule
@@ -120,9 +120,10 @@
 
 :FloatBelief
     a owl:Class ;
-    rdfs:comment "An agent's overall belief on a piece of information quantified by a float value between 0 and 1. "@en ;
+    rdfs:comment "An agent's overall belief on a piece of information quantified by a float value between 0 and 1."@en ;
     rdfs:label "Float Belief"@en ;
-    rdfs:subClassOf :BeliefElement, :FloatMetric .
+    rdfs:subClassOf :BeliefElement, :FloatMetric ;
+    prov:category "trust" .
 
 :FloatMetric
     a owl:Class ;
@@ -136,9 +137,10 @@
 
 :FloatTrust
     a owl:Class ;
-    rdfs:comment "An agent's overall trust on an information source quantified by a float value between 0 and 1. "@en ;
+    rdfs:comment "An agent's overall trust on an information source quantified by a float value between 0 and 1."@en ;
     rdfs:label "Float trust"@en ;
-    rdfs:subClassOf :FloatMetric, :TrustElement .
+    rdfs:subClassOf :FloatMetric, :TrustElement ;
+    prov:category "trust" .
 
 :Format
     :order 14 ;
@@ -163,7 +165,11 @@
     rdfs:subClassOf prov:Activity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasInferenceEngine
+        owl:onProperty :fromAnswerOrQuery
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasAntecedent
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
@@ -171,15 +177,11 @@
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :fromAnswerOrQuery
-    ], [
-        a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasSourceUsage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasAntecedent
+        owl:onProperty :hasInferenceEngine
     ] ;
     prov:category "proof" .
 
@@ -365,15 +367,15 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromCol
-    ], [
-        a owl:Restriction ;
-        owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasFromRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasToCol
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasFromCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -513,14 +515,14 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
 :hasBelievedInformation
     a owl:ObjectProperty ;
-    rdfs:comment "the information being believed in."@en ;
+    rdfs:comment "the information being believed in."@en, "trust" ;
     rdfs:domain :BeliefElement ;
     rdfs:label "believedIn"@en ;
     rdfs:range :Information .
 
 :hasBelievingAgent
     a owl:ObjectProperty ;
-    rdfs:comment "the agent that hold the belief assertion."@en ;
+    rdfs:comment "the agent that hold the belief assertion."@en, "trust" ;
     rdfs:domain :BeliefElement ;
     rdfs:label "believedBy"@en ;
     rdfs:range prov:Agent .
@@ -570,7 +572,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
 :hasFloatValue
     a owl:DatatypeProperty ;
-    rdfs:comment "The value of the metric, and We may consider better datatype in future."@en ;
+    rdfs:comment "The value of the metric, and We may consider better datatype in future."@en, "trust" ;
     rdfs:domain :FloatMetric ;
     rdfs:label "value"@en ;
     rdfs:range xsd:float .
@@ -724,14 +726,14 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
 :hasTrustee
     a owl:ObjectProperty ;
-    rdfs:comment "the information source that is trusted in providing information."@en ;
+    rdfs:comment "the information source that is trusted in providing information."@en, "trust" ;
     rdfs:domain :TrustElement ;
     rdfs:label "trustee"@en ;
     rdfs:range :Source .
 
 :hasTrustor
     a owl:ObjectProperty ;
-    rdfs:comment "the agent that hold the trust relation with the trustee."@en ;
+    rdfs:comment "the agent that hold the trust relation with the trustee."@en, "trust" ;
     rdfs:domain :TrustElement ;
     rdfs:label "trustor"@en ;
     rdfs:range prov:Agent .
