@@ -66,11 +66,11 @@
     rdfs:subClassOf [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievedInformation
+        owl:onProperty :hasBelievingAgent
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievingAgent
+        owl:onProperty :hasBelievedInformation
     ] .
 
 :DeclarativeRule
@@ -100,13 +100,13 @@
     rdfs:label "Document Fragment"@en ;
     rdfs:subClassOf :InformationContainer, [
         a owl:Restriction ;
+        owl:onProperty prov:atLocation ;
+        owl:someValuesFrom prov:Location
+    ], [
+        a owl:Restriction ;
         owl:onClass :Document ;
         owl:onProperty <http://purl.org/dc/terms/isPartOf> ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
-    ], [
-        a owl:Restriction ;
-        owl:onProperty prov:atLocation ;
-        owl:someValuesFrom prov:Location
     ] ;
     prov:category "base" .
 
@@ -165,11 +165,11 @@
     rdfs:subClassOf prov:Activity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :fromAnswerOrQuery
+        owl:onProperty :hasSourceUsage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasAntecedent
+        owl:onProperty :fromAnswerOrQuery
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
@@ -177,7 +177,7 @@
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasSourceUsage
+        owl:onProperty :hasAntecedent
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
@@ -193,11 +193,11 @@
     rdfs:subClassOf prov:Entity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFormat
+        owl:onProperty :hasLanguage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasLanguage
+        owl:onProperty :hasFormat
     ] ;
     prov:category "base" .
 
@@ -367,11 +367,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromRow
+        owl:onProperty :hasToCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToCol
+        owl:onProperty :hasToRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -379,7 +379,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToRow
+        owl:onProperty :hasFromRow
     ] ;
     prov:category "base" .
 
@@ -406,11 +406,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf :ProceduralPlan, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToLanguage
+        owl:onProperty :hasFromLanguage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromLanguage
+        owl:onProperty :hasToLanguage
     ] ;
     prov:category "base" .
 
@@ -515,17 +515,19 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
 :hasBelievedInformation
     a owl:ObjectProperty ;
-    rdfs:comment "the information being believed in."@en, "trust" ;
+    rdfs:comment "the information being believed in."@en ;
     rdfs:domain :BeliefElement ;
     rdfs:label "believedIn"@en ;
-    rdfs:range :Information .
+    rdfs:range :Information ;
+    prov:category "trust" .
 
 :hasBelievingAgent
     a owl:ObjectProperty ;
-    rdfs:comment "the agent that hold the belief assertion."@en, "trust" ;
+    rdfs:comment "the agent that hold the belief assertion."@en ;
     rdfs:domain :BeliefElement ;
     rdfs:label "believedBy"@en ;
-    rdfs:range prov:Agent .
+    rdfs:range prov:Agent ;
+    prov:category "trust" .
 
 :hasConclusion
     a owl:ObjectProperty ;
@@ -572,10 +574,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
 :hasFloatValue
     a owl:DatatypeProperty ;
-    rdfs:comment "The value of the metric, and We may consider better datatype in future."@en, "trust" ;
+    rdfs:comment "The value of the metric, and We may consider better datatype in future."@en ;
     rdfs:domain :FloatMetric ;
     rdfs:label "value"@en ;
-    rdfs:range xsd:float .
+    rdfs:range xsd:float ;
+    prov:category "trust" .
 
 :hasFormat
     :order 13 ;
@@ -726,17 +729,19 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
 :hasTrustee
     a owl:ObjectProperty ;
-    rdfs:comment "the information source that is trusted in providing information."@en, "trust" ;
+    rdfs:comment "the information source that is trusted in providing information."@en ;
     rdfs:domain :TrustElement ;
     rdfs:label "trustee"@en ;
-    rdfs:range :Source .
+    rdfs:range :Source ;
+    prov:category "trust" .
 
 :hasTrustor
     a owl:ObjectProperty ;
-    rdfs:comment "the agent that hold the trust relation with the trustee."@en, "trust" ;
+    rdfs:comment "the agent that hold the trust relation with the trustee."@en ;
     rdfs:domain :TrustElement ;
     rdfs:label "trustor"@en ;
-    rdfs:range prov:Agent .
+    rdfs:range prov:Agent ;
+    prov:category "trust" .
 
 :hasVersion
     :order 0.3 ;
