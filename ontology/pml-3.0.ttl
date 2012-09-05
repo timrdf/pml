@@ -98,13 +98,13 @@
     rdfs:label "Document Fragment"@en ;
     rdfs:subClassOf :InformationContainer, [
         a owl:Restriction ;
-        owl:onProperty prov:atLocation ;
-        owl:someValuesFrom prov:Location
-    ], [
-        a owl:Restriction ;
         owl:onClass :Document ;
         owl:onProperty <http://purl.org/dc/terms/isPartOf> ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+    ], [
+        a owl:Restriction ;
+        owl:onProperty prov:atLocation ;
+        owl:someValuesFrom prov:Location
     ] ;
     prov:category "base" .
 
@@ -161,11 +161,15 @@
     rdfs:subClassOf prov:Activity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasInferenceEngine
+        owl:onProperty :fromAnswerOrQuery
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :fromAnswerOrQuery
+        owl:onProperty :hasSourceUsage
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasInferenceEngine
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
@@ -174,10 +178,6 @@
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasConfidenceValue
-    ], [
-        a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasSourceUsage
     ] .
 
 :Information
@@ -273,12 +273,12 @@
     a owl:Class ;
     rdfs:subClassOf prov:Attribution, [
         a owl:Restriction ;
-        owl:allValuesFrom :Owner ;
-        owl:onProperty prov:agent
-    ], [
-        a owl:Restriction ;
         owl:allValuesFrom :OwnedEntity ;
         owl:onProperty prov:entity
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom :Owner ;
+        owl:onProperty prov:agent
     ] ;
     prov:category "base" ;
     prov:unqualifiedForm :hasOwner .
@@ -360,7 +360,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToRow
+        owl:onProperty :hasFromRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -368,11 +368,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromRow
+        owl:onProperty :hasFromCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromCol
+        owl:onProperty :hasToRow
     ] ;
     prov:category "base" .
 
@@ -399,11 +399,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf :ProceduralPlan, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromLanguage
+        owl:onProperty :hasToLanguage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToLanguage
+        owl:onProperty :hasFromLanguage
     ] ;
     prov:category "base" .
 
@@ -414,11 +414,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasTrustee
+        owl:onProperty :hasTrustor
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasTrustor
+        owl:onProperty :hasTrustee
     ] .
 
 :WebService
