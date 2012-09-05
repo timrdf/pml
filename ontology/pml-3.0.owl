@@ -187,12 +187,6 @@
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#fromAnswerOrQuery"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
         <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasConfidenceValue"/>
       </owl:Restriction>
     </rdfs:subClassOf>
@@ -206,6 +200,12 @@
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
         <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasInferenceEngine"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#fromAnswerOrQuery"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>proof</prov:category>

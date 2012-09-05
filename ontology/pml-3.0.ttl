@@ -169,10 +169,6 @@
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :fromAnswerOrQuery
-    ], [
-        a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasConfidenceValue
     ], [
         a owl:Restriction ;
@@ -182,6 +178,10 @@
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasInferenceEngine
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :fromAnswerOrQuery
     ] ;
     prov:category "proof" .
 
