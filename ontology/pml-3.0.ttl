@@ -100,13 +100,13 @@
     rdfs:label "Document Fragment"@en ;
     rdfs:subClassOf :InformationContainer, [
         a owl:Restriction ;
-        owl:onProperty prov:atLocation ;
-        owl:someValuesFrom prov:Location
-    ], [
-        a owl:Restriction ;
         owl:onClass :Document ;
         owl:onProperty <http://purl.org/dc/terms/isPartOf> ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+    ], [
+        a owl:Restriction ;
+        owl:onProperty prov:atLocation ;
+        owl:someValuesFrom prov:Location
     ] ;
     prov:category "base" .
 
@@ -165,15 +165,11 @@
     rdfs:subClassOf prov:Activity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasConfidenceValue
-    ], [
-        a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasAntecedent
-    ], [
-        a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasInferenceEngine
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasConfidenceValue
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
@@ -182,6 +178,10 @@
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasSourceUsage
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasAntecedent
     ] ;
     prov:category "proof" .
 
@@ -193,11 +193,11 @@
     rdfs:subClassOf prov:Entity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasLanguage
+        owl:onProperty :hasFormat
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFormat
+        owl:onProperty :hasLanguage
     ] ;
     prov:category "base" .
 
@@ -278,12 +278,12 @@
     a owl:Class ;
     rdfs:subClassOf prov:Attribution, [
         a owl:Restriction ;
-        owl:allValuesFrom :Owner ;
-        owl:onProperty prov:agent
-    ], [
-        a owl:Restriction ;
         owl:allValuesFrom :OwnedEntity ;
         owl:onProperty prov:entity
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom :Owner ;
+        owl:onProperty prov:agent
     ] ;
     prov:category "base" ;
     prov:unqualifiedForm :hasOwner .
@@ -367,7 +367,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToRow
+        owl:onProperty :hasFromRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -375,11 +375,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromRow
+        owl:onProperty :hasFromCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromCol
+        owl:onProperty :hasToRow
     ] ;
     prov:category "base" .
 
@@ -450,34 +450,34 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
 :fromAnswer
     a owl:ObjectProperty ;
-    rdfs:comment "proof" ;
     rdfs:label "root-node-set"@en ;
     rdfs:subPropertyOf :fromAnswerOrQuery ;
+    prov:category "proof" ;
     prov:definition "the root node set that answers the specific query but not necessarily the present nodeset that hosts this inference step."@en .
 
 :fromAnswerOrQuery
     a owl:ObjectProperty ;
-    rdfs:comment "proof" ;
     rdfs:domain :InferenceStep ;
     rdfs:label "source-answer-or-query"@en ;
     rdfs:subPropertyOf prov:generated ;
+    prov:category "proof" ;
     prov:definition "abstract property modifying an inference step. It is use to impose the exclusion restriction on fromAnswer and fromQuery"@en ;
     prov:editorialNote "This will be DEPRECATED" .
 
 :fromQuery
     a owl:ObjectProperty ;
-    rdfs:comment "proof" ;
     rdfs:label "source-query"@en ;
     rdfs:range :Query ;
     rdfs:subPropertyOf :fromAnswerOrQuery ;
+    prov:category "proof" ;
     prov:definition "the query that is answered by the present node set that hosts this inference step"@en .
 
 :hasAnswer
     a owl:ObjectProperty ;
-    rdfs:comment "proof" ;
     rdfs:domain :Query ;
     rdfs:label "answer"@en ;
     rdfs:subPropertyOf prov:hadDerivation ;
+    prov:category "proof" ;
     prov:definition "links to one of many alternative answers to this query."@en .
 
 :hasAnswerPattern
@@ -761,9 +761,9 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
 :isExplanationOf
     a owl:ObjectProperty ;
-    rdfs:comment "proof" ;
     rdfs:label "explains"@en ;
     rdfs:subPropertyOf prov:hadDerivation ;
+    prov:category "proof" ;
     prov:definition "links to a node set (and its antecedents) that is explained by the present node set. This is used for connecting the orginal justifications to the NodeSet that abstracts this node set (and its antecedents)."@en .
 
 :isFromEngine
