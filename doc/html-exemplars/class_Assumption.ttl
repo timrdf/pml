@@ -7,4 +7,7 @@
 @prefix ex:      <http://example.com/vocab#> .
 @prefix :        <http://example.com/> .
 
-# TODO
+
+:assumeNotAgathaKilledAgatha a pml:Information;
+    prov:value "~killed(agatha,agatha)";
+    prov:wasGeneratedBy [a pml:Assumption].
