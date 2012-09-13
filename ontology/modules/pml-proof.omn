@@ -12,8 +12,8 @@ Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 Ontology: <http://provenanceweb.org/ns/pml-proof#>
 
 Import: <http://www.w3.org/ns/inverses.owl>
-Import: <http://provenanceweb.org/ns/pml-base#>
 Import: <http://www.w3.org/ns/prov#>
+Import: <http://provenanceweb.org/ns/pml-base#>
 
 Annotations: 
     rdfs:label "PML3 proof ontology"@en,
@@ -171,9 +171,6 @@ ObjectProperty: <http://www.w3.org/ns/prov#wasAssociatedWith>
 ObjectProperty: <http://www.w3.org/ns/prov#wasGeneratedBy>
 
     
-ObjectProperty: <http://www.w3.org/ns/prov#hadDerivation>
-
-    
 ObjectProperty: pml:fromAnswerOrQuery
 
     Annotations: 
@@ -187,15 +184,8 @@ ObjectProperty: pml:fromAnswerOrQuery
         pml:InferenceStep
     
     
-ObjectProperty: pml:fromAnswer
+ObjectProperty: <http://www.w3.org/ns/prov#hadDerivation>
 
-    Annotations: 
-        rdfs:label "root-node-set"@en,
-        <http://www.w3.org/ns/prov#definition> "the root node set that answers the specific query but not necessarily the present nodeset that hosts this inference step."@en
-    
-    SubPropertyOf: 
-        pml:fromAnswerOrQuery
-    
     
 ObjectProperty: pml:isConsequentOf
 
@@ -210,14 +200,24 @@ ObjectProperty: pml:isConsequentOf
         pml:InferenceStep
     
     
-ObjectProperty: <http://www.w3.org/ns/prov#invalidated>
+ObjectProperty: pml:fromAnswer
 
+    Annotations: 
+        rdfs:label "root-node-set"@en,
+        <http://www.w3.org/ns/prov#definition> "the root node set that answers the specific query but not necessarily the present nodeset that hosts this inference step."@en
+    
+    SubPropertyOf: 
+        pml:fromAnswerOrQuery
+    
     
 ObjectProperty: <http://www.w3.org/ns/prov#wasDerivedFrom>
 
     SubPropertyChain: 
         <http://www.w3.org/ns/prov#wasGeneratedBy> o pml:hasAntecedent
     
+    
+ObjectProperty: <http://www.w3.org/ns/prov#invalidated>
+
     
 ObjectProperty: pml:isQueryFor
 
@@ -290,23 +290,6 @@ Class: pml:InferenceStep
         pml:hasSourceUsage max 1 owl:Thing
     
     
-Class: <http://www.w3.org/ns/prov#Usage>
-
-    
-Class: pml:Question
-
-    Annotations: 
-        rdfs:label "Question"@en,
-        rdfs:comment "A Question refers to natural language version of a user's query. For example, a question can be \"What is the type of Tony's Specialty?\"  A question is usually additional information to an instance of Query as additional annotation."@en
-    
-    SubClassOf: 
-        pml:hasAnswerPattern max 1 rdfs:Literal,
-        <http://www.w3.org/ns/prov#Entity>
-    
-    
-Class: <http://www.w3.org/ns/prov#Activity>
-
-    
 Class: pml:Query
 
     Annotations: 
@@ -324,12 +307,6 @@ Class: pml:ProceduralPlan
 Class: pml:InferenceEngine
 
     
-Class: pml:Antecedent
-
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#Usage>
-    
-    
 Class: pml:AbstractionRule
 
     Annotations: 
@@ -342,4 +319,43 @@ Class: pml:AbstractionRule
 Class: <http://www.w3.org/ns/prov#Entity>
 
     
+Class: <http://provenanceweb.org/ns/pml-proof#Discharge>
 
+    SubClassOf: 
+        <http://www.w3.org/ns/prov#invalidated> min 1 pml:Information,
+        pml:InferenceStep
+    
+    
+Class: pml:Information
+
+    
+Class: pml:Question
+
+    Annotations: 
+        rdfs:label "Question"@en,
+        rdfs:comment "A Question refers to natural language version of a user's query. For example, a question can be \"What is the type of Tony's Specialty?\"  A question is usually additional information to an instance of Query as additional annotation."@en
+    
+    SubClassOf: 
+        pml:hasAnswerPattern max 1 rdfs:Literal,
+        <http://www.w3.org/ns/prov#Entity>
+    
+    
+Class: <http://www.w3.org/ns/prov#Usage>
+
+    
+Class: <http://www.w3.org/ns/prov#Activity>
+
+    
+Class: pml:Antecedent
+
+    SubClassOf: 
+        <http://www.w3.org/ns/prov#Usage>
+    
+    
+Class: pml:Assumption
+
+    SubClassOf: 
+        pml:InferenceStep,
+        <http://www.w3.org/ns/prov#generated> min 1 pml:Information
+    
+    
