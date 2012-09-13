@@ -7,4 +7,17 @@
 @prefix ex:      <http://example.com/vocab#> .
 @prefix :        <http://example.com/> .
 
-# TODO
+ex:Refutation a owl:Class;
+    rdfs:subClassOf pml:Discharge.
+
+:assumeNotAgathaKilledAgatha a pml:Information;
+    prov:value "~killed(agatha,agatha)";
+    prov:wasGeneratedBy [a pml:Assumption];
+    prov:wasInvalidatedBy :discharge.
+
+:discharge a ex:Refutation, pml:Discharge;
+    prov:wasAttributedTo [ a pml:InferenceEngine];
+    prov:hasAntecedent [prov:value "$false"].
+
+:agathaKilledAgatha a pml:Information;
+    prov:wasGeneratedBy :discharge.
