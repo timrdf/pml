@@ -1,19 +1,17 @@
 Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
 Prefix: owl: <http://www.w3.org/2002/07/owl#>
-Prefix: pml: <http://provenanceweb.org/ns/pml#>
-Prefix: : <http://provenanceweb.org/ns/pml#>
 Prefix: xml: <http://www.w3.org/XML/1998/namespace>
 Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-Prefix: dc: <http://purl.org/dc/elements/1.1/>
 Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+Prefix: skos: <http://www.w3.org/2004/02/skos/core#>
 
 
 
 Ontology: <http://provenanceweb.org/ns/pml-proof#>
 
 Import: <http://www.w3.org/ns/inverses.owl>
-Import: <http://provenanceweb.org/ns/pml-base#>
 Import: <http://www.w3.org/ns/prov#>
+Import: <http://provenanceweb.org/ns/pml-base#>
 
 Annotations: 
     rdfs:label "PML3 proof ontology"@en,
@@ -23,10 +21,16 @@ Annotations:
 AnnotationProperty: owl:versionInfo
 
     
+AnnotationProperty: <http://www.w3.org/ns/prov#category>
+
+    
 AnnotationProperty: <http://www.w3.org/ns/prov#definition>
 
     
 AnnotationProperty: rdfs:label
+
+    
+AnnotationProperty: <http://www.w3.org/ns/prov#editorialNote>
 
     
 AnnotationProperty: rdfs:comment
@@ -44,56 +48,63 @@ Datatype: xsd:string
 Datatype: rdfs:Literal
 
     
-ObjectProperty: pml:qualifiedAntecedent
+ObjectProperty: <http://provenanceweb.org/ns/pml#qualifiedAntecedent>
 
+    Annotations: 
+        <http://www.w3.org/ns/prov#category> "trust"^^rdf:PlainLiteral
+    
     SubPropertyOf: 
         <http://www.w3.org/ns/prov#qualifiedUsage>
     
     
-ObjectProperty: pml:fromQuery
+ObjectProperty: <http://provenanceweb.org/ns/pml#fromQuery>
 
     Annotations: 
         rdfs:label "source-query"@en,
+        <http://www.w3.org/ns/prov#category> "proof"^^rdf:PlainLiteral,
         <http://www.w3.org/ns/prov#definition> "the query that is answered by the present node set that hosts this inference step"@en
     
     SubPropertyOf: 
-        pml:fromAnswerOrQuery
+        <http://provenanceweb.org/ns/pml#fromAnswerOrQuery>
     
     Range: 
-        pml:Query
+        <http://provenanceweb.org/ns/pml#Query>
     
     
-ObjectProperty: pml:hasDischarge
+ObjectProperty: <http://provenanceweb.org/ns/pml#hasDischarge>
 
     Annotations: 
-        <http://www.w3.org/ns/prov#definition> "dismiss causal dependency from the conclusion of the present nodeset to an (recursive) antecedent nodeset of the present inference step. In particular, OR-elimination can only be implemented by hasDischarge"@en,
-        rdfs:label "discharge"@en
+        rdfs:label "discharge"@en,
+        <http://www.w3.org/ns/prov#category> "proof"^^rdf:PlainLiteral,
+        <http://www.w3.org/ns/prov#definition> "dismiss causal dependency from the conclusion of the present nodeset to an (recursive) antecedent nodeset of the present inference step. In particular, OR-elimination can only be implemented by hasDischarge"@en
     
     SubPropertyOf: 
         <http://www.w3.org/ns/prov#invalidated>
     
     Domain: 
-        pml:InferenceStep
+        <http://provenanceweb.org/ns/pml#InferenceStep>
     
     
 ObjectProperty: <http://www.w3.org/ns/prov#used>
 
     
-ObjectProperty: pml:isExplanationOf
+ObjectProperty: <http://provenanceweb.org/ns/pml#isExplanationOf>
 
     Annotations: 
-        <http://www.w3.org/ns/prov#definition> "links to a node set (and its antecedents) that is explained by the present node set. This is used for connecting the orginal justifications to the NodeSet that abstracts this node set (and its antecedents)."@en,
-        rdfs:label "explains"@en
+        rdfs:label "explains"@en,
+        <http://www.w3.org/ns/prov#category> "proof"^^rdf:PlainLiteral,
+        <http://www.w3.org/ns/prov#definition> "links to a node set (and its antecedents) that is explained by the present node set. This is used for connecting the orginal justifications to the NodeSet that abstracts this node set (and its antecedents)."@en
     
     SubPropertyOf: 
         <http://www.w3.org/ns/prov#hadDerivation>
     
     
-ObjectProperty: pml:hasConclusion
+ObjectProperty: <http://provenanceweb.org/ns/pml#hasConclusion>
 
     Annotations: 
         rdfs:label "conclusion"@en,
-        <http://www.w3.org/ns/prov#definition> "links to the conclusion of the present node set. The conclusion is the one after applied variable mapping of the node set's inference steps. The content/language/format of conclusion is the only information needed in comparing conclusions. "@en
+        <http://www.w3.org/ns/prov#category> "proof"^^rdf:PlainLiteral,
+        <http://www.w3.org/ns/prov#definition> "links to the conclusion of the present node set. The conclusion is the one after applied variable mapping of the node set's inference steps. The content/language/format of conclusion is the only information needed in comparing conclusions."@en
     
     SubPropertyOf: 
         <http://www.w3.org/ns/prov#generated>
@@ -102,9 +113,10 @@ ObjectProperty: pml:hasConclusion
 ObjectProperty: <http://www.w3.org/ns/prov#entity>
 
     
-ObjectProperty: pml:hasSourceUsage
+ObjectProperty: <http://provenanceweb.org/ns/pml#hasSourceUsage>
 
     Annotations: 
+        rdfs:comment "Deprecated?"^^rdf:PlainLiteral,
         rdfs:comment "links to the source usage that is used in deriving this inference step."@en,
         rdfs:label "source usage"@en
     
@@ -112,54 +124,57 @@ ObjectProperty: pml:hasSourceUsage
         <http://www.w3.org/ns/prov#used>
     
     Domain: 
-        pml:InferenceStep
+        <http://provenanceweb.org/ns/pml#InferenceStep>
     
     
-ObjectProperty: pml:hasAntecedent
+ObjectProperty: <http://provenanceweb.org/ns/pml#hasAntecedent>
 
     Annotations: 
-        <http://www.w3.org/ns/prov#definition> "An antecedent of an activity is an entity that is used by in such a way that the generated entities are derived from them. This provides a link between processual and derivational provenance that will allow proof-theoretic analysis to be applied to PROV and PML provenance assertions."@en,
-        rdfs:label "antecedent"@en
+        rdfs:label "antecedent"@en,
+        <http://www.w3.org/ns/prov#category> "proof"^^rdf:PlainLiteral,
+        <http://www.w3.org/ns/prov#definition> "An antecedent of an activity is an entity that is used by in such a way that the generated entities are derived from them. This provides a link between processual and derivational provenance that will allow proof-theoretic analysis to be applied to PROV and PML provenance assertions."@en
     
     SubPropertyOf: 
         <http://www.w3.org/ns/prov#used>
     
     SubPropertyChain: 
-        pml:qualifiedAntecedent o <http://www.w3.org/ns/prov#entity>
+        <http://provenanceweb.org/ns/pml#qualifiedAntecedent> o <http://www.w3.org/ns/prov#entity>
     
     Domain: 
-        pml:InferenceStep
+        <http://provenanceweb.org/ns/pml#InferenceStep>
     
     
-ObjectProperty: pml:hasAnswer
+ObjectProperty: <http://provenanceweb.org/ns/pml#hasAnswer>
 
     Annotations: 
         rdfs:label "answer"@en,
+        <http://www.w3.org/ns/prov#category> "proof"^^rdf:PlainLiteral,
         <http://www.w3.org/ns/prov#definition> "links to one of many alternative answers to this query."@en
     
     SubPropertyOf: 
         <http://www.w3.org/ns/prov#hadDerivation>
     
     Domain: 
-        pml:Query
+        <http://provenanceweb.org/ns/pml#Query>
     
     
 ObjectProperty: <http://www.w3.org/ns/prov#wasAttributedTo>
 
     
-ObjectProperty: pml:isFromEngine
+ObjectProperty: <http://provenanceweb.org/ns/pml#isFromEngine>
 
     Annotations: 
-        rdfs:label "answer-generator"@en
+        rdfs:label "answer-generator"@en,
+        <http://www.w3.org/ns/prov#category> "proof"^^rdf:PlainLiteral
     
     SubPropertyOf: 
         <http://www.w3.org/ns/prov#wasAttributedTo>
     
     Domain: 
-        pml:Query
+        <http://provenanceweb.org/ns/pml#Query>
     
     Range: 
-        pml:InferenceEngine
+        <http://provenanceweb.org/ns/pml#InferenceEngine>
     
     
 ObjectProperty: <http://www.w3.org/ns/prov#specializationOf>
@@ -171,175 +186,188 @@ ObjectProperty: <http://www.w3.org/ns/prov#wasAssociatedWith>
 ObjectProperty: <http://www.w3.org/ns/prov#wasGeneratedBy>
 
     
-ObjectProperty: <http://www.w3.org/ns/prov#hadDerivation>
-
-    
-ObjectProperty: pml:fromAnswerOrQuery
+ObjectProperty: <http://provenanceweb.org/ns/pml#fromAnswerOrQuery>
 
     Annotations: 
+        rdfs:label "source-answer-or-query"@en,
+        <http://www.w3.org/ns/prov#category> "proof"^^rdf:PlainLiteral,
         <http://www.w3.org/ns/prov#definition> "abstract property modifying an inference step. It is use to impose the exclusion restriction on fromAnswer and fromQuery"@en,
-        rdfs:label "source-answer-or-query"@en
+        <http://www.w3.org/ns/prov#editorialNote> "This will be DEPRECATED"^^rdf:PlainLiteral
     
     SubPropertyOf: 
         <http://www.w3.org/ns/prov#generated>
     
     Domain: 
-        pml:InferenceStep
+        <http://provenanceweb.org/ns/pml#InferenceStep>
     
     
-ObjectProperty: pml:fromAnswer
+ObjectProperty: <http://www.w3.org/ns/prov#hadDerivation>
+
+    
+ObjectProperty: <http://provenanceweb.org/ns/pml#fromAnswer>
 
     Annotations: 
         rdfs:label "root-node-set"@en,
+        <http://www.w3.org/ns/prov#category> "proof"^^rdf:PlainLiteral,
         <http://www.w3.org/ns/prov#definition> "the root node set that answers the specific query but not necessarily the present nodeset that hosts this inference step."@en
     
     SubPropertyOf: 
-        pml:fromAnswerOrQuery
+        <http://provenanceweb.org/ns/pml#fromAnswerOrQuery>
     
     
-ObjectProperty: pml:isConsequentOf
+ObjectProperty: <http://provenanceweb.org/ns/pml#isConsequentOf>
 
     Annotations: 
+        rdfs:comment "links to an inference step that derives the conclusion of the present node set."@en,
         rdfs:label "because"@en,
-        rdfs:comment "links to an inference step that derives the conclusion of the present node set."@en
+        <http://www.w3.org/ns/prov#category> "proof"^^rdf:PlainLiteral
     
     SubPropertyOf: 
         <http://www.w3.org/ns/prov#wasGeneratedBy>
     
     Range: 
-        pml:InferenceStep
+        <http://provenanceweb.org/ns/pml#InferenceStep>
+    
+    
+ObjectProperty: <http://www.w3.org/ns/prov#wasDerivedFrom>
+
+    SubPropertyChain: 
+        <http://www.w3.org/ns/prov#wasGeneratedBy> o <http://provenanceweb.org/ns/pml#hasAntecedent>
     
     
 ObjectProperty: <http://www.w3.org/ns/prov#invalidated>
 
     
-ObjectProperty: <http://www.w3.org/ns/prov#wasDerivedFrom>
-
-    SubPropertyChain: 
-        <http://www.w3.org/ns/prov#wasGeneratedBy> o pml:hasAntecedent
-    
-    
-ObjectProperty: pml:isQueryFor
+ObjectProperty: <http://provenanceweb.org/ns/pml#isQueryFor>
 
     Annotations: 
-        rdfs:label "query-for"@en
+        rdfs:label "query-for"@en,
+        <http://www.w3.org/ns/prov#category> "proof"^^rdf:PlainLiteral
     
     SubPropertyOf: 
         <http://www.w3.org/ns/prov#specializationOf>
     
     Domain: 
-        pml:Query
+        <http://provenanceweb.org/ns/pml#Query>
     
     Range: 
-        pml:Question
+        <http://provenanceweb.org/ns/pml#Question>
     
     
 ObjectProperty: <http://www.w3.org/ns/prov#generated>
 
     
-ObjectProperty: pml:hasInferenceEngine
+ObjectProperty: <http://provenanceweb.org/ns/pml#hasInferenceEngine>
 
     Annotations: 
+        rdfs:comment "links to the inference engine that derives this inference step."@en,
         rdfs:label "inference engine"@en,
-        rdfs:comment "links to the inference engine that derives this inference step."@en
+        <http://www.w3.org/ns/prov#category> "proof"^^rdf:PlainLiteral
     
     SubPropertyOf: 
         <http://www.w3.org/ns/prov#wasAssociatedWith>
     
     Domain: 
-        pml:InferenceStep
+        <http://provenanceweb.org/ns/pml#InferenceStep>
     
     Range: 
-        pml:InferenceEngine
+        <http://provenanceweb.org/ns/pml#InferenceEngine>
     
     
 ObjectProperty: <http://www.w3.org/ns/prov#qualifiedUsage>
 
     
-DataProperty: pml:hasAnswerPattern
+DataProperty: <http://provenanceweb.org/ns/pml#hasAnswerPattern>
 
     Annotations: 
-        rdfs:comment "Usually it is an English Pattern for the question. We may apply (string-replace) the variable mappings from the answer node set to generate the answer of the question. We may generate different queries for the same question, e.g. find Li's friends: I can (i) run JTP (KIF) to derive John's friends or (ii) query (SPARQL) a FOAF RDF database using foaf:knows. "@en,
-        rdfs:label "answer pattern"@en
+        rdfs:comment "Usually it is an English Pattern for the question. We may apply (string-replace) the variable mappings from the answer node set to generate the answer of the question. We may generate different queries for the same question, e.g. find Li's friends: I can (i) run JTP (KIF) to derive John's friends or (ii) query (SPARQL) a FOAF RDF database using foaf:knows."@en,
+        rdfs:label "answer pattern"@en,
+        <http://www.w3.org/ns/prov#category> "proof"^^rdf:PlainLiteral
     
     Domain: 
-        pml:Question
+        <http://provenanceweb.org/ns/pml#Question>
     
     Range: 
         xsd:string
     
     
-DataProperty: pml:hasConfidenceValue
+DataProperty: <http://provenanceweb.org/ns/pml#hasConfidenceValue>
 
     
 Class: owl:Thing
 
     
-Class: pml:InferenceStep
+Class: <http://provenanceweb.org/ns/pml#InferenceStep>
 
     Annotations: 
         rdfs:comment "An inference step represents a justification for the conclusion of the corresponding node set. Instances of inference step are usually anonymous as part of node set. For this reason, inference steps usually have no URIs. Moreover, an application should treat node set and its inference steps in whole."@en,
-        rdfs:label "Inference Step"@en
+        rdfs:label "Inference Step"@en,
+        <http://www.w3.org/ns/prov#category> "proof"^^rdf:PlainLiteral
     
     SubClassOf: 
-        pml:hasInferenceEngine max 1 owl:Thing,
         <http://www.w3.org/ns/prov#Activity>,
-        pml:fromAnswerOrQuery max 1 owl:Thing,
-        pml:hasAntecedent max 1 owl:Thing,
-        pml:hasConfidenceValue max 1 rdfs:Literal,
-        pml:hasSourceUsage max 1 owl:Thing
+        <http://provenanceweb.org/ns/pml#fromAnswerOrQuery> max 1 owl:Thing,
+        <http://provenanceweb.org/ns/pml#hasAntecedent> max 1 owl:Thing,
+        <http://provenanceweb.org/ns/pml#hasInferenceEngine> max 1 owl:Thing,
+        <http://provenanceweb.org/ns/pml#hasSourceUsage> max 1 owl:Thing,
+        <http://provenanceweb.org/ns/pml#hasConfidenceValue> max 1 rdfs:Literal
+    
+    
+Class: <http://provenanceweb.org/ns/pml#Question>
+
+    Annotations: 
+        rdfs:comment "A Question refers to natural language version of a user's query. For example, a question can be \"What is the type of Tony's Specialty?\"  A question is usually additional information to an instance of Query as additional annotation."@en,
+        rdfs:label "Question"@en,
+        <http://www.w3.org/ns/prov#category> "proof"^^rdf:PlainLiteral
+    
+    SubClassOf: 
+        <http://www.w3.org/ns/prov#Entity>,
+        <http://provenanceweb.org/ns/pml#hasAnswerPattern> max 1 rdfs:Literal
     
     
 Class: <http://www.w3.org/ns/prov#Usage>
 
     
-Class: pml:Question
+Class: <http://provenanceweb.org/ns/pml#Query>
 
     Annotations: 
-        rdfs:label "Question"@en,
-        rdfs:comment "A Question refers to natural language version of a user's query. For example, a question can be \"What is the type of Tony's Specialty?\"  A question is usually additional information to an instance of Query as additional annotation."@en
+        rdfs:comment "A Query is a formal representation of user's question. For example, the content of the query can be '(type TonysSpecialty ?x)' which is encoded in KIF. An inference engine will take the query's content as input and find corresponding answers, each of which is a tree of node sets representing the proof traces obtained from the inference engine."@en,
+        rdfs:label "Query"@en,
+        <http://www.w3.org/ns/prov#category> "proof"^^rdf:PlainLiteral
     
     SubClassOf: 
-        pml:hasAnswerPattern max 1 rdfs:Literal,
-        <http://www.w3.org/ns/prov#Entity>
+        <http://www.w3.org/ns/prov#Entity>,
+        <http://provenanceweb.org/ns/pml#isFromEngine> exactly 1 owl:Thing
     
     
 Class: <http://www.w3.org/ns/prov#Activity>
 
     
-Class: pml:Query
+Class: <http://provenanceweb.org/ns/pml#ProceduralPlan>
+
+    
+Class: <http://provenanceweb.org/ns/pml#InferenceEngine>
+
+    
+Class: <http://provenanceweb.org/ns/pml#Antecedent>
 
     Annotations: 
-        rdfs:comment "A Query is a formal representation of user's question. For example, the content of the query can be '(type TonysSpecialty ?x)' which is encoded in KIF. An inference engine will take the query's content as input and find corresponding answers, each of which is a tree of node sets representing the proof traces obtained from the inference engine. "@en,
-        rdfs:label "Query"@en
+        <http://www.w3.org/ns/prov#category> "proof"^^rdf:PlainLiteral
     
-    SubClassOf: 
-        pml:isFromEngine exactly 1 owl:Thing,
-        <http://www.w3.org/ns/prov#Entity>
-    
-    
-Class: pml:ProceduralPlan
-
-    
-Class: pml:InferenceEngine
-
-    
-Class: pml:Antecedent
-
     SubClassOf: 
         <http://www.w3.org/ns/prov#Usage>
     
     
-Class: pml:AbstractionRule
+Class: <http://provenanceweb.org/ns/pml#AbstractionRule>
 
     Annotations: 
-        rdfs:label "Abstraction Rule"
+        rdfs:label "Abstraction Rule",
+        <http://www.w3.org/ns/prov#category> "proof"^^rdf:PlainLiteral
     
     SubClassOf: 
-        pml:ProceduralPlan
+        <http://provenanceweb.org/ns/pml#ProceduralPlan>
     
     
 Class: <http://www.w3.org/ns/prov#Entity>
 
     
-
