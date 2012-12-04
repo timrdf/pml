@@ -48,9 +48,9 @@ if [[ "$1" == "cr:auto" ]]; then
                if [ ! -e automatic/ ]; then
                   mkdir automatic
                fi
-               cr-pwd.sh
-               head ../../src/signature-files.xsl
-               head source/droid-signature-files.htm.tidy
+               pushd source &> /dev/null
+                  tidy.sh *.html
+               popd &> /dev/null
                saxon.sh ../../src/signature-files.xsl a a source/droid-signature-files.htm.tidy > automatic/droid-signature-files.csv
             popd &> /dev/null
             ln -s $latest latest
