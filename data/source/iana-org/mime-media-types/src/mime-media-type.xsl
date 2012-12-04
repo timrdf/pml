@@ -28,7 +28,7 @@
       '@prefix skos:    &lt;http://www.w3.org/2004/02/skos/core#&gt; .',$NL,
       '@prefix foaf:    &lt;http://xmlns.com/foaf/0.1/&gt; .',$NL,
       '@prefix rdfs:    &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .',$NL,
-      '@prefix :        &lt;',$base_uri,'/format/mime/&gt; .',$NL,
+      '@base            &lt;',$base_uri,'/format/mime/&gt; .',$NL,
       $NL)"/>
    <xsl:apply-templates select="//xhtml:table[count(xhtml:tbody/xhtml:tr) gt 20]/xhtml:tbody/xhtml:tr/xhtml:td[2]"/>
 </xsl:template>

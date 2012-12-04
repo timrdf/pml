@@ -134,6 +134,7 @@ if [[ ! -d $version || 'i' == 'i' ]]; then
          type=`echo $page | sed 's/source.//;s/\..*$//'` # e.g.        application
          echo "echo \"$page -> automatic/$type.ttl\""                                                                                                 >> $trigger
          echo "saxon.sh $xsl a a -v scrapesource=$base/media-types/$type/index.html supertype=$type -in source/$type.html.tidy > automatic/$type.ttl" >> $trigger
+         echo "echo"                                                                                                                                  >> $trigger
       done
       echo "echo"                                    >> $trigger
       echo 'aggregate-source-rdf.sh automatic/*.ttl' >> $trigger
