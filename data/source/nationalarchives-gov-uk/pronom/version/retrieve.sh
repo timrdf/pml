@@ -43,7 +43,9 @@ if [[ "$1" == "cr:auto" ]]; then
             latest=`cr-list-versions.sh | tail -1`
             pwd
             pushd $latest
-               mkdir automatic
+               if [ ! -e automatic/ ]; then
+                  mkdir automatic
+               fi
                saxon.sh ../../src/signature-files.xsl a a source/droid-signature-files.htm.tidy > automatic/droid-signature-files.csv
             popd
             ln -s $latest latest
