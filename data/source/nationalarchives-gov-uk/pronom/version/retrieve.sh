@@ -152,38 +152,36 @@ if [ ! -d $version ]; then
       if [ ! -e automatic ]; then
          mkdir automatic
       fi
-      echo "#!/bin/bash"                                                                                                             > convert-pronom.sh
-      echo                                                                                                                          >> convert-pronom.sh
-      echo "if [ ! -e automatic/retrieve-format-xml.sh ]; then"                                                                     >> convert-pronom.sh
-      echo "  echo automatic/pronom-formats.ttl"                                                                                    >> convert-pronom.sh
-      echo "  saxon.sh ../../src/pronom-formats.xsl a a -v accept=text/turtle -in source/DROID*.xml > automatic/pronom-formats.ttl" >> convert-pronom.sh
-      echo "  echo automatic/pronom-formats.csv"                                                                                    >> convert-pronom.sh
-      echo "  saxon.sh ../../src/pronom-formats.xsl a a -v accept=text        -in source/DROID*.xml > automatic/pronom-formats.csv" >> convert-pronom.sh
-      echo                                                                                                                          >> convert-pronom.sh
 
-      echo "  echo automatic/retrieve-format-xml.sh"                                                                                >> convert-pronom.sh
-      echo "  saxon.sh ../../src/pronom-format-ids.xsl a a source/DROID*.xml | awk -f ../../src/retrieve-xml.awk > automatic/retrieve-format-xml.sh" >> convert-pronom.sh
-      echo "  echo automatic/retrieve-format-csv.sh"                                                                                >> convert-pronom.sh
-      echo "  cat automatic/retrieve-format-xml.sh | sed 's/xml/csv/;s/XML/CSV/' > automatic/retrieve-format-csv.sh"                >> convert-pronom.sh
-      echo                                                                                                                          >> convert-pronom.sh
+      echo                                                                                                               
+      echo automatic/pronom-formats.ttl
+      saxon.sh ../../src/pronom-formats.xsl a a -v accept=text/turtle -in source/DROID*.xml > automatic/pronom-formats.ttl
+      #echo automatic/pronom-formats.csv
+      #saxon.sh ../../src/pronom-formats.xsl a a -v accept=text        -in source/DROID*.xml > automatic/pronom-formats.csv
 
-      echo "  source automatic/retrieve-format-xml.sh"                                                                              >> convert-pronom.sh
-      echo "  source automatic/retrieve-format-csv.sh"                                                                              >> convert-pronom.sh
-      echo "fi"                                                                                                                     >> convert-pronom.sh
-      echo                                                                                                                          >> convert-pronom.sh
+      echo automatic/retrieve-format-xml.sh
+      saxon.sh ../../src/pronom-format-ids.xsl a a source/DROID*.xml | awk -f ../../src/retrieve-xml.awk > automatic/retrieve-format-xml.sh
+      #echo automatic/retrieve-format-csv.sh                                                               
+      #cat automatic/retrieve-format-xml.sh | sed 's/xml/csv/;s/XML/CSV/' > automatic/retrieve-format-csv.sh
+      echo
 
-      echo "for fmt in source/*fmt*.xml; do"                                                                                        >> convert-pronom.sh
-      echo "   ttl=\${fmt%.xml}.ttl"                                                                                                >> convert-pronom.sh
-      echo "   ttl=automatic/\${ttl#source/}"                                                                                       >> convert-pronom.sh
-      echo "   if [[ ! -e \"\$ttl\" || \$fmt -nt \"\$ttl\" ]]; then"                                                                >> convert-pronom.sh
-      echo "      echo \"\$fmt -> \$ttl\""                                                                                          >> convert-pronom.sh
-      echo "      saxon.sh ../../src/pronom-format.xsl a a \$fmt > \$ttl"                                                           >> convert-pronom.sh
-      echo "   else"                                                                                                                >> convert-pronom.sh
-      echo "      echo \"[INFO] \$fmt already cached at \$ttl\""                                                                    >> convert-pronom.sh
-      echo "   fi"                                                                                                                  >> convert-pronom.sh
-      echo "done"                                                                                                                   >> convert-pronom.sh
-      echo                                                                                                                          >> convert-pronom.sh
-      echo "aggregate-source-rdf.sh automatic/*.ttl"                                                                                >> convert-pronom.sh
+      source automatic/retrieve-format-xml.sh
+      source automatic/retrieve-format-csv.sh
+
+      echo "#!/bin/bash"                                                                                                           > convert-pronom.sh
+      echo                                                                                                                        >> convert-pronom.sh
+      echo "for fmt in source/*fmt*.xml; do"                                                                                      >> convert-pronom.sh
+      echo "   ttl=\${fmt%.xml}.ttl"                                                                                              >> convert-pronom.sh
+      echo "   ttl=automatic/\${ttl#source/}"                                                                                     >> convert-pronom.sh
+      echo "   if [[ ! -e \"\$ttl\" || \$fmt -nt \"\$ttl\" ]]; then"                                                              >> convert-pronom.sh
+      echo "      echo \"\$fmt -> \$ttl\""                                                                                        >> convert-pronom.sh
+      echo "      saxon.sh ../../src/pronom-format.xsl a a \$fmt > \$ttl"                                                         >> convert-pronom.sh
+      echo "   else"                                                                                                              >> convert-pronom.sh
+      echo "      echo \"[INFO] \$fmt already cached at \$ttl\""                                                                  >> convert-pronom.sh
+      echo "   fi"                                                                                                                >> convert-pronom.sh
+      echo "done"                                                                                                                 >> convert-pronom.sh
+      echo                                                                                                                        >> convert-pronom.sh
+      echo "aggregate-source-rdf.sh automatic/*.ttl"                                                                              >> convert-pronom.sh
 
       chmod +x convert-pronom.sh
       ./convert-pronom.sh
