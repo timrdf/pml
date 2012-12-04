@@ -49,7 +49,7 @@ if [[ "$1" == "cr:auto" ]]; then
                   mkdir automatic
                fi
                pushd source &> /dev/null
-                  tidy.sh *.html
+                  tidy.sh droid-signature-files.htm
                popd &> /dev/null
                saxon.sh ../../src/signature-files.xsl a a source/droid-signature-files.htm.tidy > automatic/droid-signature-files.csv
             popd &> /dev/null
