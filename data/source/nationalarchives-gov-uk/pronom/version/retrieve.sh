@@ -31,7 +31,7 @@ if [[ "$1" == "cr:auto" ]]; then
    # Set up shop if it's not done already.
    if [ ! -e ../../pronom-droid-signatures/version/latest/automatic/droid-signature-files.csv ]; then
       if [ ! -e ../../pronom-droid-signatures/version ]; then
-         mkdir ../../pronom-droid-signatures/version
+         mkdir -p ../../pronom-droid-signatures/version
       fi
       pushd ../../pronom-droid-signatures
          cr-dcat-retrieval-url.sh http://www.nationalarchives.gov.uk/aboutapps/pronom/droid-signature-files.htm
