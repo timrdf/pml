@@ -29,11 +29,11 @@ version_reason=""
 if [[ "$1" == "cr:auto" ]]; then
 
    # Set up shop if it's not done already.
-   if [ ! -e ../../pronom-droid-signature-files/version/latest/automatic/droid-signature-files.csv ]; then
-      if [ ! -e ../../pronom-droid-signature-files/version ]; then
-         mkdir ../../pronom-droid-signature-files/version
+   if [ ! -e ../../pronom-droid-signatures/version/latest/automatic/droid-signature-files.csv ]; then
+      if [ ! -e ../../pronom-droid-signatures/version ]; then
+         mkdir ../../pronom-droid-signatures/version
       fi
-      pushd ../../pronom-droid-signature-files
+      pushd ../../pronom-droid-signatures
          cr-dcat-retrieval-url.sh http://www.nationalarchives.gov.uk/aboutapps/pronom/droid-signature-files.htm
          cr-retrieve.sh -w
          pushd version
@@ -51,9 +51,9 @@ if [[ "$1" == "cr:auto" ]]; then
       popd
    fi
 
-   url=`grep xml ../../pronom-droid-signature-files/version/latest/automatic/droid-signature-files.csv | tail -1`
+   url=`grep xml ../../pronom-droid-signatures/version/latest/automatic/droid-signature-files.csv | tail -1`
    version=`echo $url | sed 's/^.*DROID_SignatureFile_//;s/.xml//'` 
-   version_reason="(Latest version listed in pronom-droid-signature-files)"
+   version_reason="(Latest version listed in pronom-droid-signatures)"
 fi
 
 #if [ ${#version} -ne 11 -a "$1" == "cr:auto" ]; then # 11!?
