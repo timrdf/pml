@@ -44,10 +44,13 @@ if [[ "$1" == "cr:auto" ]]; then
             fi
             latest=`cr-list-versions.sh | tail -1`
             echo "INFO latest version of `cr-dataset-id.sh`: $latest from `cr-pwd.sh`"
-            pushd $latest 2>&1 /dev/null
+            pushd $latest &> /dev/null
                if [ ! -e automatic/ ]; then
                   mkdir automatic
                fi
+               cr-pwd.sh
+               head ../../src/signature-files.xsl
+               head source/droid-signature-files.htm.tidy
                saxon.sh ../../src/signature-files.xsl a a source/droid-signature-files.htm.tidy > automatic/droid-signature-files.csv
             popd &> /dev/null
             ln -s $latest latest
