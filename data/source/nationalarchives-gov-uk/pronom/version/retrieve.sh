@@ -34,7 +34,9 @@ if [[ "$1" == "cr:auto" ]]; then
          mkdir -p ../../pronom-droid-signatures/version
       fi
       pushd ../../pronom-droid-signatures &> /dev/null
-         cr-dcat-retrieval-url.sh http://www.nationalarchives.gov.uk/aboutapps/pronom/droid-signature-files.htm
+         url='http://www.nationalarchives.gov.uk/aboutapps/pronom/droid-signature-files.htm'
+         echo "INFO retrieving signature file listing from $url"
+         cr-dcat-retrieval-url.sh $url
          cr-retrieve.sh -w &> /dev/null
          pushd version &> /dev/null
             if [ -e latest ]; then
