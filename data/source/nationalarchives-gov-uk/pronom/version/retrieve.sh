@@ -33,24 +33,24 @@ if [[ "$1" == "cr:auto" ]]; then
       if [ ! -e ../../pronom-droid-signatures/version ]; then
          mkdir -p ../../pronom-droid-signatures/version
       fi
-      pushd ../../pronom-droid-signatures
+      pushd ../../pronom-droid-signatures &> /dev/null
          cr-dcat-retrieval-url.sh http://www.nationalarchives.gov.uk/aboutapps/pronom/droid-signature-files.htm
-         cr-retrieve.sh -w 2>&1 /dev/null
-         pushd version
+         cr-retrieve.sh -w &> /dev/null
+         pushd version &> /dev/null
             if [ -e latest ]; then
                rm latest
             fi
             latest=`cr-list-versions.sh | tail -1`
             echo "INFO latest version of `cr-dataset-id.sh`: $latest from `cr-pwd.sh`"
-            pushd $latest
+            pushd $latest 2>&1 /dev/null
                if [ ! -e automatic/ ]; then
                   mkdir automatic
                fi
                saxon.sh ../../src/signature-files.xsl a a source/droid-signature-files.htm.tidy > automatic/droid-signature-files.csv
-            popd
+            popd &> /dev/null
             ln -s $latest latest
-         popd
-      popd
+         popd &> /dev/null
+      popd &> /dev/null
    fi
 
    url=`grep xml ../../pronom-droid-signatures/version/latest/automatic/droid-signature-files.csv | tail -1`
