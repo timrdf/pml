@@ -35,7 +35,7 @@ if [[ "$1" == "cr:auto" ]]; then
       fi
       pushd ../../pronom-droid-signatures
          cr-dcat-retrieval-url.sh http://www.nationalarchives.gov.uk/aboutapps/pronom/droid-signature-files.htm
-         cr-retrieve.sh -w
+         cr-retrieve.sh -w 2>&1 /dev/null
          pushd version
             if [ -e latest ]; then
                rm latest
