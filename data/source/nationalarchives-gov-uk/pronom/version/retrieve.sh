@@ -41,7 +41,7 @@ if [[ "$1" == "cr:auto" ]]; then
                rm latest
             fi
             latest=`cr-list-versions.sh | tail -1`
-            pwd
+            echo "INFO latest version of `cr-dataset-id.sh`: $latest from `cr-pwd.sh`"
             pushd $latest
                if [ ! -e automatic/ ]; then
                   mkdir automatic
