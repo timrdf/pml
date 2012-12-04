@@ -6,8 +6,6 @@
 <xsl:output method="text"/>
 <xsl:param name="base" select="'http://www.nationalarchives.gov.uk'"/>
 
-<!-- http://stackoverflow.com/questions/1384802/java-how-to-indent-xml-generated-by-transformer -->
-
 <xsl:template match="/">
   <xsl:apply-templates select="//xhtml:p[@class='mainbodytext']/xhtml:a"/>
 </xsl:template>
