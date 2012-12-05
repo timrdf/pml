@@ -65,10 +65,10 @@ Datatype: xsd:dateTime
 Datatype: xsd:double
 
     
-Datatype: rdfs:Literal
+Datatype: xsd:integer
 
     
-Datatype: xsd:integer
+Datatype: rdfs:Literal
 
     
 ObjectProperty: <http://provenanceweb.org/ns/pml#hasFormat>
@@ -128,9 +128,6 @@ ObjectProperty: <http://provenanceweb.org/ns/pml#qualifiedOwnership>
         <http://provenanceweb.org/ns/pml#Ownership>
     
     
-ObjectProperty: <http://www.w3.org/ns/prov#wasAttributedTo>
-
-    
 ObjectProperty: <http://provenanceweb.org/ns/pml#hasPublisher>
 
     Annotations: 
@@ -154,6 +151,9 @@ ObjectProperty: <http://provenanceweb.org/ns/pml#hasPublisher>
     InverseOf: 
         <http://provenanceweb.org/ns/pml#publisherOf>
     
+    
+ObjectProperty: <http://www.w3.org/ns/prov#wasAttributedTo>
+
     
 ObjectProperty: <http://provenanceweb.org/ns/pml#qualifiedPublishership>
 
@@ -217,9 +217,6 @@ ObjectProperty: <http://provenanceweb.org/ns/pml#hasDescription>
         <http://provenanceweb.org/ns/pml#Information>
     
     
-ObjectProperty: <http://www.w3.org/ns/prov#agent>
-
-    
 ObjectProperty: <http://provenanceweb.org/ns/pml#qualifiedAuthorship>
 
     Annotations: 
@@ -234,16 +231,19 @@ ObjectProperty: <http://provenanceweb.org/ns/pml#qualifiedAuthorship>
         <http://provenanceweb.org/ns/pml#Authorship>
     
     
+ObjectProperty: <http://www.w3.org/ns/prov#agent>
+
+    
 ObjectProperty: <http://purl.org/dc/terms/isPartOf>
 
     Annotations: 
         <http://www.w3.org/ns/prov#category> "base"^^rdf:PlainLiteral
     
     
-ObjectProperty: <http://www.w3.org/ns/prov#qualifiedAttribution>
+ObjectProperty: <http://www.w3.org/ns/prov#hadRole>
 
     
-ObjectProperty: <http://www.w3.org/ns/prov#hadRole>
+ObjectProperty: <http://www.w3.org/ns/prov#qualifiedAttribution>
 
     
 ObjectProperty: <http://provenanceweb.org/ns/pml#hasLanguage>
@@ -279,15 +279,6 @@ ObjectProperty: <http://provenanceweb.org/ns/pml#hasFromLanguage>
         <http://provenanceweb.org/ns/pml#Language>
     
     
-ObjectProperty: <http://provenanceweb.org/ns/pml#ownerOf>
-
-    SubPropertyOf: 
-        <http://www.w3.org/ns/prov#contributed>
-    
-    InverseOf: 
-        <http://provenanceweb.org/ns/pml#hasOwner>
-    
-    
 ObjectProperty: <http://provenanceweb.org/ns/pml#hasToLanguage>
 
     Annotations: 
@@ -301,6 +292,15 @@ ObjectProperty: <http://provenanceweb.org/ns/pml#hasToLanguage>
     
     Range: 
         <http://provenanceweb.org/ns/pml#Language>
+    
+    
+ObjectProperty: <http://provenanceweb.org/ns/pml#ownerOf>
+
+    SubPropertyOf: 
+        <http://www.w3.org/ns/prov#contributed>
+    
+    InverseOf: 
+        <http://provenanceweb.org/ns/pml#hasOwner>
     
     
 ObjectProperty: <http://provenanceweb.org/ns/pml#authorOf>
@@ -319,7 +319,8 @@ DataProperty: <http://provenanceweb.org/ns/pml#hasPublicationDateTime>
 
     Annotations: 
         rdfs:comment "When the publication is published."@en,
-        rdfs:label "published in"@en
+        rdfs:label "published in"@en,
+        <http://www.w3.org/ns/prov#category> "base"^^rdf:PlainLiteral
     
     Range: 
         xsd:dateTime
@@ -347,7 +348,8 @@ DataProperty: <http://provenanceweb.org/ns/pml#hasModificationDateTime>
 
     Annotations: 
         rdfs:comment "When the artifact has been modified."@en,
-        rdfs:label "last modified"@en
+        rdfs:label "last modified"@en,
+        <http://www.w3.org/ns/prov#category> "base"^^rdf:PlainLiteral
     
     Domain: 
         <http://www.w3.org/ns/prov#Bundle>
@@ -374,21 +376,6 @@ DataProperty: <http://provenanceweb.org/ns/pml#hasToRow>
         xsd:int
     
     
-DataProperty: <http://provenanceweb.org/ns/pml#hasToOffset>
-
-    Annotations: 
-        <http://provenanceweb.org/ns/pml#order> "11.6"^^xsd:decimal,
-        rdfs:comment "The to offset of the fragment (exclusive, index based on 0)"@en,
-        rdfs:label "to-offset"@en,
-        <http://www.w3.org/ns/prov#category> "base"^^rdf:PlainLiteral
-    
-    Domain: 
-        <http://provenanceweb.org/ns/pml#OffsetPosition>
-    
-    Range: 
-        xsd:int
-    
-    
 DataProperty: <http://provenanceweb.org/ns/pml#hasEncoding>
 
     Annotations: 
@@ -404,15 +391,12 @@ DataProperty: <http://provenanceweb.org/ns/pml#hasEncoding>
         xsd:string
     
     
-DataProperty: <http://www.w3.org/ns/prov#generatedAtTime>
-
-    
-DataProperty: <http://provenanceweb.org/ns/pml#hasFromOffset>
+DataProperty: <http://provenanceweb.org/ns/pml#hasToOffset>
 
     Annotations: 
-        <http://provenanceweb.org/ns/pml#order> "11.76"^^xsd:decimal,
-        rdfs:comment "The from offset of the fragment (inclusive, index based on 0)."@en,
-        rdfs:label "from-offset"@en,
+        <http://provenanceweb.org/ns/pml#order> "11.6"^^xsd:decimal,
+        rdfs:comment "The to offset of the fragment (exclusive, index based on 0)"@en,
+        rdfs:label "to-offset"@en,
         <http://www.w3.org/ns/prov#category> "base"^^rdf:PlainLiteral
     
     Domain: 
@@ -421,6 +405,9 @@ DataProperty: <http://provenanceweb.org/ns/pml#hasFromOffset>
     Range: 
         xsd:int
     
+    
+DataProperty: <http://www.w3.org/ns/prov#generatedAtTime>
+
     
 DataProperty: <http://provenanceweb.org/ns/pml#hasToCol>
 
@@ -437,11 +424,27 @@ DataProperty: <http://provenanceweb.org/ns/pml#hasToCol>
         xsd:int
     
     
+DataProperty: <http://provenanceweb.org/ns/pml#hasFromOffset>
+
+    Annotations: 
+        <http://provenanceweb.org/ns/pml#order> "11.76"^^xsd:decimal,
+        rdfs:comment "The from offset of the fragment (inclusive, index based on 0)."@en,
+        rdfs:label "from-offset"@en,
+        <http://www.w3.org/ns/prov#category> "base"^^rdf:PlainLiteral
+    
+    Domain: 
+        <http://provenanceweb.org/ns/pml#OffsetPosition>
+    
+    Range: 
+        xsd:int
+    
+    
 DataProperty: <http://provenanceweb.org/ns/pml#hasCreationDateTime>
 
     Annotations: 
         rdfs:comment "When the artifact has been first created."@en,
-        rdfs:label "created"@en
+        rdfs:label "created"@en,
+        <http://www.w3.org/ns/prov#category> "base"^^rdf:PlainLiteral
     
     Domain: 
         <http://www.w3.org/ns/prov#Bundle>
@@ -480,12 +483,6 @@ DataProperty: <http://provenanceweb.org/ns/pml#hasFromRow>
         xsd:int
     
     
-Class: owl:Thing
-
-    
-Class: <http://www.w3.org/ns/prov#Location>
-
-    
 Class: <http://provenanceweb.org/ns/pml#Author>
 
     Annotations: 
@@ -499,6 +496,12 @@ Class: <http://provenanceweb.org/ns/pml#Author>
     SubClassOf: 
         <http://www.w3.org/ns/prov#Agent>
     
+    
+Class: <http://www.w3.org/ns/prov#Location>
+
+    
+Class: owl:Thing
+
     
 Class: <http://provenanceweb.org/ns/pml#Source>
 
@@ -523,6 +526,18 @@ Class: <http://provenanceweb.org/ns/pml#EmptyInformation>
         <http://provenanceweb.org/ns/pml#Information>
     
     
+Class: <http://provenanceweb.org/ns/pml#DeclarativeRule>
+
+    Annotations: 
+        <http://provenanceweb.org/ns/pml#order> "19"^^xsd:decimal,
+        rdfs:comment "A declarative inference rule can be fully specified by patterns for premises and its conclusion.   For example, Modus Ponens, can be specified by the premise patterns ?A,  ?A -&gt; ?B and the conclusion pattern ?B."@en,
+        rdfs:label "Declarative Rule"@en,
+        <http://www.w3.org/ns/prov#category> "base"
+    
+    SubClassOf: 
+        <http://www.w3.org/ns/prov#Plan>
+    
+    
 Class: <http://provenanceweb.org/ns/pml#Ownership>
 
     Annotations: 
@@ -534,18 +549,6 @@ Class: <http://provenanceweb.org/ns/pml#Ownership>
         <http://www.w3.org/ns/prov#Attribution>,
         <http://www.w3.org/ns/prov#agent> only <http://provenanceweb.org/ns/pml#Owner>,
         <http://www.w3.org/ns/prov#entity> only <http://provenanceweb.org/ns/pml#OwnedEntity>
-    
-    
-Class: <http://provenanceweb.org/ns/pml#DeclarativeRule>
-
-    Annotations: 
-        <http://provenanceweb.org/ns/pml#order> "19"^^xsd:decimal,
-        rdfs:comment "A declarative inference rule can be fully specified by patterns for premises and its conclusion.   For example, Modus Ponens, can be specified by the premise patterns ?A,  ?A -&gt; ?B and the conclusion pattern ?B."@en,
-        rdfs:label "Declarative Rule"@en,
-        <http://www.w3.org/ns/prov#category> "base"
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#Plan>
     
     
 Class: <http://provenanceweb.org/ns/pml#Publisher>
@@ -618,10 +621,10 @@ Class: <http://provenanceweb.org/ns/pml#Authorship>
         <http://www.w3.org/ns/prov#atLocation> max 1 <http://provenanceweb.org/ns/pml#Position>
     
     
-Class: <http://www.w3.org/ns/prov#Collection>
+Class: <http://www.w3.org/ns/prov#Activity>
 
     
-Class: <http://www.w3.org/ns/prov#Activity>
+Class: <http://www.w3.org/ns/prov#Collection>
 
     
 Class: <http://provenanceweb.org/ns/pml#OffsetPosition>
@@ -749,11 +752,24 @@ Class: <http://provenanceweb.org/ns/pml#Webpage>
         <http://provenanceweb.org/ns/pml#Document>
     
     
+Class: <http://www.w3.org/ns/prov#SoftwareAgent>
+
+    
 Class: <http://www.w3.org/ns/prov#Role>
 
     
-Class: <http://www.w3.org/ns/prov#SoftwareAgent>
+Class: <http://provenanceweb.org/ns/pml#Document>
 
+    Annotations: 
+        <http://provenanceweb.org/ns/pml#order> 8,
+        rdfs:comment "A physical information container that is not actionable. They function like database."@en,
+        rdfs:label "Document"@en,
+        <http://www.w3.org/ns/prov#category> "base"
+    
+    SubClassOf: 
+        <http://provenanceweb.org/ns/pml#InformationContainer>,
+        <http://provenanceweb.org/ns/pml#hasVersion> max 1 rdfs:Literal
+    
     
 Class: <http://provenanceweb.org/ns/pml#Information>
 
@@ -769,19 +785,6 @@ Class: <http://provenanceweb.org/ns/pml#Information>
         <http://provenanceweb.org/ns/pml#hasLanguage> max 1 owl:Thing
     
     
-Class: <http://provenanceweb.org/ns/pml#Document>
-
-    Annotations: 
-        <http://provenanceweb.org/ns/pml#order> 8,
-        rdfs:comment "A physical information container that is not actionable. They function like database."@en,
-        rdfs:label "Document"@en,
-        <http://www.w3.org/ns/prov#category> "base"
-    
-    SubClassOf: 
-        <http://provenanceweb.org/ns/pml#InformationContainer>,
-        <http://provenanceweb.org/ns/pml#hasVersion> max 1 rdfs:Literal
-    
-    
 Class: <http://provenanceweb.org/ns/pml#Format>
 
     Annotations: 
@@ -792,17 +795,6 @@ Class: <http://provenanceweb.org/ns/pml#Format>
     
     SubClassOf: 
         <http://www.w3.org/ns/prov#Entity>
-    
-    
-Class: <http://provenanceweb.org/ns/pml#Position>
-
-    Annotations: 
-        <http://provenanceweb.org/ns/pml#order> "11.5"^^xsd:decimal,
-        <http://www.w3.org/ns/prov#category> "base"
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#Location>,
-        <http://provenanceweb.org/ns/pml#hasFromOffset> exactly 1 rdfs:Literal
     
     
 Class: <http://provenanceweb.org/ns/pml#Publishership>
@@ -816,11 +808,28 @@ Class: <http://provenanceweb.org/ns/pml#Publishership>
         <http://www.w3.org/ns/prov#Attribution>
     
     
+Class: <http://provenanceweb.org/ns/pml#Position>
+
+    Annotations: 
+        <http://provenanceweb.org/ns/pml#order> "11.5"^^xsd:decimal,
+        <http://www.w3.org/ns/prov#category> "base"
+    
+    SubClassOf: 
+        <http://www.w3.org/ns/prov#Location>,
+        <http://provenanceweb.org/ns/pml#hasFromOffset> exactly 1 rdfs:Literal
+    
+    
 Class: <http://www.w3.org/ns/prov#Plan>
 
     SubClassOf: 
         <http://www.w3.org/ns/prov#Entity>
     
+    
+Class: <http://www.w3.org/ns/prov#Agent>
+
+    
+Class: <http://www.w3.org/ns/prov#Attribution>
+
     
 Class: <http://provenanceweb.org/ns/pml#InformationContainer>
 
@@ -833,12 +842,6 @@ Class: <http://provenanceweb.org/ns/pml#InformationContainer>
     SubClassOf: 
         <http://www.w3.org/ns/prov#Entity>
     
-    
-Class: <http://www.w3.org/ns/prov#Agent>
-
-    
-Class: <http://www.w3.org/ns/prov#Attribution>
-
     
 Class: <http://provenanceweb.org/ns/pml#WebService>
 

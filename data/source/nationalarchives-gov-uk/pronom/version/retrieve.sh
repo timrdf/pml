@@ -168,20 +168,20 @@ if [ ! -d $version ]; then
       source automatic/retrieve-format-xml.sh
       source automatic/retrieve-format-csv.sh
 
-      echo "#!/bin/bash"                                                                                                           > convert-pronom.sh
-      echo                                                                                                                        >> convert-pronom.sh
-      echo "for fmt in source/*fmt*.xml; do"                                                                                      >> convert-pronom.sh
-      echo "   ttl=\${fmt%.xml}.ttl"                                                                                              >> convert-pronom.sh
-      echo "   ttl=automatic/\${ttl#source/}"                                                                                     >> convert-pronom.sh
-      echo "   if [[ ! -e \"\$ttl\" || \$fmt -nt \"\$ttl\" ]]; then"                                                              >> convert-pronom.sh
-      echo "      echo \"\$fmt -> \$ttl\""                                                                                        >> convert-pronom.sh
-      echo "      saxon.sh ../../src/pronom-format.xsl a a \$fmt > \$ttl"                                                         >> convert-pronom.sh
-      echo "   else"                                                                                                              >> convert-pronom.sh
-      echo "      echo \"[INFO] \$fmt already cached at \$ttl\""                                                                  >> convert-pronom.sh
-      echo "   fi"                                                                                                                >> convert-pronom.sh
-      echo "done"                                                                                                                 >> convert-pronom.sh
-      echo                                                                                                                        >> convert-pronom.sh
-      echo "aggregate-source-rdf.sh automatic/*.ttl"                                                                              >> convert-pronom.sh
+      echo "#!/bin/bash"                                                                                          > convert-pronom.sh
+      echo                                                                                                       >> convert-pronom.sh
+      echo "for fmt in source/*fmt*.xml; do"                                                                     >> convert-pronom.sh
+      echo "   ttl=\${fmt%.xml}.ttl"                                                                             >> convert-pronom.sh
+      echo "   ttl=automatic/\${ttl#source/}"                                                                    >> convert-pronom.sh
+      echo "   if [[ ! -e \"\$ttl\" || \$fmt -nt \"\$ttl\" ]]; then"                                             >> convert-pronom.sh
+      echo "      echo \"\$fmt -> \$ttl\""                                                                       >> convert-pronom.sh
+      echo "      saxon.sh ../../src/pronom-format.xsl a a -v BASE_URI=\$CSV2RDF4LOD_BASE_URI -in \$fmt > \$ttl" >> convert-pronom.sh
+      echo "   else"                                                                                             >> convert-pronom.sh
+      echo "      echo \"[INFO] \$fmt already cached at \$ttl\""                                                 >> convert-pronom.sh
+      echo "   fi"                                                                                               >> convert-pronom.sh
+      echo "done"                                                                                                >> convert-pronom.sh
+      echo                                                                                                       >> convert-pronom.sh
+      echo "aggregate-source-rdf.sh automatic/*.ttl"                                                             >> convert-pronom.sh
 
       chmod +x convert-pronom.sh
       ./convert-pronom.sh

@@ -1,5 +1,3 @@
-<!-- Timothy Lebo -->
-
 <!-- This processes a DROID/PRONOM format description XML, which looks like:
      (from http://www.nationalarchives.gov.uk/pronom/fmt/319 - "Save as XML")
 
@@ -31,17 +29,20 @@ saxon.sh ../../src/pronom-format.xsl a a source/fmt__319.xml
                xmlns:pronom="http://pronom.nationalarchives.gov.uk"
                xmlns:xs="http://www.w3.org/2001/XMLSchema"
                exclude-result-prefixes="">
+
 <xsl:output method="text"/>
 <xsl:param name="accept" select="'text/turtle'"/> <!-- Also, text/turtle -->
 
-<xsl:param name="source"/>
-<!-- e.g. http://www.nationalarchives.gov.uk/documents/DROID_SignatureFile_V65.xml 
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->   
+<!-- Change if you want to host your own URIs for the formats. -->
+<xsl:param name="BASE_URI"        select="'http://provenanceweb.org'"/> 
+<!-- Change if http://www.nationalarchives.gov.uk/pronom/fmt/1 no longer resolves -->
+<xsl:param name="BASE_URI_PRONOM" select="'http://www.nationalarchives.gov.uk/pronom/'"/>
+<!-- Set to a URL to scrape directly from that
+       e.g. http://www.nationalarchives.gov.uk/documents/DROID_SignatureFile_V65.xml 
           Listed at http://www.nationalarchives.gov.uk/aboutapps/pronom/droid-signature-files.htm -->
-
-<xsl:key name="format-by-puid" match="pronom:FileFormat" use="@ID"/>
-<xsl:variable name="BASE_URI" select="'http://www.nationalarchives.gov.uk/pronom/'"/>
-
-<!-- http://stackoverflow.com/questions/1384802/java-how-to-indent-xml-generated-by-transformer -->
+<xsl:param name="source"/>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->   
 
 <xsl:template match="/">
    <xsl:if test="$accept = 'text/turtle'">
@@ -60,6 +61,8 @@ saxon.sh ../../src/pronom-format.xsl a a source/fmt__319.xml
    </xsl:choose>
 </xsl:template>
 
+<xsl:key name="format-by-puid" match="pronom:FileFormat" use="@ID"/>
+
 <xsl:template match="pronom:FileFormat">
    <xsl:variable name="puid" select="pronom:FileFormatIdentifier[pronom:IdentifierType='PUID']/pronom:Identifier"/>
 
@@ -67,7 +70,7 @@ saxon.sh ../../src/pronom-format.xsl a a source/fmt__319.xml
 
       <xsl:choose>
          <xsl:when test="$accept = 'text/turtle'">
-            <xsl:value-of select="concat('&lt;',$BASE_URI,$puid,'&gt;',$NL,
+            <xsl:value-of select="concat('&lt;',pronom:name($BASE_URI,$puid),'&gt;',$NL,
                                                        '   a dcterms:FileFormat;',$NL,
                    if( pronom:FormatName ) then concat('   dcterms:title ',$DQ,pronom:FormatName,$DQ,';',$NL) else '',
 if( pronom:ne(pronom:FormatVersion) gt 0 ) then concat('   pronom:version ',$DQ,pronom:FormatVersion,$DQ,';',$NL) else '',
@@ -75,7 +78,10 @@ if( pronom:ne(pronom:FormatVersion) gt 0 ) then concat('   pronom:version ',$DQ,
                                                        '   pronom:puid        ',$DQ,$puid,$DQ,';',$NL,
                      if( pronom:FormatID ) then concat('   dcterms:identifier     ',$DQ,pronom:FormatID,$DQ,';',$NL) else '',
                                                        '   pronom:strFileFormatID ',$DQ,pronom:FormatID,$DQ,';',$NL,
- if( pronom:ne(pronom:FormatDescription) ) then concat('   dcterms:description ',$TDQ,replace(normalize-space(pronom:FormatDescription),$DQ,$SQ),$TDQ,';',$NL) else ''
+ if( pronom:ne(pronom:FormatDescription) ) then concat('   dcterms:description ',$TDQ,replace(normalize-space(pronom:FormatDescription),$DQ,$SQ),$TDQ,';',$NL) else '',
+                                                       '   prov:wasAttributedTo  &lt;',$BASE_URI,'&gt;;',$NL,
+                                                       '   prov:specializationOf &lt;info:pronom/',$puid,'&gt;;',$NL,
+                                                       '   prov:alternateOf      &lt;',$BASE_URI_PRONOM,$puid,'&gt;;',$NL
             )"/>
 
             <xsl:for-each-group select="pronom:Extension" group-by=".">
@@ -84,19 +90,14 @@ if( pronom:ne(pronom:FormatVersion) gt 0 ) then concat('   pronom:version ',$DQ,
 
             <xsl:for-each-group select="pronom:HasPriorityOverFileFormatID" group-by=".">
                <xsl:if test="key('format-by-puid',text())/@PUID">
-                  <xsl:value-of select="concat('   pronom:hasPriorityOver &lt;',$BASE_URI,key('format-by-puid',text())/@PUID,'&gt;;',$NL)"/>
+                  <xsl:value-of select="concat('   pronom:hasPriorityOver &lt;',pronom:name($BASE_URI,key('format-by-puid',text())/@PUID),'&gt;;',$NL)"/>
                </xsl:if>
             </xsl:for-each-group>
 
-            <xsl:value-of select="concat('.',$NL,$NL)"/>
-
-            <xsl:value-of select="concat('&lt;http://logd.tw.rpi.edu/id/nationalarchives-gov-uk/file-format/',$puid,'&gt;',$NL,
-                                         '   a dcterms:FileFormat;',$NL,
-                                         '   prov:alternateOf &lt;',$BASE_URI,$puid,'&gt;;',$NL,
-                                         '.',$NL,$NL)"/>
+            <xsl:value-of select="concat('.',$NL)"/>
          </xsl:when>
          <xsl:otherwise>
-            <xsl:value-of select="concat($BASE_URI,$puid,$NL)"/>
+            <xsl:value-of select="concat(pronom:name($BASE_URI,$puid),$NL)"/>
          </xsl:otherwise>
       </xsl:choose>
    </xsl:if>
@@ -105,6 +106,12 @@ if( pronom:ne(pronom:FormatVersion) gt 0 ) then concat('   pronom:version ',$DQ,
 <xsl:function name="pronom:ne">
    <xsl:param name="string"/>
    <xsl:copy-of select="xs:integer(string-length(normalize-space($string)))"/>
+</xsl:function>
+
+<xsl:function name="pronom:name">
+   <xsl:param name="base"/>
+   <xsl:param name="puid"/>
+   <xsl:value-of select="concat($base,'/formats/pronom/',$puid)"/>
 </xsl:function>
 
 <xsl:variable name="NL">
