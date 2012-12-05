@@ -32,6 +32,7 @@ saxon.sh ../../src/pronom-format-id.xsl a a -v accept=text/turtle source=http://
 
 <xsl:transform version="2.0" 
                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+               xmlns:pronom="http://pronom.nationalarchives.gov.uk"
                xmlns:sig="http://www.nationalarchives.gov.uk/pronom/SignatureFile"
                exclude-result-prefixes="">
 <xsl:output method="text"/>
