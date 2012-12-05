@@ -37,14 +37,14 @@ saxon.sh ../../src/pronom-format-id.xsl a a -v accept=text/turtle source=http://
 <xsl:output method="text"/>
 <xsl:param name="accept" select='text'/> <!-- Also, text/turtle -->
 
-<xsl:param name="source"/>
-<!-- e.g. http://www.nationalarchives.gov.uk/documents/DROID_SignatureFile_V65.xml 
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- Change if you want to host your own URIs for the formats. -->
+<xsl:param name="BASE_URI" select="'http://provenanceweb.org'"/>
+<!-- Set to a URL to scrape directly from that
+       e.g. http://www.nationalarchives.gov.uk/documents/DROID_SignatureFile_V65.xml 
           Listed at http://www.nationalarchives.gov.uk/aboutapps/pronom/droid-signature-files.htm -->
-
-<xsl:key name="format-by-puid" match="sig:FileFormat" use="@ID"/>
-<xsl:variable name="BASE_URI" select="'http://www.nationalarchives.gov.uk/pronom/'"/>
-
-<!-- http://stackoverflow.com/questions/1384802/java-how-to-indent-xml-generated-by-transformer -->
+<xsl:param name="source"/>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
 <xsl:template match="/">
    <xsl:if test="$accept = 'text/turtle'">
@@ -63,11 +63,13 @@ saxon.sh ../../src/pronom-format-id.xsl a a -v accept=text/turtle source=http://
    </xsl:choose>
 </xsl:template>
 
+<xsl:key name="format-by-puid" match="sig:FileFormat" use="@ID"/>
+
 <xsl:template match="sig:FileFormat[@PUID]">
    <xsl:choose>
       <xsl:when test="$accept = 'text/turtle'">
 
-         <xsl:value-of select="concat('&lt;',$BASE_URI,@PUID,'&gt;',$NL,
+         <xsl:value-of select="concat('&lt;',pronom:name($BASE_URI,@PUID),'&gt;',$NL,
                                       '   a dcterms:FileFormat;',$NL,
               if( @Name ) then concat('   dcterms:title ',$DQ,@Name,$DQ,';',$NL) else '',
            if( @Version ) then concat('   pronom:version ',$DQ,@Version,$DQ,';',$NL) else '',
@@ -82,22 +84,23 @@ saxon.sh ../../src/pronom-format-id.xsl a a -v accept=text/turtle source=http://
 
             <xsl:for-each-group select="sig:HasPriorityOverFileFormatID" group-by=".">
                <xsl:if test="key('format-by-puid',text())/@PUID">
-                  <xsl:value-of select="concat('   pronom:hasPriorityOver &lt;',$BASE_URI,key('format-by-puid',text())/@PUID,'&gt;;',$NL)"/>
+                  <xsl:value-of select="concat('   pronom:hasPriorityOver &lt;',pronom:name($BASE_URI,key('format-by-puid',text())/@PUID),'&gt;;',$NL)"/>
                </xsl:if>
             </xsl:for-each-group>
 
          <xsl:value-of select="concat('.',$NL,$NL)"/>
-
-         <xsl:value-of select="concat('&lt;http://logd.tw.rpi.edu/id/nationalarchives-gov-uk/file-format/',@PUID,'&gt;',$NL,
-                                      '   a dcterms:FileFormat;',$NL,
-                                      '   prov:alternateOf &lt;',$BASE_URI,@PUID,'&gt;;',$NL,
-                                      '.',$NL,$NL)"/>
       </xsl:when>
       <xsl:otherwise>
          <xsl:value-of select="concat($BASE_URI,@PUID,$NL)"/>
       </xsl:otherwise>
    </xsl:choose>
 </xsl:template>
+
+<xsl:function name="pronom:name">
+   <xsl:param name="base"/>
+   <xsl:param name="puid"/>
+   <xsl:value-of select="concat($base,'/formats/pronom/',$puid)"/>
+</xsl:function>
 
 <xsl:variable name="NL">
 <xsl:text>

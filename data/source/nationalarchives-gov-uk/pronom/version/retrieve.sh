@@ -155,7 +155,7 @@ if [ ! -d $version ]; then
 
       echo                                                                                                               
       echo automatic/pronom-formats.ttl
-      saxon.sh ../../src/pronom-formats.xsl a a -v accept=text/turtle -in source/DROID*.xml > automatic/pronom-formats.ttl
+      saxon.sh ../../src/pronom-formats.xsl a a -v accept=text/turtle BASE_URI=$CSV2RDF4LOD_BASE_URI -in source/DROID*.xml > automatic/pronom-formats.ttl
       #echo automatic/pronom-formats.csv
       #saxon.sh ../../src/pronom-formats.xsl a a -v accept=text        -in source/DROID*.xml > automatic/pronom-formats.csv
 
