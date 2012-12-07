@@ -154,8 +154,13 @@ if [ ! -d $version ]; then
       fi
 
       echo                                                                                                               
-      echo automatic/pronom-formats.ttl
-      saxon.sh ../../src/pronom-formats.xsl a a -v accept=text/turtle BASE_URI=$CSV2RDF4LOD_BASE_URI -in source/DROID*.xml > automatic/pronom-formats.ttl
+      if [ ${#CSV2RDF4LOD_BASE_URI_OVERRIDE} -gt 0 ]; then
+         base=$CSV2RDF4LOD_BASE_URI_OVERRIDE
+      else
+         base=$CSV2RDF4LOD_BASE_URI
+      fi
+      #echo automatic/pronom-formats.ttl
+      #saxon.sh ../../src/pronom-formats.xsl a a -v accept=text/turtle BASE_URI=$base -in source/DROID*.xml > automatic/pronom-formats.ttl
       #echo automatic/pronom-formats.csv
       #saxon.sh ../../src/pronom-formats.xsl a a -v accept=text        -in source/DROID*.xml > automatic/pronom-formats.csv
 
@@ -166,7 +171,7 @@ if [ ! -d $version ]; then
       echo
 
       source automatic/retrieve-format-xml.sh
-      source automatic/retrieve-format-csv.sh
+      #source automatic/retrieve-format-csv.sh
 
       echo "#!/bin/bash"                                                                                          > convert-pronom.sh
       echo                                                                                                       >> convert-pronom.sh
