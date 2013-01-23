@@ -1,16 +1,14 @@
 Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
 Prefix: owl: <http://www.w3.org/2002/07/owl#>
-Prefix: pml: <http://provenanceweb.org/ns/pml#>
-Prefix: pmlj: <http://inference-web.org/2.0/pml-justification.owl#>
-Prefix: pmlp: <http://inference-web.org/2.0/pml-provenance.owl#>
 Prefix: xml: <http://www.w3.org/XML/1998/namespace>
 Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-Prefix: pmlt: <http://inference-web.org/2.0/pml-trust.owl#>
-Prefix: prov: <http://www.w3.org/ns/prov#>
+Prefix: skos: <http://www.w3.org/2004/02/skos/core#>
+
 
 
 Ontology: <http://provenanceweb.org/ns/pml-trust#>
+
 Import: <http://www.w3.org/ns/prov#>
 
 Annotations: 
@@ -19,6 +17,9 @@ Annotations:
     owl:versionInfo "version 2.0, Authors: Deborah L. McGuinness, Honglei Zeng,  Li Ding, Paulo Pinheiro da Silva, Alyssa Glass, and Cynthia Chang"@en
 
 AnnotationProperty: owl:versionInfo
+
+    
+AnnotationProperty: <http://www.w3.org/ns/prov#category>
 
     
 AnnotationProperty: rdfs:label
@@ -36,66 +37,71 @@ Datatype: xsd:float
 Datatype: rdfs:Literal
 
     
-ObjectProperty: pml:hasBelievingAgent
-
-    Annotations: 
-        rdfs:label "believedBy"@en,
-        rdfs:comment "the agent that hold the belief assertion."@en
-    
-    Domain: 
-        pml:BeliefElement
-    
-    Range: 
-        prov:Agent
-    
-    
-ObjectProperty: pml:hasBelievedInformation
-
-    Annotations: 
-        rdfs:label "believedIn"@en,
-        rdfs:comment "the information being believed in."@en
-    
-    Domain: 
-        pml:BeliefElement
-    
-    Range: 
-        pml:Information
-    
-    
-ObjectProperty: pml:hasTrustor
+ObjectProperty: <http://provenanceweb.org/ns/pml#hasTrustor>
 
     Annotations: 
         rdfs:comment "the agent that hold the trust relation with the trustee."@en,
-        rdfs:label "trustor"@en
+        rdfs:label "trustor"@en,
+        <http://www.w3.org/ns/prov#category> "trust"^^rdf:PlainLiteral
     
     Domain: 
-        pml:TrustElement
+        <http://provenanceweb.org/ns/pml#TrustElement>
     
     Range: 
-        prov:Agent
+        <http://www.w3.org/ns/prov#Agent>
     
     
-ObjectProperty: pml:hasTrustee
+ObjectProperty: <http://provenanceweb.org/ns/pml#hasTrustee>
 
     Annotations: 
         rdfs:comment "the information source that is trusted in providing information."@en,
-        rdfs:label "trustee"@en
+        rdfs:label "trustee"@en,
+        <http://www.w3.org/ns/prov#category> "trust"^^rdf:PlainLiteral
     
     Domain: 
-        pml:TrustElement
+        <http://provenanceweb.org/ns/pml#TrustElement>
     
     Range: 
-        pml:Source
+        <http://provenanceweb.org/ns/pml#Source>
     
     
-DataProperty: pml:hasFloatValue
+ObjectProperty: <http://provenanceweb.org/ns/pml#hasBelievingAgent>
 
     Annotations: 
-        rdfs:label "value"@en,
-        rdfs:comment "The value of the metric, and We may consider better datatype in future."@en
+        rdfs:comment "the agent that hold the belief assertion."@en,
+        rdfs:label "believedBy"@en,
+        <http://www.w3.org/ns/prov#category> "trust"^^rdf:PlainLiteral
     
     Domain: 
-        pml:FloatMetric
+        <http://provenanceweb.org/ns/pml#BeliefElement>
+    
+    Range: 
+        <http://www.w3.org/ns/prov#Agent>
+    
+    
+ObjectProperty: <http://provenanceweb.org/ns/pml#hasBelievedInformation>
+
+    Annotations: 
+        rdfs:comment "the information being believed in."@en,
+        rdfs:label "believedIn"@en,
+        <http://www.w3.org/ns/prov#category> "trust"^^rdf:PlainLiteral
+    
+    Domain: 
+        <http://provenanceweb.org/ns/pml#BeliefElement>
+    
+    Range: 
+        <http://provenanceweb.org/ns/pml#Information>
+    
+    
+DataProperty: <http://provenanceweb.org/ns/pml#hasFloatValue>
+
+    Annotations: 
+        rdfs:comment "The value of the metric, and We may consider better datatype in future."@en,
+        rdfs:label "value"@en,
+        <http://www.w3.org/ns/prov#category> "trust"^^rdf:PlainLiteral
+    
+    Domain: 
+        <http://provenanceweb.org/ns/pml#FloatMetric>
     
     Range: 
         xsd:float
@@ -104,66 +110,71 @@ DataProperty: pml:hasFloatValue
 Class: owl:Thing
 
     
-Class: pml:Source
-
-    
-Class: pml:FloatMetric
+Class: <http://provenanceweb.org/ns/pml#BeliefElement>
 
     Annotations: 
+        rdfs:comment "The abstract trust concept that associate from an agent to a piece of information. The belief relation shows an agents belief status on the specified information. The specific belief status (e.g. believes, disbelieves, ignorant) and corresponding value metrics are defined in the decendents of this class."@en,
+        rdfs:label "Belief"@en,
+        <http://www.w3.org/ns/prov#category> "trust"^^rdf:PlainLiteral
+    
+    SubClassOf: 
+        <http://provenanceweb.org/ns/pml#hasBelievedInformation> exactly 1 owl:Thing,
+        <http://provenanceweb.org/ns/pml#hasBelievingAgent> exactly 1 owl:Thing
+    
+    
+Class: <http://provenanceweb.org/ns/pml#FloatMetric>
+
+    Annotations: 
+        rdfs:comment "A specific valuation metric that is defined on [0,1] as float number. 0 means fully negative point, 0.5 means nutral point, and 1 means fully positive point."@en,
         rdfs:label "float metric"@en,
-        rdfs:comment "A specific valuation metric that is defined on [0,1] as float number. 0 means fully negative point, 0.5 means nutral point, and 1 means fully positive point."@en
+        <http://www.w3.org/ns/prov#category> "trust"^^rdf:PlainLiteral
     
     SubClassOf: 
-        pml:hasFloatValue exactly 1 rdfs:Literal
+        <http://provenanceweb.org/ns/pml#hasFloatValue> exactly 1 rdfs:Literal
     
     
-Class: prov:Agent
-
-    
-Class: pml:FloatTrust
+Class: <http://provenanceweb.org/ns/pml#FloatTrust>
 
     Annotations: 
+        rdfs:comment "An agent's overall trust on an information source quantified by a float value between 0 and 1."@en,
         rdfs:label "Float trust"@en,
-        rdfs:comment "An agent's overall trust on an information source quantified by a float value between 0 and 1. "@en
+        <http://www.w3.org/ns/prov#category> "trust"^^rdf:PlainLiteral
     
     SubClassOf: 
-        pml:FloatMetric,
-        pml:TrustElement
+        <http://provenanceweb.org/ns/pml#FloatMetric>,
+        <http://provenanceweb.org/ns/pml#TrustElement>
     
     
-Class: pml:TrustElement
+Class: <http://provenanceweb.org/ns/pml#Source>
+
+    
+Class: <http://provenanceweb.org/ns/pml#Information>
+
+    
+Class: <http://provenanceweb.org/ns/pml#TrustElement>
 
     Annotations: 
         rdfs:comment "The abstract trust concept that associate from an agent to a source. The trust relation summarizes an agent's overall believes about information from the specified source. The specific trust metrics are defined in the decendents of this class."@en,
-        rdfs:label "Trust"@en
+        rdfs:label "Trust"@en,
+        <http://www.w3.org/ns/prov#category> "trust"^^rdf:PlainLiteral
     
     SubClassOf: 
-        pml:hasTrustor exactly 1 owl:Thing,
-        pml:hasTrustee exactly 1 owl:Thing
+        <http://provenanceweb.org/ns/pml#hasTrustee> exactly 1 owl:Thing,
+        <http://provenanceweb.org/ns/pml#hasTrustor> exactly 1 owl:Thing
     
     
-Class: pml:FloatBelief
+Class: <http://provenanceweb.org/ns/pml#FloatBelief>
 
     Annotations: 
+        rdfs:comment "An agent's overall belief on a piece of information quantified by a float value between 0 and 1."@en,
         rdfs:label "Float Belief"@en,
-        rdfs:comment "An agent's overall belief on a piece of information quantified by a float value between 0 and 1. "@en
+        <http://www.w3.org/ns/prov#category> "trust"^^rdf:PlainLiteral
     
     SubClassOf: 
-        pml:FloatMetric,
-        pml:BeliefElement
+        <http://provenanceweb.org/ns/pml#BeliefElement>,
+        <http://provenanceweb.org/ns/pml#FloatMetric>
     
     
-Class: pml:Information
+Class: <http://www.w3.org/ns/prov#Agent>
 
-    
-Class: pml:BeliefElement
-
-    Annotations: 
-        rdfs:comment "The abstract trust concept that associate from an agent to a piece of information. The belief relation shows an agents belief status on the specified information. The specific belief status (e.g. believes, disbelieves, ignorant) and corresponding value metrics are defined in the decendents of this class. "@en,
-        rdfs:label "Belief"@en
-    
-    SubClassOf: 
-        pml:hasBelievedInformation exactly 1 owl:Thing,
-        pml:hasBelievingAgent exactly 1 owl:Thing
-    
     
