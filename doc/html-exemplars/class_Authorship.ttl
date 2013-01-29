@@ -22,29 +22,29 @@
 :clrs_authorship_c
    a pml:Authorship;
    prov:agent <http://dbpedia.org/resource/Thomas_H._Cormen>;
-   prov:atLocation :first;
-   pml:hadIndex 1; # TODO: this is less crufty..
+   prov:atLocation :first; # <-- Two alternatives
+   pml:atIndex 1;          # <---/
 .
 
 :clrs_authorship_l
    a pml:Authorship;
    prov:agent <http://dbpedia.org/resource/Charles_E._Leiserson>;
-   prov:atLocation :second;
-   pml:hadIndex 2; # TODO: this is less crufty..
+   prov:atLocation :second; # <-- Two alternatives
+   pml:atIndex 2;           # <---/
 .
 
 :clrs_authorship_r
    a pml:Authorship;
    prov:agent <http://dbpedia.org/resource/Ron_Rivest>;
-   prov:atLocation :third;
-   pml:hadIndex 3; # TODO: this is less crufty..
+   prov:atLocation :third; # <-- Two alternatives
+   pml:atIndex 3;          # <---/
 .
 
 :clrs_authorship_s
    a pml:Authorship;
    prov:agent  <http://dbpedia.org/resource/Clifford_Stein>;
-   prov:atLocation :fourth;
-   pml:hadIndex 4; # TODO: this is less crufty..
+   prov:atLocation :fourth; # <-- Two alternatives
+   pml:atIndex 4;           # <---/
 .
 
 :first  a pml:Position, prov:Location; prov:value 1 .
