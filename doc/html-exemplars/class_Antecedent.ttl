@@ -7,4 +7,42 @@
 @prefix ex:      <http://example.com/vocab#> .
 @prefix :        <http://example.com/> .
 
-# TODO
+:tidbit
+   a pml:Information, prov:Entity;
+   prov:value "axabab";
+.
+
+:morsel
+   a pml:Information, prov:Entity;
+   prov:value "ytuuty";
+.
+
+:inference_step
+   a pml:InferenceStep, prov:Activity;
+   pml:hadAntecedent   :tidbit,
+                       :morsel;
+   prov:used           :tidbit, # Inferred via subproperty.
+                       :morsel; #
+   prov:qualifiedUsage :my_tidbit_usage, 
+                       :my_morsel_usage;
+   pml:hadConclusion   :new;
+   prov:generated      :new;    # Inferred via subproperty.
+.
+
+:new
+   a pml:Information, prov:Entity;
+   prov:value "axabab ytuuty";
+   prov:wasGeneratedBy :inference_step;  # Inferred via inverse.
+.
+
+:my_tidbit_usage
+   a pml:Antecedent, a prov:Usage;
+   prov:entity :tidbit;
+   pml:atIndex 1;
+.
+
+:my_morsel_usage
+   a pml:Antecedent, a prov:Usage;
+   prov:entity :morsel;
+   pml:atIndex 2;
+.
