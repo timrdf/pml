@@ -81,11 +81,11 @@
     rdfs:subClassOf [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievingAgent
+        owl:onProperty :hasBelievedInformation
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievedInformation
+        owl:onProperty :hasBelievingAgent
     ] ;
     prov:category "trust" .
 
@@ -194,10 +194,6 @@
     rdfs:label "Inference Step"@en ;
     rdfs:subClassOf prov:Activity, [
         a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasConfidenceValue
-    ], [
-        a owl:Restriction ;
         owl:onClass :InferenceEngine ;
         owl:onProperty prov:wasAssociatedWith ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
@@ -205,6 +201,10 @@
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasAntecedent
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasConfidenceValue
     ] .
 
 :Information
@@ -215,11 +215,11 @@
     rdfs:subClassOf prov:Entity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasLanguage
+        owl:onProperty :hasFormat
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFormat
+        owl:onProperty :hasLanguage
     ] ;
     prov:category "base" .
 
@@ -300,12 +300,12 @@
     a owl:Class ;
     rdfs:subClassOf prov:Attribution, [
         a owl:Restriction ;
-        owl:allValuesFrom :Owner ;
-        owl:onProperty prov:agent
-    ], [
-        a owl:Restriction ;
         owl:allValuesFrom :OwnedEntity ;
         owl:onProperty prov:entity
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom :Owner ;
+        owl:onProperty prov:agent
     ] ;
     prov:category "base" ;
     prov:unqualifiedForm :hasOwner .
@@ -422,11 +422,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf :ProceduralPlan, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromLanguage
+        owl:onProperty :hasToLanguage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToLanguage
+        owl:onProperty :hasFromLanguage
     ] ;
     prov:category "base" .
 
@@ -460,6 +460,12 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:label "Website"@en ;
     rdfs:subClassOf :Document ;
     prov:category "base" .
+
+:atIndex
+    a owl:DatatypeProperty ;
+    rdfs:comment "A literal analogue to prov:atLocation that specifies the position as an integer value."@en ;
+    rdfs:domain prov:Influence ;
+    rdfs:range xsd:integer .
 
 :authorOf
     a owl:ObjectProperty ;
@@ -613,11 +619,6 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:label "from-row"@en ;
     rdfs:range xsd:int ;
     prov:category "base" .
-
-:hasIndex
-    a owl:DatatypeProperty ;
-    rdfs:domain prov:Influence ;
-    rdfs:range xsd:integer .
 
 :hasLanguage
     :order 15 ;
