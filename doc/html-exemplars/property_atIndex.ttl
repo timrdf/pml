@@ -1,0 +1,61 @@
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix dcat:    <http://www.w3.org/ns/dcat#> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix pml:     <http://provenanceweb.org/ns/pml#> .
+
+@prefix ex:      <http://example.com/vocab#> .
+@prefix :        <http://example.com/> .
+
+# A popular use of pml:atIndex is relative ordering of authors.
+# See the exemplar for pml:Authorship.
+
+:andy
+   a pml:Author;
+   foaf:name "Andy";
+.
+:betty
+   a pml:Author;
+   foaf:name "Betty";
+.
+:pam
+   a pml:Publisher;
+   foaf:name "Pam";
+.
+
+:dataset
+   a dcat:Dataset;
+   dcterms:title "Contact information for the members of United States Congress.";
+   prov:wasAttributedTo :andy, 
+                        :pam,
+                        :betty;
+   prov:qualifiedAttribution :andys_influence,
+                             :pams_influence,
+                             :betty_influence;
+.
+
+:andys_influence
+   a prov:Attribution;
+   prov:agent :andy;
+   pml:atIndex 1; # Andy's influence on the dataset occurred 
+                  # at a Location lower than Pam's influence.
+                  # Note that a lower index does NOT imply 
+                  # an earlier time. The "position" can be an
+                  # arbitrary meaning. If you want to express
+                  # time, use PROV directly.
+.
+
+:pams_influence
+   a prov:Attribution;
+   prov:agent :pam;
+   pml:atIndex 2;
+.
+
+:bettys_influence
+   a prov:Attribution;
+   prov:agent :betty;
+   pml:atIndex 3;
+.
