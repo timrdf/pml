@@ -92,13 +92,13 @@
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasBelievedInformation"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasBelievingAgent"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasBelievingAgent"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasBelievedInformation"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>trust</prov:category>
@@ -210,8 +210,9 @@
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Activity"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasConfidenceValue"/>
+        <owl:onClass rdf:resource="http://provenanceweb.org/ns/pml#InferenceEngine"/>
+        <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#wasAssociatedWith"/>
+        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
@@ -222,9 +223,8 @@
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:onClass rdf:resource="http://provenanceweb.org/ns/pml#InferenceEngine"/>
-        <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#wasAssociatedWith"/>
-        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasConfidenceValue"/>
       </owl:Restriction>
     </rdfs:subClassOf>
   </owl:Class>
@@ -237,13 +237,13 @@
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFormat"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasLanguage"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasLanguage"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFormat"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>base</prov:category>
@@ -436,6 +436,12 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasToCol"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
         <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromCol"/>
       </owl:Restriction>
     </rdfs:subClassOf>
@@ -443,12 +449,6 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
         <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromRow"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasToCol"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
@@ -483,13 +483,13 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasToLanguage"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromLanguage"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromLanguage"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasToLanguage"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>base</prov:category>
@@ -500,13 +500,13 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasTrustee"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasTrustor"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasTrustor"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasTrustee"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>trust</prov:category>
@@ -529,6 +529,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:comment xml:lang="en">A literal analogue to prov:atLocation that specifies the position as an integer value.</rdfs:comment>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/prov#Influence"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <prov:category>base</prov:category>
   </owl:DatatypeProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#authorOf">
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#contributed"/>
