@@ -81,11 +81,11 @@
     rdfs:subClassOf [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievedInformation
+        owl:onProperty :hasBelievingAgent
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievingAgent
+        owl:onProperty :hasBelievedInformation
     ] ;
     prov:category "trust" .
 
@@ -194,17 +194,17 @@
     rdfs:label "Inference Step"@en ;
     rdfs:subClassOf prov:Activity, [
         a owl:Restriction ;
-        owl:onClass :InferenceEngine ;
-        owl:onProperty prov:wasAssociatedWith ;
-        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasConfidenceValue
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasAntecedent
     ], [
         a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasConfidenceValue
+        owl:onClass :InferenceEngine ;
+        owl:onProperty prov:wasAssociatedWith ;
+        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
     ] .
 
 :Information
@@ -383,7 +383,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToRow
+        owl:onProperty :hasFromCol
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasFromRow
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -391,11 +395,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromCol
-    ], [
-        a owl:Restriction ;
-        owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromRow
+        owl:onProperty :hasToRow
     ] ;
     prov:category "base" .
 
