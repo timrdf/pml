@@ -4,6 +4,8 @@
    xmlns:prov="http://www.w3.org/ns/prov#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+   xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
    xmlns="http://provenanceweb.org/ns/pml#">
   <owl:Ontology rdf:about="http://provenanceweb.org/ns/pml#">
@@ -19,6 +21,27 @@
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#Answer">
     <rdfs:subClassOf rdf:resource="http://provenanceweb.org/ns/pml#Information"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+        <owl:onClass>
+          <owl:Class>
+            <owl:unionOf>
+              <rdf:Description>
+                <rdf:first rdf:resource="http://provenanceweb.org/ns/pml#Query"/>
+                <rdf:rest>
+                  <rdf:Description>
+                    <rdf:first rdf:resource="http://provenanceweb.org/ns/pml#Question"/>
+                    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                  </rdf:Description>
+                </rdf:rest>
+              </rdf:Description>
+            </owl:unionOf>
+          </owl:Class>
+        </owl:onClass>
+        <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#wasDerivedFrom"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#Antecedent">
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Usage"/>
@@ -92,23 +115,19 @@
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasBelievedInformation"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasBelievingAgent"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasBelievingAgent"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasBelievedInformation"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>trust</prov:category>
   </owl:Class>
-  <owl:Class rdf:about="http://provenanceweb.org/ns/pml#DeclarativeRule">
-    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19</order>
-    <rdfs:comment xml:lang="en">A declarative inference rule can be fully specified by patterns for premises and its conclusion.   For example, Modus Ponens, can be specified by the premise patterns ?A,  ?A -&amp;gt; ?B and the conclusion pattern ?B.</rdfs:comment>
-    <rdfs:label xml:lang="en">Declarative Rule</rdfs:label>
+  <owl:Class rdf:about="http://provenanceweb.org/ns/pml#DeclarativePlan">
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Plan"/>
-    <prov:category>base</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#Derivation">
     <rdfs:subClassOf rdf:resource="http://provenanceweb.org/ns/pml#InferenceStep"/>
@@ -144,15 +163,15 @@
     <rdfs:subClassOf rdf:resource="http://provenanceweb.org/ns/pml#InformationContainer"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:onClass rdf:resource="http://provenanceweb.org/ns/pml#Document"/>
-        <owl:onProperty rdf:resource="http://purl.org/dc/terms/isPartOf"/>
-        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+        <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#atLocation"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/ns/prov#Location"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#atLocation"/>
-        <owl:someValuesFrom rdf:resource="http://www.w3.org/ns/prov#Location"/>
+        <owl:onClass rdf:resource="http://provenanceweb.org/ns/pml#Document"/>
+        <owl:onProperty rdf:resource="http://purl.org/dc/terms/isPartOf"/>
+        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>base</prov:category>
@@ -211,12 +230,6 @@
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasAntecedent"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
         <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasConfidenceValue"/>
       </owl:Restriction>
     </rdfs:subClassOf>
@@ -225,6 +238,12 @@
         <owl:onClass rdf:resource="http://provenanceweb.org/ns/pml#InferenceEngine"/>
         <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#wasAssociatedWith"/>
         <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasAntecedent"/>
       </owl:Restriction>
     </rdfs:subClassOf>
   </owl:Class>
@@ -237,13 +256,13 @@
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFormat"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasLanguage"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasLanguage"/>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFormat"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>base</prov:category>
@@ -261,6 +280,10 @@
     <rdfs:label xml:lang="en">Language</rdfs:label>
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
     <prov:category>base</prov:category>
+  </owl:Class>
+  <owl:Class rdf:about="http://provenanceweb.org/ns/pml#Map">
+    <rdfs:comment>An associative array, an abstract data type composed of a collection of keys and a collection of values, where each key is associated with one value</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://provenanceweb.org/ns/pml#DeclarativePlan"/>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#OffsetPosition">
     <order rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">11.75</order>
@@ -337,14 +360,14 @@
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Attribution"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:allValuesFrom rdf:resource="http://provenanceweb.org/ns/pml#OwnedEntity"/>
-        <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#entity"/>
+        <owl:allValuesFrom rdf:resource="http://provenanceweb.org/ns/pml#Owner"/>
+        <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#agent"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:allValuesFrom rdf:resource="http://provenanceweb.org/ns/pml#Owner"/>
-        <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#agent"/>
+        <owl:allValuesFrom rdf:resource="http://provenanceweb.org/ns/pml#OwnedEntity"/>
+        <owl:onProperty rdf:resource="http://www.w3.org/ns/prov#entity"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>base</prov:category>
@@ -436,18 +459,6 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromCol"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
-        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromRow"/>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
         <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasToCol"/>
       </owl:Restriction>
     </rdfs:subClassOf>
@@ -457,6 +468,25 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
         <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasToRow"/>
       </owl:Restriction>
     </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromCol"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+        <owl:onProperty rdf:resource="http://provenanceweb.org/ns/pml#hasFromRow"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <prov:category>base</prov:category>
+  </owl:Class>
+  <owl:Class rdf:about="http://provenanceweb.org/ns/pml#Rule">
+    <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19</order>
+    <rdfs:comment xml:lang="en">A rule can be fully specified by patterns for premises and its conclusion.   For example, Modus Ponens, can be specified by the premise patterns ?A,  ?A -&amp;gt; ?B and the conclusion pattern ?B.</rdfs:comment>
+    <rdfs:label xml:lang="en">Rule</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://provenanceweb.org/ns/pml#DeclarativePlan"/>
     <prov:category>base</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#Sensor">
@@ -510,6 +540,12 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
       </owl:Restriction>
     </rdfs:subClassOf>
     <prov:category>trust</prov:category>
+  </owl:Class>
+  <owl:Class rdf:about="http://provenanceweb.org/ns/pml#Variable">
+    <rdfs:comment>a symbolic name associated with a value and whose associated value may be changed</rdfs:comment>
+    <rdfs:label>Variable</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://provenanceweb.org/ns/pml#InformationContainer"/>
+    <prov:category>base</prov:category>
   </owl:Class>
   <owl:Class rdf:about="http://provenanceweb.org/ns/pml#WebService">
     <order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</order>
@@ -724,7 +760,6 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:label xml:lang="en">publisher</rdfs:label>
     <rdfs:range rdf:resource="http://provenanceweb.org/ns/pml#Publisher"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#wasAttributedTo"/>
-    <owl:inverseOf rdf:resource="http://provenanceweb.org/ns/pml#publisherOf"/>
     <prov:category>base</prov:category>
     <prov:inverse xml:lang="en">publisherOf</prov:inverse>
     <prov:qualifiedForm rdf:resource="http://provenanceweb.org/ns/pml#Publishership"/>
@@ -810,6 +845,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#publisherOf">
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#contributed"/>
+    <owl:inverseOf rdf:resource="http://provenanceweb.org/ns/pml#hasPublisher"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#qualifiedAntecedent">
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#qualifiedUsage"/>
@@ -834,6 +870,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#qualifiedAttribution"/>
     <prov:category>qualified</prov:category>
     <prov:unqualifiedForm rdf:resource="http://provenanceweb.org/ns/pml#hasPublisher"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://provenanceweb.org/ns/pml#wasDerivedFrom">
+    <rdfs:domain rdf:resource="http://provenanceweb.org/ns/pml#Information"/>
+    <rdfs:range rdf:resource="http://provenanceweb.org/ns/pml#Information"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#wasDerivedFrom"/>
   </owl:ObjectProperty>
   <owl:Ontology rdf:about="http://provenanceweb.org/ns/pml-proof#">
     <rdfs:comment xml:lang="en">The proof-theoretic part of PML3 ontology. It is a fundamental component of PML3 ontology.</rdfs:comment>
@@ -940,6 +981,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#wasDerivedFrom">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <owl:propertyChainAxiom>
       <rdf:Description>
         <rdf:first rdf:resource="http://www.w3.org/ns/prov#wasGeneratedBy"/>
@@ -953,4 +995,70 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     </owl:propertyChainAxiom>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#wasGeneratedBy"/>
+  <owl:AnnotationProperty rdf:about="http://www.w3.org/ns/prov#wasQuotedFrom"/>
+  <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#wasRevisionOf">
+    <rdfs:subPropertyOf rdf:resource="http://provenanceweb.org/ns/pml#wasDerivedFrom"/>
+  </owl:ObjectProperty>
+  <swrl:Variable rdf:about="urn:swrl#i"/>
+  <swrl:Variable rdf:about="urn:swrl#loc"/>
+  <swrl:Variable rdf:about="urn:swrl#x"/>
+  <owl:Axiom>
+    <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#comment"/>
+    <owl:annotatedSource rdf:resource="http://provenanceweb.org/ns/pml#Map"/>
+    <owl:annotatedTarget>An associative array, an abstract data type composed of a collection of keys and a collection of values, where each key is associated with one value</owl:annotatedTarget>
+    <prov:wasQuotedFrom rdf:resource="http://en.wikipedia.org/w/index.php?title=Map_(disambiguation)&amp;oldid=514631773"/>
+  </owl:Axiom>
+  <owl:Axiom>
+    <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#comment"/>
+    <owl:annotatedSource rdf:resource="http://provenanceweb.org/ns/pml#Variable"/>
+    <owl:annotatedTarget>a symbolic name associated with a value and whose associated value may be changed</owl:annotatedTarget>
+    <prov:wasQuotedFrom rdf:resource="http://en.wikipedia.org/w/index.php?title=Variable&amp;oldid=527769013"/>
+  </owl:Axiom>
+  <swrl:Imp>
+    <swrl:body>
+      <rdf:Description>
+        <rdf:first>
+          <swrl:ClassAtom>
+            <swrl:argument1 rdf:resource="urn:swrl#loc"/>
+            <swrl:classPredicate rdf:resource="http://provenanceweb.org/ns/pml#Position"/>
+          </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+          <rdf:Description>
+            <rdf:first>
+              <swrl:IndividualPropertyAtom>
+                <swrl:argument1 rdf:resource="urn:swrl#x"/>
+                <swrl:argument2 rdf:resource="urn:swrl#loc"/>
+                <swrl:propertyPredicate rdf:resource="http://www.w3.org/ns/prov#atLocation"/>
+              </swrl:IndividualPropertyAtom>
+            </rdf:first>
+            <rdf:rest>
+              <rdf:Description>
+                <rdf:first>
+                  <swrl:DatavaluedPropertyAtom>
+                    <swrl:argument1 rdf:resource="urn:swrl#loc"/>
+                    <swrl:argument2 rdf:resource="urn:swrl#i"/>
+                    <swrl:propertyPredicate rdf:resource="http://provenanceweb.org/ns/pml#hasFromOffset"/>
+                  </swrl:DatavaluedPropertyAtom>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+              </rdf:Description>
+            </rdf:rest>
+          </rdf:Description>
+        </rdf:rest>
+      </rdf:Description>
+    </swrl:body>
+    <swrl:head>
+      <rdf:Description>
+        <rdf:first>
+          <swrl:DatavaluedPropertyAtom>
+            <swrl:argument1 rdf:resource="urn:swrl#x"/>
+            <swrl:argument2 rdf:resource="urn:swrl#i"/>
+            <swrl:propertyPredicate rdf:resource="http://provenanceweb.org/ns/pml#atIndex"/>
+          </swrl:DatavaluedPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+      </rdf:Description>
+    </swrl:head>
+  </swrl:Imp>
 </rdf:RDF>

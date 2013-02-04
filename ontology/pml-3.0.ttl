@@ -2,6 +2,8 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix : <http://provenanceweb.org/ns/pml#> .
 
@@ -19,7 +21,17 @@
 
 :Answer
     a owl:Class ;
-    rdfs:subClassOf :Information .
+    rdfs:subClassOf :Information, [
+        a owl:Restriction ;
+        owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onClass [
+            a owl:Class ;
+            owl:unionOf (:Query
+                :Question
+            )
+        ] ;
+        owl:onProperty prov:wasDerivedFrom
+    ] .
 
 :Antecedent
     a owl:Class ;
@@ -89,13 +101,9 @@
     ] ;
     prov:category "trust" .
 
-:DeclarativeRule
-    :order 19 ;
+:DeclarativePlan
     a owl:Class ;
-    rdfs:comment "A declarative inference rule can be fully specified by patterns for premises and its conclusion.   For example, Modus Ponens, can be specified by the premise patterns ?A,  ?A -&gt; ?B and the conclusion pattern ?B."@en ;
-    rdfs:label "Declarative Rule"@en ;
-    rdfs:subClassOf prov:Plan ;
-    prov:category "base" .
+    rdfs:subClassOf prov:Plan .
 
 :Derivation
     a owl:Class ;
@@ -129,13 +137,13 @@
     rdfs:label "Document Fragment"@en ;
     rdfs:subClassOf :InformationContainer, [
         a owl:Restriction ;
+        owl:onProperty prov:atLocation ;
+        owl:someValuesFrom prov:Location
+    ], [
+        a owl:Restriction ;
         owl:onClass :Document ;
         owl:onProperty <http://purl.org/dc/terms/isPartOf> ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
-    ], [
-        a owl:Restriction ;
-        owl:onProperty prov:atLocation ;
-        owl:someValuesFrom prov:Location
     ] ;
     prov:category "base" .
 
@@ -195,16 +203,16 @@
     rdfs:subClassOf prov:Activity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasAntecedent
-    ], [
-        a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasConfidenceValue
     ], [
         a owl:Restriction ;
         owl:onClass :InferenceEngine ;
         owl:onProperty prov:wasAssociatedWith ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasAntecedent
     ] .
 
 :Information
@@ -215,11 +223,11 @@
     rdfs:subClassOf prov:Entity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFormat
+        owl:onProperty :hasLanguage
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasLanguage
+        owl:onProperty :hasFormat
     ] ;
     prov:category "base" .
 
@@ -238,6 +246,11 @@
     rdfs:label "Language"@en ;
     rdfs:subClassOf prov:Entity ;
     prov:category "base" .
+
+:Map
+    a owl:Class ;
+    rdfs:comment "An associative array, an abstract data type composed of a collection of keys and a collection of values, where each key is associated with one value" ;
+    rdfs:subClassOf :DeclarativePlan .
 
 :OffsetPosition
     :order 11.75 ;
@@ -300,12 +313,12 @@
     a owl:Class ;
     rdfs:subClassOf prov:Attribution, [
         a owl:Restriction ;
-        owl:allValuesFrom :OwnedEntity ;
-        owl:onProperty prov:entity
-    ], [
-        a owl:Restriction ;
         owl:allValuesFrom :Owner ;
         owl:onProperty prov:agent
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom :OwnedEntity ;
+        owl:onProperty prov:entity
     ] ;
     prov:category "base" ;
     prov:unqualifiedForm :hasOwner .
@@ -383,20 +396,28 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromCol
-    ], [
-        a owl:Restriction ;
-        owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromRow
-    ], [
-        a owl:Restriction ;
-        owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasToCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasToRow
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasFromCol
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasFromRow
     ] ;
+    prov:category "base" .
+
+:Rule
+    :order 19 ;
+    a owl:Class ;
+    rdfs:comment "A rule can be fully specified by patterns for premises and its conclusion.   For example, Modus Ponens, can be specified by the premise patterns ?A,  ?A -&gt; ?B and the conclusion pattern ?B."@en ;
+    rdfs:label "Rule"@en ;
+    rdfs:subClassOf :DeclarativePlan ;
     prov:category "base" .
 
 :Sensor
@@ -444,6 +465,13 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
         owl:onProperty :hasTrustor
     ] ;
     prov:category "trust" .
+
+:Variable
+    a owl:Class ;
+    rdfs:comment "a symbolic name associated with a value and whose associated value may be changed" ;
+    rdfs:label "Variable" ;
+    rdfs:subClassOf :InformationContainer ;
+    prov:category "base" .
 
 :WebService
     :order 4 ;
@@ -668,7 +696,6 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:label "publisher"@en ;
     rdfs:range :Publisher ;
     rdfs:subPropertyOf prov:wasAttributedTo ;
-    owl:inverseOf :publisherOf ;
     prov:category "base" ;
     prov:inverse "publisherOf"@en ;
     prov:qualifiedForm :Publishership, :qualifiedPublishership .
@@ -767,7 +794,8 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 
 :publisherOf
     a owl:ObjectProperty ;
-    rdfs:subPropertyOf prov:contributed .
+    rdfs:subPropertyOf prov:contributed ;
+    owl:inverseOf :hasPublisher .
 
 :qualifiedAntecedent
     a owl:ObjectProperty ;
@@ -796,6 +824,12 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subPropertyOf prov:qualifiedAttribution ;
     prov:category "qualified" ;
     prov:unqualifiedForm :hasPublisher .
+
+:wasDerivedFrom
+    a owl:ObjectProperty ;
+    rdfs:domain :Information ;
+    rdfs:range :Information ;
+    rdfs:subPropertyOf prov:wasDerivedFrom .
 
 <http://provenanceweb.org/ns/pml-proof#>
     a owl:Ontology ;
@@ -977,4 +1011,62 @@ prov:wasDerivedFrom
 
 prov:wasGeneratedBy
     a owl:ObjectProperty .
+
+prov:wasQuotedFrom
+    a owl:AnnotationProperty .
+
+prov:wasRevisionOf
+    a owl:ObjectProperty ;
+    rdfs:subPropertyOf :wasDerivedFrom .
+
+<urn:swrl#i>
+    a swrl:Variable .
+
+<urn:swrl#loc>
+    a swrl:Variable .
+
+<urn:swrl#x>
+    a swrl:Variable .
+
+[]
+    a owl:Axiom ;
+    owl:annotatedProperty rdfs:comment ;
+    owl:annotatedSource :Map ;
+    owl:annotatedTarget "An associative array, an abstract data type composed of a collection of keys and a collection of values, where each key is associated with one value" ;
+    prov:wasQuotedFrom <http://en.wikipedia.org/w/index.php?title=Map_(disambiguation)&oldid=514631773> .
+
+[]
+    a owl:Axiom ;
+    owl:annotatedProperty rdfs:comment ;
+    owl:annotatedSource :Variable ;
+    owl:annotatedTarget "a symbolic name associated with a value and whose associated value may be changed" ;
+    prov:wasQuotedFrom <http://en.wikipedia.org/w/index.php?title=Variable&oldid=527769013> .
+
+[]
+    a swrl:Imp ;
+    swrl:body ([
+            a swrl:ClassAtom ;
+            swrl:argument1 <urn:swrl#loc> ;
+            swrl:classPredicate :Position
+        ]
+        [
+            a swrl:IndividualPropertyAtom ;
+            swrl:argument1 <urn:swrl#x> ;
+            swrl:argument2 <urn:swrl#loc> ;
+            swrl:propertyPredicate prov:atLocation
+        ]
+        [
+            a swrl:DatavaluedPropertyAtom ;
+            swrl:argument1 <urn:swrl#loc> ;
+            swrl:argument2 <urn:swrl#i> ;
+            swrl:propertyPredicate :hasFromOffset
+        ]
+    ) ;
+    swrl:head ([
+            a swrl:DatavaluedPropertyAtom ;
+            swrl:argument1 <urn:swrl#x> ;
+            swrl:argument2 <urn:swrl#i> ;
+            swrl:propertyPredicate :atIndex
+        ]
+    ) .
 
