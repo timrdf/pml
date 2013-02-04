@@ -13,8 +13,8 @@ Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 Ontology: <http://provenanceweb.org/ns/pml-proof#>
 
 Import: <http://www.w3.org/ns/inverses.owl>
-Import: <http://provenanceweb.org/ns/pml-base#>
 Import: <http://www.w3.org/ns/prov#>
+Import: <http://provenanceweb.org/ns/pml-base#>
 
 Annotations: 
     rdfs:label "PML3 proof ontology"@en,
@@ -77,9 +77,6 @@ ObjectProperty: pml:isExplanationOf
         prov:hadDerivation
     
     
-ObjectProperty: prov:wasAttributedTo
-
-    
 ObjectProperty: pml:hasConclusion
 
     Annotations: 
@@ -89,6 +86,9 @@ ObjectProperty: pml:hasConclusion
     SubPropertyOf: 
         prov:generated
     
+    
+ObjectProperty: prov:wasAttributedTo
+
     
 ObjectProperty: prov:specializationOf
 
@@ -108,8 +108,8 @@ ObjectProperty: prov:entity
 ObjectProperty: pml:isConsequentOf
 
     Annotations: 
-        rdfs:label "because"@en,
-        rdfs:comment "links to an inference step that derives the conclusion of the present node set."@en
+        rdfs:comment "links to an inference step that derives the conclusion of the present node set."@en,
+        rdfs:label "because"@en
     
     SubPropertyOf: 
         prov:wasGeneratedBy
@@ -118,14 +118,14 @@ ObjectProperty: pml:isConsequentOf
         pml:InferenceStep
     
     
-ObjectProperty: prov:invalidated
-
-    
 ObjectProperty: prov:wasDerivedFrom
 
     SubPropertyChain: 
         prov:wasGeneratedBy o pml:hasAntecedent
     
+    
+ObjectProperty: prov:invalidated
+
     
 ObjectProperty: pml:isQueryFor
 
@@ -257,17 +257,16 @@ Class: pml:AbstractionRule
 Class: prov:Entity
 
     
-Class: pml:Answer
-
-    SubClassOf: 
-        pml:Information
-    
-    
 Class: pml:Information
 
     
-Class: prov:Derivation
+Class: pml:Answer
 
+    SubClassOf: 
+        pml:Information,
+        prov:wasDerivedFrom min 1 (pml:Query
+         or pml:Question)
+    
     
 Class: pml:Question
 
@@ -280,22 +279,25 @@ Class: pml:Question
         pml:hasAnswerPattern max 1 rdfs:Literal
     
     
+Class: prov:Derivation
+
+    
 Class: prov:Usage
 
     
 Class: prov:Activity
 
     
+Class: pml:Antecedent
+
+    SubClassOf: 
+        prov:Usage
+    
+    
 Class: pml:Assumption
 
     SubClassOf: 
         pml:InferenceStep,
         prov:generated min 1 pml:Information
-    
-    
-Class: pml:Antecedent
-
-    SubClassOf: 
-        prov:Usage
     
     
