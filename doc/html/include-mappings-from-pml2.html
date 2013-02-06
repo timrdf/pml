@@ -22,8 +22,9 @@
                   pmlp:hasMember was used to include an pmlp:Agent as part of a pmlp:Organization.
                </p>
                <p class="replacement">
-                  Instead of using pmlp:hasMember, use <a href="http://xmlns.com/foaf/0.1/member">foaf:member</a> (<a href="http://xmlns.com/foaf/spec/#term_member">documentation</a>) instead.
-                  Domain is foaf:Group, which is not foaf:Organization.
+                  Instead of using pmlp:hasMember, use <a href="http://www.w3.org/ns/prov#hadMember">prov:hadMember</a> (<a href="http://www.w3.org/TR/prov-o/#hadMember">documentation</a>).
+                  Note that <a href="http://xmlns.com/foaf/0.1/member">foaf:member</a> (<a href="http://xmlns.com/foaf/spec/#term_member">documentation</a>) could also be used.
+                  (and that its domain is foaf:Group and not foaf:Organization).
                </p>
 
                <div class="old-way">
@@ -60,7 +61,7 @@
     a prov:Organization;
     rdfs:label "World Wide Web Consortium";
     foaf:homepage &lt;http://www.w3c.org&gt;;
-    foaf:member 
+    prov:hadMember 
        &lt;http://inference-web.org/registry/PER/BERNERS-LEE.owl#BERNERS-LEE&gt;, 
        &lt;http://inference-web.org/registry/PER/DCONNOLLY.owl#DCONNOLLY&gt;, 
        &lt;http://inference-web.org/registry/PER/SHAWKE.owl#SHAWKE&gt;;
