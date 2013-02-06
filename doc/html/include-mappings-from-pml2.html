@@ -28,7 +28,7 @@
 
                <div class="old-way">
 <pre>
-@pfefix xsd:  &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix xsd:  &lt;http://www.w3.org/2001/XMLSchema#&gt; .
 @prefix rdf:  &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
 @prefix owl:  &lt;http://www.w3.org/2002/07/owl#&gt; .
@@ -37,20 +37,37 @@
 &lt;http://inference-web.org/registry/ORG/W3C.owl#W3C&gt;
     a pmlp:Organization;
     pmlp:hasDescription [
-        pmlp:hasURL "http://www.w3c.org"^^xsd:anyURI;
         a pmlp:Information;
+        pmlp:hasURL "http://www.w3c.org"^^xsd:anyURI;
     ];
     pmlp:hasMember 
-               &lt;http://inference-web.org/registry/PER/BERNERS-LEE.owl#BERNERS-LEE&gt;, 
-               &lt;http://inference-web.org/registry/PER/DCONNOLLY.owl#DCONNOLLY&gt;, 
-               &lt;http://inference-web.org/registry/PER/SHAWKE.owl#SHAWKE&gt;;
+       &lt;http://inference-web.org/registry/PER/BERNERS-LEE.owl#BERNERS-LEE&gt;, 
+       &lt;http://inference-web.org/registry/PER/DCONNOLLY.owl#DCONNOLLY&gt;, 
+       &lt;http://inference-web.org/registry/PER/SHAWKE.owl#SHAWKE&gt;;
     pmlp:hasName "World Wide Web Consortium"^^xsd:string;
 .
 </pre>
                </div>
 
                <div class="new-way">
-                  TODO: the remodel of the old way.
+<pre>
+@prefix xsd:  &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix rdf:  &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+@prefix owl:  &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix pmlp: &lt;http://inference-web.org/2.0/pml-provenance.owl#&gt; .
+
+&lt;http://inference-web.org/registry/ORG/W3C.owl#W3C&gt;
+    a prov:Organization;
+    rdfs:label "World Wide Web Consortium";
+    foaf:homepage &lt;http://www.w3c.org&gt;;
+    foaf:member 
+       &lt;http://inference-web.org/registry/PER/BERNERS-LEE.owl#BERNERS-LEE&gt;, 
+       &lt;http://inference-web.org/registry/PER/DCONNOLLY.owl#DCONNOLLY&gt;, 
+       &lt;http://inference-web.org/registry/PER/SHAWKE.owl#SHAWKE&gt;;
+.
+</pre>
                </div>
             </section>
 
