@@ -28,22 +28,23 @@
 
                <div class="old-way">
 <pre>
-@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@pfefix xsd:  &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix rdf:  &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
-@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix owl:  &lt;http://www.w3.org/2002/07/owl#&gt; .
 @prefix pmlp: &lt;http://inference-web.org/2.0/pml-provenance.owl#&gt; .
-@prefix ds: &lt;http://inference-web.org/2.0/ds.owl#&gt; .
+@prefix ds:   &lt;http://inference-web.org/2.0/ds.owl#&gt; .
 
 &lt;http://inference-web.org/registry/ORG/W3C.owl#W3C&gt;
     a pmlp:Organization;
     pmlp:hasDescription [
-        pmlp:hasURL "http://www.w3c.org"^^&lt;http://www.w3.org/2001/XMLSchema#anyURI&gt; ;
+        pmlp:hasURL "http://www.w3c.org"^^xsd:anyURI;
         a pmlp:Information
     ] ;
     pmlp:hasMember &lt;http://inference-web.org/registry/PER/BERNERS-LEE.owl#BERNERS-LEE&gt;, 
                &lt;http://inference-web.org/registry/PER/DCONNOLLY.owl#DCONNOLLY&gt;, 
                &lt;http://inference-web.org/registry/PER/SHAWKE.owl#SHAWKE&gt; ;
-    pmlp:hasName "World Wide Web Consortium"^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; ;
+    pmlp:hasName "World Wide Web Consortium"^^xsd:string ;
 .
 </pre>
                </div>
