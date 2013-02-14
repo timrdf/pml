@@ -127,6 +127,11 @@
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasVersion
+    ], [
+        a owl:Restriction ;
+        owl:minQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+        owl:onClass <http://purl.org/dc/terms/FileFormat> ;
+        owl:onProperty <http://purl.org/dc/terms/format>
     ] ;
     prov:category "base" .
 
@@ -180,14 +185,6 @@
     rdfs:subClassOf :FloatMetric, :TrustElement ;
     prov:category "trust" .
 
-:Format
-    :order 14 ;
-    a owl:Class ;
-    rdfs:comment "A plan for the organization and arrangement of specified information. Examples: binary, text,  pdf, etc."@en ;
-    rdfs:label "Format"@en ;
-    rdfs:subClassOf prov:Entity ;
-    prov:category "base" .
-
 :InferenceEngine
     :order 5 ;
     a owl:Class ;
@@ -202,13 +199,13 @@
     rdfs:label "Inference Step"@en ;
     rdfs:subClassOf prov:Activity, [
         a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasConfidenceValue
-    ], [
-        a owl:Restriction ;
         owl:onClass :InferenceEngine ;
         owl:onProperty prov:wasAssociatedWith ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasConfidenceValue
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
@@ -223,11 +220,11 @@
     rdfs:subClassOf prov:Entity, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasLanguage
+        owl:onProperty <http://purl.org/dc/terms/format>
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFormat
+        owl:onProperty :hasLanguage
     ] ;
     prov:category "base" .
 
@@ -400,7 +397,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToRow
+        owl:onProperty :hasToCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -408,7 +405,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToCol
+        owl:onProperty :hasToRow
     ] ;
     prov:category "base" .
 
@@ -603,15 +600,6 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:label "value"@en ;
     rdfs:range xsd:float ;
     prov:category "trust" .
-
-:hasFormat
-    :order 13 ;
-    a owl:ObjectProperty ;
-    rdfs:comment "it specifies the format of information, e.g. \"pdf\", \"ppt\" (Power Point). It is mainly used to determine the appropriate application for process/display purpose."@en ;
-    rdfs:domain :Information ;
-    rdfs:label "format"@en ;
-    rdfs:range :Format ;
-    prov:category "base" .
 
 :hasFromCol
     :order 11.82 ;
@@ -845,6 +833,22 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     owl:imports <http://www.w3.org/ns/prov#> ;
     owl:versionInfo "version 2.0, Authors: Deborah L. McGuinness, Honglei Zeng,  Li Ding, Paulo Pinheiro da Silva, Alyssa Glass, and Cynthia Chang"@en .
 
+<http://purl.org/dc/terms/FileFormat>
+    :order 14 ;
+    a owl:Class ;
+    rdfs:comment "A plan for the organization and arrangement of specified information. Examples: binary, text,  pdf, etc."@en ;
+    rdfs:label "Format"@en ;
+    rdfs:subClassOf prov:Entity ;
+    prov:category "base" .
+
+<http://purl.org/dc/terms/format>
+    :order 13 ;
+    a owl:ObjectProperty ;
+    rdfs:comment "it specifies the format of information, e.g. \"pdf\", \"ppt\" (Power Point). It is mainly used to determine the appropriate application for process/display purpose."@en ;
+    rdfs:label "format"@en ;
+    rdfs:range <http://purl.org/dc/terms/FileFormat> ;
+    prov:category "base" .
+
 <http://purl.org/dc/terms/isPartOf>
     a owl:ObjectProperty ;
     prov:category "base" .
@@ -927,6 +931,15 @@ prov:Influence
 prov:Location
     a owl:Class .
 
+prov:Organization
+    a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onClass prov:Agent ;
+        owl:onProperty prov:hadMember
+    ] .
+
 prov:Plan
     a owl:Class ;
     rdfs:subClassOf prov:Entity .
@@ -968,6 +981,9 @@ prov:generated
     a owl:ObjectProperty .
 
 prov:hadDerivation
+    a owl:ObjectProperty .
+
+prov:hadMember
     a owl:ObjectProperty .
 
 prov:hadRole
