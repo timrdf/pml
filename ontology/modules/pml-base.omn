@@ -103,6 +103,9 @@ ObjectProperty: <http://provenanceweb.org/ns/pml#hasAuthor>
         <http://provenanceweb.org/ns/pml#authorOf>
     
     
+ObjectProperty: <http://www.w3.org/ns/prov#hadMember>
+
+    
 ObjectProperty: <http://provenanceweb.org/ns/pml#publisherOf>
 
     SubPropertyOf: 
@@ -810,6 +813,12 @@ Class: <http://provenanceweb.org/ns/pml#DeclarativePlan>
     
 Class: <http://www.w3.org/ns/prov#Entity>
 
+    
+Class: <http://www.w3.org/ns/prov#Organization>
+
+    SubClassOf: 
+        <http://www.w3.org/ns/prov#hadMember> min 1 <http://www.w3.org/ns/prov#Agent>
+    
     
 Class: <http://provenanceweb.org/ns/pml#Webpage>
 
