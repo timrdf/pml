@@ -857,9 +857,9 @@ Class: <http://provenanceweb.org/ns/pml#Document>
         <http://provenanceweb.org/ns/pml#order> 8
     
     SubClassOf: 
-        dcterms:format min 1 dcterms:FileFormat,
         <http://provenanceweb.org/ns/pml#hasVersion> max 1 rdfs:Literal,
-        <http://provenanceweb.org/ns/pml#InformationContainer>
+        <http://provenanceweb.org/ns/pml#InformationContainer>,
+        dcterms:format min 0 dcterms:FileFormat
     
     
 Class: <http://provenanceweb.org/ns/pml#Information>
