@@ -5,6 +5,7 @@ Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 Prefix: dc: <http://purl.org/dc/elements/1.1/>
 Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 Prefix: skos: <http://www.w3.org/2004/02/skos/core#>
+Prefix: dcterms: <http://purl.org/dc/terms/>
 
 
 
@@ -178,7 +179,7 @@ ObjectProperty: <http://provenanceweb.org/ns/pml#hasToLanguage>
         <http://provenanceweb.org/ns/pml#Language>
     
     
-ObjectProperty: <http://provenanceweb.org/ns/pml#hasFormat>
+ObjectProperty: dcterms:format
 
     Annotations: 
         <http://www.w3.org/ns/prov#category> "base",
@@ -186,11 +187,8 @@ ObjectProperty: <http://provenanceweb.org/ns/pml#hasFormat>
         rdfs:comment "it specifies the format of information, e.g. \"pdf\", \"ppt\" (Power Point). It is mainly used to determine the appropriate application for process/display purpose."@en,
         <http://provenanceweb.org/ns/pml#order> "13"^^xsd:decimal
     
-    Domain: 
-        <http://provenanceweb.org/ns/pml#Information>
-    
     Range: 
-        <http://provenanceweb.org/ns/pml#Format>
+        dcterms:FileFormat
     
     
 ObjectProperty: <http://provenanceweb.org/ns/pml#qualifiedOwnership>
@@ -298,7 +296,7 @@ ObjectProperty: <http://provenanceweb.org/ns/pml#qualifiedAuthorship>
         <http://provenanceweb.org/ns/pml#Authorship>
     
     
-ObjectProperty: <http://purl.org/dc/terms/isPartOf>
+ObjectProperty: dcterms:isPartOf
 
     Annotations: 
         <http://www.w3.org/ns/prov#category> "base"
@@ -682,6 +680,18 @@ Class: <http://provenanceweb.org/ns/pml#Ontology>
         <http://provenanceweb.org/ns/pml#Document>
     
     
+Class: dcterms:FileFormat
+
+    Annotations: 
+        <http://www.w3.org/ns/prov#category> "base",
+        rdfs:comment "A plan for the organization and arrangement of specified information. Examples: binary, text,  pdf, etc."@en,
+        rdfs:label "Format"@en,
+        <http://provenanceweb.org/ns/pml#order> 14
+    
+    SubClassOf: 
+        <http://www.w3.org/ns/prov#Entity>
+    
+    
 Class: <http://provenanceweb.org/ns/pml#OwnedEntity>
 
     Annotations: 
@@ -730,7 +740,7 @@ Class: <http://provenanceweb.org/ns/pml#DocumentFragment>
     SubClassOf: 
         <http://www.w3.org/ns/prov#atLocation> some <http://www.w3.org/ns/prov#Location>,
         <http://provenanceweb.org/ns/pml#InformationContainer>,
-        <http://purl.org/dc/terms/isPartOf> exactly 1 <http://provenanceweb.org/ns/pml#Document>
+        dcterms:isPartOf exactly 1 <http://provenanceweb.org/ns/pml#Document>
     
     
 Class: <http://provenanceweb.org/ns/pml#RowColLocation>
@@ -847,6 +857,7 @@ Class: <http://provenanceweb.org/ns/pml#Document>
         <http://provenanceweb.org/ns/pml#order> 8
     
     SubClassOf: 
+        dcterms:format min 1 dcterms:FileFormat,
         <http://provenanceweb.org/ns/pml#hasVersion> max 1 rdfs:Literal,
         <http://provenanceweb.org/ns/pml#InformationContainer>
     
@@ -860,20 +871,8 @@ Class: <http://provenanceweb.org/ns/pml#Information>
         rdfs:comment "A piece of information, e.g. a formula in logic languages, and an utterance/word/phrase/sentence/paragraph/article in natural language. It is used as a range of iw:hasContent. This class and two of its sub-classes enable users to specify four types of semantics  (i) Information Annotation - annotate just the format and language used by the content of information; (ii) Information With Content - additionally provide the content of information that is materialized as string without loading a web page; (iii) Information external - additionally provide the URL for fetching the content; and (iv) Information - with every thing including the content string and URL. The second semantics is especially useful when the content is short or mainly used locally. For example, when learning by instruction, the utterances used for learning can be stored within the PML document without being externally stored. By assigning URI reference to information, we can even use owl:sameAs to capture the equivalence of two pieces of information."@en
     
     SubClassOf: 
+        dcterms:format max 1 owl:Thing,
         <http://provenanceweb.org/ns/pml#hasLanguage> max 1 owl:Thing,
-        <http://provenanceweb.org/ns/pml#hasFormat> max 1 owl:Thing,
-        <http://www.w3.org/ns/prov#Entity>
-    
-    
-Class: <http://provenanceweb.org/ns/pml#Format>
-
-    Annotations: 
-        <http://www.w3.org/ns/prov#category> "base",
-        rdfs:comment "A plan for the organization and arrangement of specified information. Examples: binary, text,  pdf, etc."@en,
-        rdfs:label "Format"@en,
-        <http://provenanceweb.org/ns/pml#order> 14
-    
-    SubClassOf: 
         <http://www.w3.org/ns/prov#Entity>
     
     
