@@ -93,11 +93,11 @@
     rdfs:subClassOf [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievingAgent
+        owl:onProperty :hasBelievedInformation
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievedInformation
+        owl:onProperty :hasBelievingAgent
     ] ;
     prov:category "trust" .
 
@@ -125,13 +125,18 @@
     rdfs:label "Document"@en ;
     rdfs:subClassOf :InformationContainer, [
         a owl:Restriction ;
+        owl:minQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+        owl:onClass <http://purl.org/dc/terms/FileFormat> ;
+        owl:onProperty <http://purl.org/dc/terms/format>
+    ], [
+        a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasVersion
     ], [
         a owl:Restriction ;
         owl:minQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
-        owl:onClass <http://purl.org/dc/terms/FileFormat> ;
-        owl:onProperty <http://purl.org/dc/terms/format>
+        owl:onClass <http://purl.org/dc/terms/LinguisticSystem> ;
+        owl:onProperty <http://purl.org/dc/terms/language>
     ] ;
     prov:category "base" .
 
@@ -203,13 +208,13 @@
         owl:onProperty :hasConfidenceValue
     ], [
         a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasAntecedent
-    ], [
-        a owl:Restriction ;
         owl:onClass :InferenceEngine ;
         owl:onProperty prov:wasAssociatedWith ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasAntecedent
     ] .
 
 :Information
@@ -224,7 +229,7 @@
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasLanguage
+        owl:onProperty <http://purl.org/dc/terms/language>
     ] ;
     prov:category "base" .
 
@@ -235,14 +240,6 @@
     rdfs:subClassOf prov:Entity ;
     prov:category "base" ;
     prov:editorialNote "Do we mean frbr:Item or frbr:Manifestation?" .
-
-:Language
-    :order 16 ;
-    a owl:Class ;
-    rdfs:comment "The language used to encode the raw string, e.g. English, Knowledge Interchange Format (KIF) , and N3. Languages are in general registered at the core IWRegistry."@en ;
-    rdfs:label "Language"@en ;
-    rdfs:subClassOf prov:Entity ;
-    prov:category "base" .
 
 :Map
     a owl:Class ;
@@ -616,7 +613,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:comment "language used by the source."@en ;
     rdfs:domain :TranslationMethod ;
     rdfs:label "from-language"@en ;
-    rdfs:range :Language ;
+    rdfs:range <http://purl.org/dc/terms/LinguisticSystem> ;
     prov:category "base" .
 
 :hasFromOffset
@@ -635,15 +632,6 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:domain :RowColLocation ;
     rdfs:label "from-row"@en ;
     rdfs:range xsd:int ;
-    prov:category "base" .
-
-:hasLanguage
-    :order 15 ;
-    a owl:ObjectProperty ;
-    rdfs:comment "it specifies the language used to encode information, e.g. \"Tony's specialty is shellfish\" is encoded in English. This property may also link to a registered formal language such as KIF."@en ;
-    rdfs:domain :Information ;
-    rdfs:label "language"@en ;
-    rdfs:range :Language ;
     prov:category "base" .
 
 :hasModificationDateTime
@@ -703,7 +691,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:comment "language used by the target."@en ;
     rdfs:domain :TranslationMethod ;
     rdfs:label "to-language"@en ;
-    rdfs:range :Language ;
+    rdfs:range <http://purl.org/dc/terms/LinguisticSystem> ;
     prov:category "base" .
 
 :hasToOffset
@@ -841,6 +829,14 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Entity ;
     prov:category "base" .
 
+<http://purl.org/dc/terms/LinguisticSystem>
+    :order 16 ;
+    a owl:Class ;
+    rdfs:comment "The language used to encode the raw string, e.g. English, Knowledge Interchange Format (KIF) , and N3. Languages are in general registered at the core IWRegistry."@en ;
+    rdfs:label "Linguistic System"@en ;
+    rdfs:subClassOf prov:Entity ;
+    prov:category "base" .
+
 <http://purl.org/dc/terms/format>
     :order 13 ;
     a owl:ObjectProperty ;
@@ -852,6 +848,20 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 <http://purl.org/dc/terms/isPartOf>
     a owl:ObjectProperty ;
     prov:category "base" .
+
+<http://purl.org/dc/terms/language>
+    :order 15 ;
+    a owl:ObjectProperty ;
+    rdfs:comment "it specifies the language used to encode information, e.g. \"Tony's specialty is shellfish\" is encoded in English. This property may also link to a registered formal language such as KIF."@en ;
+    rdfs:domain :Information ;
+    rdfs:label "language"@en ;
+    rdfs:range <http://purl.org/dc/terms/LinguisticSystem> ;
+    prov:category "base" .
+
+<http://www.semanticdesktop.org/ontologies/nie/mimeType>
+    a owl:ObjectProperty ;
+    rdfs:label "MIME type" ;
+    rdfs:subPropertyOf <http://purl.org/dc/terms/format> .
 
 rdf:PlainLiteral
     a rdfs:Datatype .
