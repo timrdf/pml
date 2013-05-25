@@ -46,6 +46,7 @@ saxon.sh ../../src/pronom-format.xsl a a source/fmt__319.xml
 
 <xsl:template match="/">
    <xsl:if test="$accept = 'text/turtle'">
+      <xsl:value-of select="concat('@prefix rdfs:    &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .',$NL)"/>
       <xsl:value-of select="concat('@prefix dcterms: &lt;http://purl.org/dc/terms/&gt; .',$NL)"/>
       <xsl:value-of select="concat('@prefix prov:    &lt;http://www.w3.org/ns/prov#&gt; .',$NL)"/>
       <xsl:value-of select="concat('@prefix pronom:  &lt;http://reference.data.gov.uk/technical-registry/&gt; .',$NL)"/>
@@ -81,7 +82,8 @@ if( pronom:ne(pronom:FormatVersion) gt 0 ) then concat('   pronom:version ',$DQ,
  if( pronom:ne(pronom:FormatDescription) ) then concat('   dcterms:description ',$TDQ,replace(normalize-space(pronom:FormatDescription),$DQ,$SQ),$TDQ,';',$NL) else '',
                                                        '   prov:wasAttributedTo  &lt;',$BASE_URI,'&gt;;',$NL,
                                                        '   prov:specializationOf &lt;info:pronom/',$puid,'&gt;;',$NL,
-                                                       '   prov:alternateOf      &lt;',$BASE_URI_PRONOM,$puid,'&gt;;',$NL
+                                                       '   prov:alternateOf      &lt;',$BASE_URI_PRONOM,$puid,'&gt;;',$NL,
+                                                       '   rdfs:seeAlso          &lt;https://github.com/timrdf/prizms/wiki/PRONOM&gt;;',$NL
             )"/>
 
             <xsl:for-each-group select="pronom:Extension" group-by=".">
