@@ -90,6 +90,11 @@
          conversion:subclass_of nfo:FileDataObject, foaf:Document;
       ];
       conversion:enhance [
+         a conversion:SubjectAnnotation;
+         conversion:predicate  rdfs:seeAlso;
+         conversion:object     <https://github.com/timrdf/prizms/wiki/PRONOM>;
+      ];
+      conversion:enhance [
          ov:csvCol          1;
          ov:csvHeader       "http://www.nationalarchives.gov.uk/aboutapps/pronom/release-notes.xml";
          #conversion:bundled_by [ ov:csvCol 1 ];
