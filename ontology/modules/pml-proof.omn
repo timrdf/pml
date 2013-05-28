@@ -67,15 +67,8 @@ ObjectProperty: pml:hasDischarge
 ObjectProperty: prov:used
 
     
-ObjectProperty: pml:isExplanationOf
+ObjectProperty: prov:wasAttributedTo
 
-    Annotations: 
-        prov:definition "links to a node set (and its antecedents) that is explained by the present node set. This is used for connecting the orginal justifications to the NodeSet that abstracts this node set (and its antecedents)."@en,
-        rdfs:label "explains"@en
-    
-    SubPropertyOf: 
-        prov:hadDerivation
-    
     
 ObjectProperty: pml:hasConclusion
 
@@ -86,9 +79,6 @@ ObjectProperty: pml:hasConclusion
     SubPropertyOf: 
         prov:generated
     
-    
-ObjectProperty: prov:wasAttributedTo
-
     
 ObjectProperty: prov:specializationOf
 
@@ -108,8 +98,8 @@ ObjectProperty: prov:entity
 ObjectProperty: pml:isConsequentOf
 
     Annotations: 
-        rdfs:comment "links to an inference step that derives the conclusion of the present node set."@en,
-        rdfs:label "because"@en
+        rdfs:label "because"@en,
+        rdfs:comment "links to an inference step that derives the conclusion of the present node set."@en
     
     SubPropertyOf: 
         prov:wasGeneratedBy
@@ -118,14 +108,20 @@ ObjectProperty: pml:isConsequentOf
         pml:InferenceStep
     
     
+ObjectProperty: prov:invalidated
+
+    
 ObjectProperty: prov:wasDerivedFrom
 
     SubPropertyChain: 
         prov:wasGeneratedBy o pml:hasAntecedent
     
     
-ObjectProperty: prov:invalidated
+ObjectProperty: pml:abstractedFrom
 
+    SubPropertyOf: 
+        prov:wasDerivedFrom
+    
     
 ObjectProperty: pml:isQueryFor
 
@@ -177,18 +173,8 @@ ObjectProperty: pml:hasAnswer
         pml:Query
     
     
-DataProperty: pml:hasAnswerPattern
+DataProperty: prov:value
 
-    Annotations: 
-        rdfs:comment "Usually it is an English Pattern for the question. We may apply (string-replace) the variable mappings from the answer node set to generate the answer of the question. We may generate different queries for the same question, e.g. find Li's friends: I can (i) run JTP (KIF) to derive John's friends or (ii) query (SPARQL) a FOAF RDF database using foaf:knows. "@en,
-        rdfs:label "answer pattern"@en
-    
-    Domain: 
-        pml:Question
-    
-    Range: 
-        xsd:string
-    
     
 DataProperty: pml:hasConfidenceValue
 
@@ -225,13 +211,6 @@ Class: pml:Assertion
         pml:InferenceStep
     
     
-Class: pml:Discharge
-
-    SubClassOf: 
-        prov:invalidated min 1 pml:Information,
-        pml:InferenceStep
-    
-    
 Class: pml:Derivation
 
     SubClassOf: 
@@ -242,16 +221,71 @@ Class: pml:Derivation
 Class: pml:ProceduralPlan
 
     
-Class: pml:InferenceEngine
-
-    
 Class: pml:AbstractionRule
 
     Annotations: 
         rdfs:label "Abstraction Rule"
     
     SubClassOf: 
-        pml:ProceduralPlan
+        prov:Plan
+    
+    
+Class: prov:Usage
+
+    
+Class: prov:Activity
+
+    
+Class: pml:Assumption
+
+    SubClassOf: 
+        pml:InferenceStep,
+        prov:generated min 1 pml:Information
+    
+    
+Class: pml:AnswerTemplate
+
+    Annotations: 
+        rdfs:label "Answer Template"
+    
+    SubClassOf: 
+        pml:Template
+    
+    
+Class: pml:Template
+
+    Annotations: 
+        rdfs:label "Template"
+    
+    SubClassOf: 
+        prov:value min 1 xsd:string,
+        pml:DeclarativePlan
+    
+    
+Class: pml:QuestionTemplate
+
+    Annotations: 
+        rdfs:label "Question Template"
+    
+    SubClassOf: 
+        pml:Template
+    
+    
+Class: pml:Discharge
+
+    SubClassOf: 
+        prov:invalidated min 1 pml:Information,
+        pml:InferenceStep
+    
+    
+Class: pml:InferenceEngine
+
+    
+Class: pml:DeclarativePlan
+
+    Annotations: 
+        prov:definition "Declarative plans are specified in terms of declarative patterns. Contrast with procedural plan.",
+        rdfs:label "Declarative Plan"
     
     
 Class: prov:Entity
@@ -275,29 +309,31 @@ Class: pml:Question
         rdfs:comment "A Question refers to natural language version of a user's query. For example, a question can be \"What is the type of Tony's Specialty?\"  A question is usually additional information to an instance of Query as additional annotation."@en
     
     SubClassOf: 
-        pml:Information,
-        pml:hasAnswerPattern max 1 rdfs:Literal
+        pml:Information
     
     
 Class: prov:Derivation
 
     
-Class: prov:Usage
+Class: pml:InformationlessActivity
 
+    Annotations: 
+        rdfs:label "Informationless Activity"
     
-Class: prov:Activity
+    EquivalentTo: 
+        prov:Activity
+         and (prov:generated max 0 pml:Information)
+    
+    SubClassOf: 
+        prov:Activity
+    
+    
+Class: prov:Plan
 
     
 Class: pml:Antecedent
 
     SubClassOf: 
         prov:Usage
-    
-    
-Class: pml:Assumption
-
-    SubClassOf: 
-        pml:InferenceStep,
-        prov:generated min 1 pml:Information
     
     

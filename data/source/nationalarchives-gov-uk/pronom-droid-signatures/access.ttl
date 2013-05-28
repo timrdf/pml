@@ -1,0 +1,24 @@
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+@prefix dcat:       <http://www.w3.org/ns/dcat#> .
+@prefix void:       <http://rdfs.org/ns/void#> .
+@prefix prov:       <http://www.w3.org/ns/prov#> .
+@prefix datafaqs:   <http://purl.org/twc/vocab/datafaqs#> .
+@prefix :           <http://provenanceweb.tw.rpi.edu/id/> .
+
+<http://provenanceweb.tw.rpi.edu/source/nationalarchives-gov-uk/dataset/pronom-droid-signatures>
+   a void:Dataset, dcat:Dataset;
+   conversion:source_identifier  "nationalarchives-gov-uk";
+   conversion:dataset_identifier "pronom-droid-signatures";
+   prov:wasDerivedFrom :download_9e9de845-77b1-4615-8b63-34073b139d26;
+.
+
+:download_9e9de845-77b1-4615-8b63-34073b139d26
+   a dcat:Distribution;
+   dcat:downloadURL <http://www.nationalarchives.gov.uk/aboutapps/pronom/droid-signature-files.htm>;
+.
+
+<dataset/9e9de845-77b1-4615-8b63-34073b139d26>
+   a dcat:Dataset;
+   dcat:distribution :download_9e9de845-77b1-4615-8b63-34073b139d26;
+.

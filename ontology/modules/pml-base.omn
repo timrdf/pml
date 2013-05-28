@@ -7,6 +7,7 @@ Prefix: dc: <http://purl.org/dc/elements/1.1/>
 Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 Prefix: skos: <http://www.w3.org/2004/02/skos/core#>
 Prefix: dcterms: <http://purl.org/dc/terms/>
+Prefix: formats: <http://www.w3.org/ns/formats/>
 
 
 
@@ -35,10 +36,10 @@ AnnotationProperty: <http://provenanceweb.org/ns/pml#order>
 AnnotationProperty: <http://www.w3.org/ns/prov#wasQuotedFrom>
 
     
-AnnotationProperty: <http://www.w3.org/ns/prov#qualifiedForm>
+AnnotationProperty: rdfs:label
 
     
-AnnotationProperty: rdfs:label
+AnnotationProperty: <http://www.w3.org/ns/prov#qualifiedForm>
 
     
 AnnotationProperty: <http://www.w3.org/ns/prov#editorialNote>
@@ -71,10 +72,10 @@ Datatype: xsd:dateTime
 Datatype: xsd:double
 
     
-Datatype: rdfs:Literal
+Datatype: xsd:integer
 
     
-Datatype: xsd:integer
+Datatype: rdfs:Literal
 
     
 ObjectProperty: <http://www.w3.org/ns/prov#atLocation>
@@ -108,9 +109,6 @@ ObjectProperty: <http://provenanceweb.org/ns/pml#hasAuthor>
 ObjectProperty: <http://www.w3.org/ns/prov#hadMember>
 
     
-ObjectProperty: <http://www.w3.org/ns/prov#entity>
-
-    
 ObjectProperty: <http://provenanceweb.org/ns/pml#publisherOf>
 
     SubPropertyOf: 
@@ -119,6 +117,9 @@ ObjectProperty: <http://provenanceweb.org/ns/pml#publisherOf>
     InverseOf: 
         <http://provenanceweb.org/ns/pml#hasPublisher>
     
+    
+ObjectProperty: <http://www.w3.org/ns/prov#entity>
+
     
 ObjectProperty: <http://www.w3.org/ns/prov#wasRevisionOf>
 
@@ -129,19 +130,10 @@ ObjectProperty: <http://www.w3.org/ns/prov#wasRevisionOf>
 ObjectProperty: <http://www.w3.org/ns/prov#agent>
 
     
-ObjectProperty: nie:mimeType
+ObjectProperty: <http://www.w3.org/ns/prov#hadRole>
 
-    Annotations: 
-        rdfs:label "MIME type"
-    
-    SubPropertyOf: 
-        dcterms:format
-    
     
 ObjectProperty: <http://www.w3.org/ns/prov#qualifiedAttribution>
-
-    
-ObjectProperty: <http://www.w3.org/ns/prov#hadRole>
 
     
 ObjectProperty: <http://www.w3.org/ns/prov#contributed>
@@ -292,20 +284,6 @@ ObjectProperty: <http://provenanceweb.org/ns/pml#hasDescription>
         <http://provenanceweb.org/ns/pml#Information>
     
     
-ObjectProperty: <http://provenanceweb.org/ns/pml#qualifiedAuthorship>
-
-    Annotations: 
-        <http://www.w3.org/ns/prov#category> "qualified",
-        <http://www.w3.org/ns/prov#unqualifiedForm> <http://provenanceweb.org/ns/pml#hasAuthor>,
-        <http://provenanceweb.org/ns/pml#order> "1.2"^^xsd:decimal
-    
-    SubPropertyOf: 
-        <http://www.w3.org/ns/prov#qualifiedAttribution>
-    
-    Range: 
-        <http://provenanceweb.org/ns/pml#Authorship>
-    
-    
 ObjectProperty: dcterms:language
 
     Annotations: 
@@ -319,6 +297,20 @@ ObjectProperty: dcterms:language
     
     Range: 
         dcterms:LinguisticSystem
+    
+    
+ObjectProperty: <http://provenanceweb.org/ns/pml#qualifiedAuthorship>
+
+    Annotations: 
+        <http://www.w3.org/ns/prov#category> "qualified",
+        <http://www.w3.org/ns/prov#unqualifiedForm> <http://provenanceweb.org/ns/pml#hasAuthor>,
+        <http://provenanceweb.org/ns/pml#order> "1.2"^^xsd:decimal
+    
+    SubPropertyOf: 
+        <http://www.w3.org/ns/prov#qualifiedAttribution>
+    
+    Range: 
+        <http://provenanceweb.org/ns/pml#Authorship>
     
     
 ObjectProperty: dcterms:isPartOf
@@ -380,6 +372,21 @@ DataProperty: <http://provenanceweb.org/ns/pml#hasFromCol>
         xsd:int
     
     
+DataProperty: <http://provenanceweb.org/ns/pml#hasToRow>
+
+    Annotations: 
+        <http://provenanceweb.org/ns/pml#order> "11.83"^^xsd:decimal,
+        <http://www.w3.org/ns/prov#category> "base",
+        rdfs:label "to-row"@en,
+        rdfs:comment "The to row of the fragment (inclusive, index based on 1)"@en
+    
+    Domain: 
+        <http://provenanceweb.org/ns/pml#RowColLocation>
+    
+    Range: 
+        xsd:int
+    
+    
 DataProperty: <http://provenanceweb.org/ns/pml#hasModificationDateTime>
 
     Annotations: 
@@ -395,21 +402,6 @@ DataProperty: <http://provenanceweb.org/ns/pml#hasModificationDateTime>
     
     SubPropertyOf: 
         <http://www.w3.org/ns/prov#generatedAtTime>
-    
-    
-DataProperty: <http://provenanceweb.org/ns/pml#hasToRow>
-
-    Annotations: 
-        <http://provenanceweb.org/ns/pml#order> "11.83"^^xsd:decimal,
-        <http://www.w3.org/ns/prov#category> "base",
-        rdfs:label "to-row"@en,
-        rdfs:comment "The to row of the fragment (inclusive, index based on 1)"@en
-    
-    Domain: 
-        <http://provenanceweb.org/ns/pml#RowColLocation>
-    
-    Range: 
-        xsd:int
     
     
 DataProperty: <http://provenanceweb.org/ns/pml#hasEncoding>
@@ -445,21 +437,6 @@ DataProperty: <http://provenanceweb.org/ns/pml#hasToOffset>
 DataProperty: <http://www.w3.org/ns/prov#generatedAtTime>
 
     
-DataProperty: <http://provenanceweb.org/ns/pml#hasFromOffset>
-
-    Annotations: 
-        <http://www.w3.org/ns/prov#category> "base",
-        rdfs:label "from-offset"@en,
-        rdfs:comment "The from offset of the fragment (inclusive, index based on 0)."@en,
-        <http://provenanceweb.org/ns/pml#order> "11.76"^^xsd:decimal
-    
-    Domain: 
-        <http://provenanceweb.org/ns/pml#OffsetPosition>
-    
-    Range: 
-        xsd:int
-    
-    
 DataProperty: <http://provenanceweb.org/ns/pml#hasToCol>
 
     Annotations: 
@@ -475,17 +452,25 @@ DataProperty: <http://provenanceweb.org/ns/pml#hasToCol>
         xsd:int
     
     
-DataProperty: <http://provenanceweb.org/ns/pml#atIndex>
+DataProperty: <http://provenanceweb.org/ns/pml#hasFromOffset>
 
     Annotations: 
         <http://www.w3.org/ns/prov#category> "base",
-        rdfs:comment "A literal analogue to prov:atLocation that specifies the position as an integer value."@en
+        rdfs:label "from-offset"@en,
+        rdfs:comment "The from offset of the fragment (inclusive, index based on 0)."@en,
+        <http://provenanceweb.org/ns/pml#order> "11.76"^^xsd:decimal
     
     Domain: 
-        <http://www.w3.org/ns/prov#Influence>
+        <http://provenanceweb.org/ns/pml#OffsetPosition>
     
     Range: 
-        xsd:integer
+        xsd:int
+    
+    
+DataProperty: formats:media_type
+
+    Domain: 
+        dcterms:FileFormat
     
     
 DataProperty: <http://provenanceweb.org/ns/pml#hasVersion>
@@ -515,6 +500,19 @@ DataProperty: <http://provenanceweb.org/ns/pml#hasCreationDateTime>
     
     SubPropertyOf: 
         <http://www.w3.org/ns/prov#generatedAtTime>
+    
+    
+DataProperty: <http://provenanceweb.org/ns/pml#atIndex>
+
+    Annotations: 
+        <http://www.w3.org/ns/prov#category> "base",
+        rdfs:comment "A literal analogue to prov:atLocation that specifies the position as an integer value."@en
+    
+    Domain: 
+        <http://www.w3.org/ns/prov#Influence>
+    
+    Range: 
+        xsd:integer
     
     
 DataProperty: <http://provenanceweb.org/ns/pml#hasFromRow>
@@ -641,8 +639,8 @@ Class: <http://provenanceweb.org/ns/pml#TranslationMethod>
         rdfs:label "Translation Method"@en
     
     SubClassOf: 
+        <http://www.w3.org/ns/prov#Plan>,
         <http://provenanceweb.org/ns/pml#hasFromLanguage> max 1 owl:Thing,
-        <http://provenanceweb.org/ns/pml#ProceduralPlan>,
         <http://provenanceweb.org/ns/pml#hasToLanguage> max 1 owl:Thing
     
     
@@ -662,7 +660,6 @@ Class: dcterms:LinguisticSystem
 
     Annotations: 
         <http://www.w3.org/ns/prov#category> "base",
-        rdfs:comment "The language used to encode the raw string, e.g. English, Knowledge Interchange Format (KIF) , and N3. Languages are in general registered at the core IWRegistry."@en,
         <http://provenanceweb.org/ns/pml#order> 16,
         rdfs:label "Linguistic System"@en
     
@@ -706,8 +703,7 @@ Class: dcterms:FileFormat
 
     Annotations: 
         <http://www.w3.org/ns/prov#category> "base",
-        rdfs:comment "A plan for the organization and arrangement of specified information. Examples: binary, text,  pdf, etc."@en,
-        rdfs:label "Format"@en,
+        rdfs:label "File Format"@en,
         <http://provenanceweb.org/ns/pml#order> 14
     
     SubClassOf: 
@@ -730,10 +726,10 @@ Class: <http://provenanceweb.org/ns/pml#OwnedEntity>
 Class: <http://provenanceweb.org/ns/pml#Rule>
 
     Annotations: 
-        rdfs:comment "A rule can be fully specified by patterns for premises and its conclusion.   For example, Modus Ponens, can be specified by the premise patterns ?A,  ?A -&gt; ?B and the conclusion pattern ?B."@en,
         <http://www.w3.org/ns/prov#category> "base",
         rdfs:label "Rule"@en,
-        <http://provenanceweb.org/ns/pml#order> "19"^^xsd:decimal
+        <http://provenanceweb.org/ns/pml#order> "19"^^xsd:decimal,
+        rdfs:comment "A rule can be fully specified by patterns to generate conclusions from antecedents.   For example, Modus Ponens, can be specified by the premise patterns ?A,  ?A -&gt; ?B and the conclusion pattern ?B."@en
     
     SubClassOf: 
         <http://provenanceweb.org/ns/pml#DeclarativePlan>
@@ -779,14 +775,14 @@ Class: <http://provenanceweb.org/ns/pml#Map>
         <http://provenanceweb.org/ns/pml#DeclarativePlan>
     
     
+Class: <http://www.w3.org/ns/prov#Influence>
+
+    
 Class: <http://www.w3.org/ns/prov#AgentInfluence>
 
     SubClassOf: 
         <http://www.w3.org/ns/prov#agent> exactly 1 <http://www.w3.org/ns/prov#Agent>
     
-    
-Class: <http://www.w3.org/ns/prov#Influence>
-
     
 Class: <http://provenanceweb.org/ns/pml#Variable>
 
@@ -801,18 +797,6 @@ Class: <http://provenanceweb.org/ns/pml#Variable>
         <http://provenanceweb.org/ns/pml#InformationContainer>
     
     
-Class: <http://provenanceweb.org/ns/pml#InferenceEngine>
-
-    Annotations: 
-        rdfs:comment "An inference engine represents an engine that is able to produce a justification for a conclusion. Note that the phrase \"inference engine\" applies not only to reasoners but also to other systems like search engines which may justify their answers by direct assertion"@en,
-        <http://www.w3.org/ns/prov#category> "base",
-        rdfs:label "Inference Engine"@en,
-        <http://provenanceweb.org/ns/pml#order> 5
-    
-    SubClassOf: 
-        <http://www.w3.org/ns/prov#SoftwareAgent>
-    
-    
 Class: <http://provenanceweb.org/ns/pml#Sensor>
 
     Annotations: 
@@ -825,14 +809,26 @@ Class: <http://provenanceweb.org/ns/pml#Sensor>
         <http://www.w3.org/ns/prov#Agent>
     
     
+Class: <http://provenanceweb.org/ns/pml#InferenceEngine>
+
+    Annotations: 
+        rdfs:comment "An inference engine represents an engine that is able to produce a justification for a conclusion. Note that the phrase \"inference engine\" applies not only to reasoners but also to other systems like search engines which may justify their answers by direct assertion"@en,
+        <http://www.w3.org/ns/prov#category> "base",
+        rdfs:label "Inference Engine"@en,
+        <http://provenanceweb.org/ns/pml#order> 5
+    
+    SubClassOf: 
+        <http://www.w3.org/ns/prov#SoftwareAgent>
+    
+    
+Class: <http://www.w3.org/ns/prov#Entity>
+
+    
 Class: <http://provenanceweb.org/ns/pml#DeclarativePlan>
 
     SubClassOf: 
         <http://www.w3.org/ns/prov#Plan>
     
-    
-Class: <http://www.w3.org/ns/prov#Entity>
-
     
 Class: <http://www.w3.org/ns/prov#Organization>
 
@@ -858,20 +854,6 @@ Class: <http://www.w3.org/ns/prov#SoftwareAgent>
 Class: <http://www.w3.org/ns/prov#Role>
 
     
-Class: <http://provenanceweb.org/ns/pml#Information>
-
-    Annotations: 
-        <http://provenanceweb.org/ns/pml#order> 12,
-        <http://www.w3.org/ns/prov#category> "base",
-        rdfs:label "Information"@en,
-        rdfs:comment "A piece of information, e.g. a formula in logic languages, and an utterance/word/phrase/sentence/paragraph/article in natural language. It is used as a range of iw:hasContent. This class and two of its sub-classes enable users to specify four types of semantics  (i) Information Annotation - annotate just the format and language used by the content of information; (ii) Information With Content - additionally provide the content of information that is materialized as string without loading a web page; (iii) Information external - additionally provide the URL for fetching the content; and (iv) Information - with every thing including the content string and URL. The second semantics is especially useful when the content is short or mainly used locally. For example, when learning by instruction, the utterances used for learning can be stored within the PML document without being externally stored. By assigning URI reference to information, we can even use owl:sameAs to capture the equivalence of two pieces of information."@en
-    
-    SubClassOf: 
-        dcterms:language max 1 owl:Thing,
-        dcterms:format max 1 owl:Thing,
-        <http://www.w3.org/ns/prov#Entity>
-    
-    
 Class: <http://provenanceweb.org/ns/pml#Document>
 
     Annotations: 
@@ -887,15 +869,18 @@ Class: <http://provenanceweb.org/ns/pml#Document>
         dcterms:format min 0 dcterms:FileFormat
     
     
-Class: <http://provenanceweb.org/ns/pml#Position>
+Class: <http://provenanceweb.org/ns/pml#Information>
 
     Annotations: 
-        <http://provenanceweb.org/ns/pml#order> "11.5"^^xsd:decimal,
-        <http://www.w3.org/ns/prov#category> "base"
+        <http://provenanceweb.org/ns/pml#order> 12,
+        <http://www.w3.org/ns/prov#category> "base",
+        rdfs:label "Information"@en,
+        rdfs:comment "A piece of information, e.g. a formula in logic languages, and an utterance/word/phrase/sentence/paragraph/article in natural language. It is used as a range of iw:hasContent. This class and two of its sub-classes enable users to specify four types of semantics  (i) Information Annotation - annotate just the format and language used by the content of information; (ii) Information With Content - additionally provide the content of information that is materialized as string without loading a web page; (iii) Information external - additionally provide the URL for fetching the content; and (iv) Information - with every thing including the content string and URL. The second semantics is especially useful when the content is short or mainly used locally. For example, when learning by instruction, the utterances used for learning can be stored within the PML document without being externally stored. By assigning URI reference to information, we can even use owl:sameAs to capture the equivalence of two pieces of information."@en
     
     SubClassOf: 
-        <http://www.w3.org/ns/prov#Location>,
-        <http://provenanceweb.org/ns/pml#hasFromOffset> exactly 1 rdfs:Literal
+        dcterms:language max 1 owl:Thing,
+        dcterms:format max 1 owl:Thing,
+        <http://www.w3.org/ns/prov#Entity>
     
     
 Class: <http://provenanceweb.org/ns/pml#Publishership>
@@ -909,17 +894,22 @@ Class: <http://provenanceweb.org/ns/pml#Publishership>
         <http://www.w3.org/ns/prov#Attribution>
     
     
+Class: <http://provenanceweb.org/ns/pml#Position>
+
+    Annotations: 
+        <http://provenanceweb.org/ns/pml#order> "11.5"^^xsd:decimal,
+        <http://www.w3.org/ns/prov#category> "base"
+    
+    SubClassOf: 
+        <http://www.w3.org/ns/prov#Location>,
+        <http://provenanceweb.org/ns/pml#hasFromOffset> exactly 1 rdfs:Literal
+    
+    
 Class: <http://www.w3.org/ns/prov#Plan>
 
     SubClassOf: 
         <http://www.w3.org/ns/prov#Entity>
     
-    
-Class: <http://www.w3.org/ns/prov#Attribution>
-
-    
-Class: <http://www.w3.org/ns/prov#Agent>
-
     
 Class: <http://provenanceweb.org/ns/pml#InformationContainer>
 
@@ -932,6 +922,12 @@ Class: <http://provenanceweb.org/ns/pml#InformationContainer>
     SubClassOf: 
         <http://www.w3.org/ns/prov#Entity>
     
+    
+Class: <http://www.w3.org/ns/prov#Agent>
+
+    
+Class: <http://www.w3.org/ns/prov#Attribution>
+
     
 Class: <http://provenanceweb.org/ns/pml#WebService>
 
