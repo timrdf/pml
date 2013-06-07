@@ -30,7 +30,10 @@
       '@prefix rdfs:    &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .',$NL,
       '@base            &lt;',$base_uri,'/format/mime/&gt; .',$NL,
       $NL)"/>
-   <xsl:apply-templates select="//xhtml:table[count(xhtml:tbody/xhtml:tr) gt 20]/xhtml:tbody/xhtml:tr/xhtml:td[2]"/>
+   <xsl:message select="count(//xhtml:table[count(xhtml:tr) gt 20]//xhtml:tr/xhtml:td[2])"/>
+   <xsl:message select="count(//xhtml:table[count(xhtml:tbody/xhtml:tr) gt 20]/xhtml:tbody/xhtml:tr/xhtml:td[2])"/> <!-- application -->
+   <xsl:apply-templates select="//xhtml:table[count(xhtml:tbody/xhtml:tr) gt 20]/xhtml:tbody/xhtml:tr/xhtml:td[2]"/> <!-- application -->
+   <xsl:apply-templates select="//xhtml:table[count(xhtml:tr) gt 20]//xhtml:tr/xhtml:td[2]"/> <!-- text -->
 </xsl:template>
 
 <!--
