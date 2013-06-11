@@ -43,7 +43,7 @@
 <!-- cells -->
 
 <xsl:template match="xhtml:td[xhtml:a]">
-   <xsl:value-of select="concat('&lt;',$supertype,'/',normalize-space(xhtml:a/text()),'&gt;',$NL,
+   <xsl:value-of select="concat('&lt;',$supertype,'/',replace(normalize-space(xhtml:a/text()),'\+','-PLUS-'),'&gt;',$NL,
                                 '   a dcterms:FileFormat;',$NL,
                                 '   dcterms:title      ',$DQ,$supertype,'/',normalize-space(xhtml:a/text()),$DQ,';',$NL,
                                 '   dcterms:identifier ',$DQ,$supertype,'/',normalize-space(xhtml:a/text()),$DQ,';',$NL,
