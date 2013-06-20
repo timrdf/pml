@@ -17,7 +17,7 @@
 :AbstractionRule
     a owl:Class ;
     rdfs:label "Abstraction Rule" ;
-    rdfs:subClassOf :ProceduralPlan .
+    rdfs:subClassOf prov:Plan .
 
 :Answer
     a owl:Class ;
@@ -32,6 +32,11 @@
         ] ;
         owl:onProperty prov:wasDerivedFrom
     ] .
+
+:AnswerTemplate
+    a owl:Class ;
+    rdfs:label "Answer Template" ;
+    rdfs:subClassOf :Template .
 
 :Antecedent
     a owl:Class ;
@@ -93,17 +98,19 @@
     rdfs:subClassOf [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievedInformation
+        owl:onProperty :hasBelievingAgent
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasBelievingAgent
+        owl:onProperty :hasBelievedInformation
     ] ;
     prov:category "trust" .
 
 :DeclarativePlan
     a owl:Class ;
-    rdfs:subClassOf prov:Plan .
+    rdfs:label "Declarative Plan" ;
+    rdfs:subClassOf prov:Plan ;
+    prov:definition "Declarative plans are specified in terms of declarative patterns. Contrast with procedural plan." .
 
 :Derivation
     a owl:Class ;
@@ -126,17 +133,17 @@
     rdfs:subClassOf :InformationContainer, [
         a owl:Restriction ;
         owl:minQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+        owl:onClass <http://purl.org/dc/terms/LinguisticSystem> ;
+        owl:onProperty <http://purl.org/dc/terms/language>
+    ], [
+        a owl:Restriction ;
+        owl:minQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
         owl:onClass <http://purl.org/dc/terms/FileFormat> ;
         owl:onProperty <http://purl.org/dc/terms/format>
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasVersion
-    ], [
-        a owl:Restriction ;
-        owl:minQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
-        owl:onClass <http://purl.org/dc/terms/LinguisticSystem> ;
-        owl:onProperty <http://purl.org/dc/terms/language>
     ] ;
     prov:category "base" .
 
@@ -147,13 +154,13 @@
     rdfs:label "Document Fragment"@en ;
     rdfs:subClassOf :InformationContainer, [
         a owl:Restriction ;
+        owl:onProperty prov:atLocation ;
+        owl:someValuesFrom prov:Location
+    ], [
+        a owl:Restriction ;
         owl:onClass :Document ;
         owl:onProperty <http://purl.org/dc/terms/isPartOf> ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
-    ], [
-        a owl:Restriction ;
-        owl:onProperty prov:atLocation ;
-        owl:someValuesFrom prov:Location
     ] ;
     prov:category "base" .
 
@@ -204,13 +211,13 @@
     rdfs:label "Inference Step"@en ;
     rdfs:subClassOf prov:Activity, [
         a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasConfidenceValue
-    ], [
-        a owl:Restriction ;
         owl:onClass :InferenceEngine ;
         owl:onProperty prov:wasAssociatedWith ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasConfidenceValue
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
@@ -240,6 +247,22 @@
     rdfs:subClassOf prov:Entity ;
     prov:category "base" ;
     prov:editorialNote "Do we mean frbr:Item or frbr:Manifestation?" .
+
+:InformationlessActivity
+    a owl:Class ;
+    rdfs:label "Informationless Activity" ;
+    rdfs:subClassOf prov:Activity ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (prov:Activity
+            [
+                a owl:Restriction ;
+                owl:maxQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+                owl:onClass :Information ;
+                owl:onProperty prov:generated
+            ]
+        )
+    ] .
 
 :Map
     a owl:Class ;
@@ -307,12 +330,12 @@
     a owl:Class ;
     rdfs:subClassOf prov:Attribution, [
         a owl:Restriction ;
-        owl:allValuesFrom :Owner ;
-        owl:onProperty prov:agent
-    ], [
-        a owl:Restriction ;
         owl:allValuesFrom :OwnedEntity ;
         owl:onProperty prov:entity
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom :Owner ;
+        owl:onProperty prov:agent
     ] ;
     prov:category "base" ;
     prov:unqualifiedForm :hasOwner .
@@ -377,11 +400,12 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     a owl:Class ;
     rdfs:comment "A Question refers to natural language version of a user's query. For example, a question can be \"What is the type of Tony's Specialty?\"  A question is usually additional information to an instance of Query as additional annotation."@en ;
     rdfs:label "Question"@en ;
-    rdfs:subClassOf :Information, [
-        a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasAnswerPattern
-    ] .
+    rdfs:subClassOf :Information .
+
+:QuestionTemplate
+    a owl:Class ;
+    rdfs:label "Question Template" ;
+    rdfs:subClassOf :Template .
 
 :RowColLocation
     :order 11.8 ;
@@ -390,11 +414,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Location, [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromCol
+        owl:onProperty :hasToCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromRow
+        owl:onProperty :hasFromCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -402,14 +426,14 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasToCol
+        owl:onProperty :hasFromRow
     ] ;
     prov:category "base" .
 
 :Rule
     :order 19 ;
     a owl:Class ;
-    rdfs:comment "A rule can be fully specified by patterns for premises and its conclusion.   For example, Modus Ponens, can be specified by the premise patterns ?A,  ?A -&gt; ?B and the conclusion pattern ?B."@en ;
+    rdfs:comment "A rule can be fully specified by patterns to generate conclusions from antecedents.   For example, Modus Ponens, can be specified by the premise patterns ?A,  ?A -&gt; ?B and the conclusion pattern ?B."@en ;
     rdfs:label "Rule"@en ;
     rdfs:subClassOf :DeclarativePlan ;
     prov:category "base" .
@@ -429,12 +453,22 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:Entity ;
     prov:category "base" .
 
+:Template
+    a owl:Class ;
+    rdfs:label "Template" ;
+    rdfs:subClassOf :DeclarativePlan, [
+        a owl:Restriction ;
+        owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onDataRange xsd:string ;
+        owl:onProperty prov:value
+    ] .
+
 :TranslationMethod
     :order 20 ;
     a owl:Class ;
     rdfs:comment "Translation rules are special kinds of inference rules which are used to translate expressions from one language to the other."@en ;
     rdfs:label "Translation Method"@en ;
-    rdfs:subClassOf :ProceduralPlan, [
+    rdfs:subClassOf prov:Plan, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasFromLanguage
@@ -483,6 +517,10 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf :Document ;
     prov:category "base" .
 
+:abstractedFrom
+    a owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:wasDerivedFrom .
+
 :atIndex
     a owl:DatatypeProperty ;
     rdfs:comment "A literal analogue to prov:atLocation that specifies the position as an integer value."@en ;
@@ -500,13 +538,6 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:label "answer"@en ;
     rdfs:subPropertyOf prov:hadDerivation ;
     prov:definition "links to one of many alternative answers to this query."@en .
-
-:hasAnswerPattern
-    a owl:DatatypeProperty ;
-    rdfs:comment "Usually it is an English Pattern for the question. We may apply (string-replace) the variable mappings from the answer node set to generate the answer of the question. We may generate different queries for the same question, e.g. find Li's friends: I can (i) run JTP (KIF) to derive John's friends or (ii) query (SPARQL) a FOAF RDF database using foaf:knows. "@en ;
-    rdfs:domain :Question ;
-    rdfs:label "answer pattern"@en ;
-    rdfs:range xsd:string .
 
 :hasAntecedent
     a owl:ObjectProperty ;
@@ -743,12 +774,6 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:range :InferenceStep ;
     rdfs:subPropertyOf prov:wasGeneratedBy .
 
-:isExplanationOf
-    a owl:ObjectProperty ;
-    rdfs:label "explains"@en ;
-    rdfs:subPropertyOf prov:hadDerivation ;
-    prov:definition "links to a node set (and its antecedents) that is explained by the present node set. This is used for connecting the orginal justifications to the NodeSet that abstracts this node set (and its antecedents)."@en .
-
 :isQueryFor
     a owl:ObjectProperty ;
     rdfs:domain :Query ;
@@ -824,15 +849,13 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 <http://purl.org/dc/terms/FileFormat>
     :order 14 ;
     a owl:Class ;
-    rdfs:comment "A plan for the organization and arrangement of specified information. Examples: binary, text,  pdf, etc."@en ;
-    rdfs:label "Format"@en ;
+    rdfs:label "File Format"@en ;
     rdfs:subClassOf prov:Entity ;
     prov:category "base" .
 
 <http://purl.org/dc/terms/LinguisticSystem>
     :order 16 ;
     a owl:Class ;
-    rdfs:comment "The language used to encode the raw string, e.g. English, Knowledge Interchange Format (KIF) , and N3. Languages are in general registered at the core IWRegistry."@en ;
     rdfs:label "Linguistic System"@en ;
     rdfs:subClassOf prov:Entity ;
     prov:category "base" .
@@ -857,11 +880,6 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:label "language"@en ;
     rdfs:range <http://purl.org/dc/terms/LinguisticSystem> ;
     prov:category "base" .
-
-<http://www.semanticdesktop.org/ontologies/nie/mimeType>
-    a owl:ObjectProperty ;
-    rdfs:label "MIME type" ;
-    rdfs:subPropertyOf <http://purl.org/dc/terms/format> .
 
 rdf:PlainLiteral
     a rdfs:Datatype .
@@ -904,6 +922,10 @@ owl:Thing
 
 owl:versionInfo
     a owl:AnnotationProperty .
+
+<http://www.w3.org/ns/formats/media_type>
+    a owl:DatatypeProperty ;
+    rdfs:domain <http://purl.org/dc/terms/FileFormat> .
 
 prov:Activity
     a owl:Class .
