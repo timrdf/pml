@@ -67,6 +67,22 @@ ObjectProperty: pml:hasDischarge
 ObjectProperty: prov:used
 
     
+ObjectProperty: pml:hadAntecedent
+
+    Annotations: 
+        prov:definition "An antecedent of an activity is an entity that is used by in such a way that the generated entities are derived from them. This provides a link between processual and derivational provenance that will allow proof-theoretic analysis to be applied to PROV and PML provenance assertions."@en,
+        rdfs:label "antecedent"@en
+    
+    SubPropertyOf: 
+        prov:used
+    
+    SubPropertyChain: 
+        pml:qualifiedAntecedent o prov:entity
+    
+    Domain: 
+        pml:InferenceStep
+    
+    
 ObjectProperty: prov:wasAttributedTo
 
     
@@ -83,10 +99,10 @@ ObjectProperty: pml:hasConclusion
 ObjectProperty: prov:specializationOf
 
     
-ObjectProperty: prov:wasAssociatedWith
+ObjectProperty: prov:wasGeneratedBy
 
     
-ObjectProperty: prov:wasGeneratedBy
+ObjectProperty: prov:wasAssociatedWith
 
     
 ObjectProperty: prov:hadDerivation
@@ -114,7 +130,7 @@ ObjectProperty: prov:invalidated
 ObjectProperty: prov:wasDerivedFrom
 
     SubPropertyChain: 
-        prov:wasGeneratedBy o pml:hasAntecedent
+        prov:wasGeneratedBy o pml:hadAntecedent
     
     
 ObjectProperty: pml:abstractedFrom
@@ -141,23 +157,13 @@ ObjectProperty: pml:isQueryFor
 ObjectProperty: prov:generated
 
     
-ObjectProperty: pml:hasAntecedent
+ObjectProperty: prov:hadPlan
 
-    Annotations: 
-        prov:definition "An antecedent of an activity is an entity that is used by in such a way that the generated entities are derived from them. This provides a link between processual and derivational provenance that will allow proof-theoretic analysis to be applied to PROV and PML provenance assertions."@en,
-        rdfs:label "antecedent"@en
-    
-    SubPropertyOf: 
-        prov:used
-    
-    SubPropertyChain: 
-        pml:qualifiedAntecedent o prov:entity
-    
-    Domain: 
-        pml:InferenceStep
-    
     
 ObjectProperty: prov:qualifiedUsage
+
+    
+ObjectProperty: prov:agentOfInfluence
 
     
 ObjectProperty: pml:hasAnswer
@@ -191,7 +197,7 @@ Class: pml:InferenceStep
     SubClassOf: 
         prov:wasAssociatedWith exactly 1 pml:InferenceEngine,
         prov:Activity,
-        pml:hasAntecedent max 1 owl:Thing,
+        pml:hadAntecedent max 1 owl:Thing,
         pml:hasConfidenceValue max 1 rdfs:Literal
     
     
@@ -243,6 +249,9 @@ Class: pml:Assumption
         prov:generated min 1 pml:Information
     
     
+Class: pml:Rule
+
+    
 Class: pml:AnswerTemplate
 
     Annotations: 
@@ -251,6 +260,9 @@ Class: pml:AnswerTemplate
     SubClassOf: 
         pml:Template
     
+    
+Class: prov:Association
+
     
 Class: pml:Template
 
@@ -280,6 +292,11 @@ Class: pml:Discharge
     
 Class: pml:InferenceEngine
 
+    SubClassOf: 
+        prov:agentOfInfluence some 
+            (prov:Association
+             and (prov:hadPlan some pml:Rule))
+    
     
 Class: pml:DeclarativePlan
 
@@ -291,15 +308,18 @@ Class: pml:DeclarativePlan
 Class: prov:Entity
 
     
-Class: pml:Information
-
-    
 Class: pml:Answer
 
     SubClassOf: 
         pml:Information,
         prov:wasDerivedFrom min 1 (pml:Query
          or pml:Question)
+    
+    
+Class: pml:Information
+
+    SubClassOf: 
+        prov:value min 1 rdfs:Literal
     
     
 Class: pml:Question
