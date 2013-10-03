@@ -11,7 +11,7 @@
     a owl:Ontology ;
     rdfs:comment "The Provenance Markup Language (PML 3.0) is an OWL ontology that extends W3C's PROV-O with the best parts of PML 2.0."@en ;
     rdfs:label "Provenance Markup Language (PML 3.0)"@en ;
-    owl:imports <http://www.w3.org/ns/inverses.owl>, <http://www.w3.org/ns/prov#> ;
+    owl:imports <http://www.w3.org/ns/prov-o#>, <http://www.w3.org/ns/prov-o-inverses#> ;
     owl:versionInfo "version 3.0, Authors: Timothy Lebo, James P. McCusker, Paulo Pinheiro, Cynthia Chang, and Deborah L. McGuinness"@en .
 
 :AbstractionRule
@@ -31,6 +31,11 @@
             )
         ] ;
         owl:onProperty prov:wasDerivedFrom
+    ] ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :answers
     ] .
 
 :AnswerTemplate
@@ -133,13 +138,13 @@
     rdfs:subClassOf :InformationContainer, [
         a owl:Restriction ;
         owl:minQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
-        owl:onClass <http://purl.org/dc/terms/LinguisticSystem> ;
-        owl:onProperty <http://purl.org/dc/terms/language>
+        owl:onClass <http://purl.org/dc/terms/FileFormat> ;
+        owl:onProperty <http://purl.org/dc/terms/format>
     ], [
         a owl:Restriction ;
         owl:minQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
-        owl:onClass <http://purl.org/dc/terms/FileFormat> ;
-        owl:onProperty <http://purl.org/dc/terms/format>
+        owl:onClass <http://purl.org/dc/terms/LinguisticSystem> ;
+        owl:onProperty <http://purl.org/dc/terms/language>
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
@@ -154,13 +159,13 @@
     rdfs:label "Document Fragment"@en ;
     rdfs:subClassOf :InformationContainer, [
         a owl:Restriction ;
-        owl:onProperty prov:atLocation ;
-        owl:someValuesFrom prov:Location
-    ], [
-        a owl:Restriction ;
         owl:onClass :Document ;
         owl:onProperty <http://purl.org/dc/terms/isPartOf> ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+    ], [
+        a owl:Restriction ;
+        owl:onProperty prov:atLocation ;
+        owl:someValuesFrom prov:Location
     ] ;
     prov:category "base" .
 
@@ -197,12 +202,29 @@
     rdfs:subClassOf :FloatMetric, :TrustElement ;
     prov:category "trust" .
 
+:HardwareAgent
+    a owl:Class ;
+    rdfs:subClassOf prov:Agent .
+
 :InferenceEngine
     :order 5 ;
     a owl:Class ;
     rdfs:comment "An inference engine represents an engine that is able to produce a justification for a conclusion. Note that the phrase \"inference engine\" applies not only to reasoners but also to other systems like search engines which may justify their answers by direct assertion"@en ;
     rdfs:label "Inference Engine"@en ;
-    rdfs:subClassOf prov:SoftwareAgent ;
+    rdfs:subClassOf prov:SoftwareAgent, [
+        a owl:Restriction ;
+        owl:onProperty prov:agentOfInfluence ;
+        owl:someValuesFrom [
+            a owl:Class ;
+            owl:intersectionOf (prov:Association
+                [
+                    a owl:Restriction ;
+                    owl:onProperty prov:hadPlan ;
+                    owl:someValuesFrom :Rule
+                ]
+            )
+        ]
+    ] ;
     prov:category "base" .
 
 :InferenceStep
@@ -211,17 +233,17 @@
     rdfs:label "Inference Step"@en ;
     rdfs:subClassOf prov:Activity, [
         a owl:Restriction ;
-        owl:onClass :InferenceEngine ;
-        owl:onProperty prov:wasAssociatedWith ;
-        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hadAntecedent
     ], [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasConfidenceValue
     ], [
         a owl:Restriction ;
-        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasAntecedent
+        owl:onClass :InferenceEngine ;
+        owl:onProperty prov:wasAssociatedWith ;
+        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
     ] .
 
 :Information
@@ -237,6 +259,10 @@
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty <http://purl.org/dc/terms/language>
+    ], [
+        a owl:Restriction ;
+        owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty prov:value
     ] ;
     prov:category "base" .
 
@@ -269,6 +295,14 @@
     rdfs:comment "An associative array, an abstract data type composed of a collection of keys and a collection of values, where each key is associated with one value" ;
     rdfs:subClassOf :DeclarativePlan .
 
+:Observer
+    :order 3.9 ;
+    a owl:Class ;
+    rdfs:comment "any agent that receives a signal or stimulus (as heat or pressure or light or motion etc.) and records it."@en ;
+    rdfs:label "Observer"@en ;
+    rdfs:subClassOf prov:Agent ;
+    prov:category "base" .
+
 :OffsetPosition
     :order 11.75 ;
     a owl:Class ;
@@ -297,7 +331,7 @@
         a owl:Restriction ;
         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
         owl:onClass :Owner ;
-        owl:onProperty :hasOwner
+        owl:onProperty :ownedBy
     ] ;
     prov:category "base" .
 
@@ -330,12 +364,12 @@
     a owl:Class ;
     rdfs:subClassOf prov:Attribution, [
         a owl:Restriction ;
-        owl:allValuesFrom :OwnedEntity ;
-        owl:onProperty prov:entity
-    ], [
-        a owl:Restriction ;
         owl:allValuesFrom :Owner ;
         owl:onProperty prov:agent
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom :OwnedEntity ;
+        owl:onProperty prov:entity
     ] ;
     prov:category "base" ;
     prov:unqualifiedForm :hasOwner .
@@ -418,15 +452,15 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hasFromRow
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasFromCol
     ], [
         a owl:Restriction ;
         owl:cardinality "1"^^xsd:nonNegativeInteger ;
         owl:onProperty :hasToRow
-    ], [
-        a owl:Restriction ;
-        owl:cardinality "1"^^xsd:nonNegativeInteger ;
-        owl:onProperty :hasFromRow
     ] ;
     prov:category "base" .
 
@@ -436,14 +470,6 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:comment "A rule can be fully specified by patterns to generate conclusions from antecedents.   For example, Modus Ponens, can be specified by the premise patterns ?A,  ?A -&gt; ?B and the conclusion pattern ?B."@en ;
     rdfs:label "Rule"@en ;
     rdfs:subClassOf :DeclarativePlan ;
-    prov:category "base" .
-
-:Sensor
-    :order 3.9 ;
-    a owl:Class ;
-    rdfs:comment "any device that receives a signal or stimulus (as heat or pressure or light or motion etc.) and records it. (WordNet)"@en ;
-    rdfs:label "Sensor"@en ;
-    rdfs:subClassOf prov:Agent ;
     prov:category "base" .
 
 :Source
@@ -463,11 +489,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
         owl:onProperty prov:value
     ] .
 
-:TranslationMethod
+:TranslationPlan
     :order 20 ;
     a owl:Class ;
     rdfs:comment "Translation rules are special kinds of inference rules which are used to translate expressions from one language to the other."@en ;
-    rdfs:label "Translation Method"@en ;
+    rdfs:label "Translation Plan"@en ;
     rdfs:subClassOf prov:Plan, [
         a owl:Restriction ;
         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
@@ -501,6 +527,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf :InformationContainer ;
     prov:category "base" .
 
+:VariableMapping
+    a owl:Class ;
+    rdfs:label "Variable Mapping" ;
+    rdfs:subClassOf :Map .
+
 :WebService
     :order 4 ;
     a owl:Class ;
@@ -509,17 +540,20 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subClassOf prov:SoftwareAgent ;
     prov:category "base" .
 
-:Webpage
-    :order 9 ;
-    a owl:Class ;
-    rdfs:comment "Collection of files and related resources accessible through the World Wide Web and organized under a particular domain name. Typical files found at a Web site are HTML documents with their associated graphic image files (GIF, JPEG, etc.), scripted programs (in Perl, CGI, Java, etc.), and similar resources. The site's files are usually accessed through hypertext or hyperlinks embedded in other files. A Web site may consist of a single HTML file, or it may comprise hundreds or thousands of related files. A Web site's usual starting point or opening page, called a home page, usually functions as a table of contents or index, with links to other sections of the site. Web sites are hosted on one or more Web servers, which transfer files to client computers or other servers that request them using the HTTP protocol. Although the term ?ite?implies a single physical location, the files and resources of a Web site may actually be spread among several servers in different geographic locations.(adapted from Britannica Concise Encyclopedia)."@en ;
-    rdfs:label "Website"@en ;
-    rdfs:subClassOf :Document ;
-    prov:category "base" .
-
 :abstractedFrom
     a owl:ObjectProperty ;
     rdfs:subPropertyOf prov:wasDerivedFrom .
+
+:answers
+    a owl:ObjectProperty ;
+    rdfs:domain :Answer ;
+    rdfs:range [
+        a owl:Class ;
+        owl:unionOf (:Query
+            :Question
+        )
+    ] ;
+    rdfs:subPropertyOf :wasDerivedFrom .
 
 :atIndex
     a owl:DatatypeProperty ;
@@ -532,14 +566,14 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     a owl:ObjectProperty ;
     rdfs:subPropertyOf prov:contributed .
 
-:hasAnswer
+:capableOf
     a owl:ObjectProperty ;
-    rdfs:domain :Query ;
-    rdfs:label "answer"@en ;
-    rdfs:subPropertyOf prov:hadDerivation ;
-    prov:definition "links to one of many alternative answers to this query."@en .
+    rdfs:comment "What plans Agents are able to perform." ;
+    rdfs:domain prov:Agent ;
+    rdfs:label "capable of" ;
+    rdfs:range prov:Plan .
 
-:hasAntecedent
+:hadAntecedent
     a owl:ObjectProperty ;
     rdfs:domain :InferenceStep ;
     rdfs:label "antecedent"@en ;
@@ -548,6 +582,13 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
         prov:entity
     ) ;
     prov:definition "An antecedent of an activity is an entity that is used by in such a way that the generated entities are derived from them. This provides a link between processual and derivational provenance that will allow proof-theoretic analysis to be applied to PROV and PML provenance assertions."@en .
+
+:hasAnswer
+    a owl:ObjectProperty ;
+    rdfs:domain :Query ;
+    rdfs:label "answer"@en ;
+    rdfs:subPropertyOf prov:hadDerivation ;
+    prov:definition "links to one of many alternative answers to this query."@en .
 
 :hasAuthor
     :order .5 ;
@@ -605,6 +646,11 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:range :Information ;
     prov:category "base" .
 
+:hasDescriptionTemplate
+    a owl:ObjectProperty ;
+    rdfs:domain :Template ;
+    rdfs:label "has description template" .
+
 :hasDischarge
     a owl:ObjectProperty ;
     rdfs:domain :InferenceStep ;
@@ -642,7 +688,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     :order 20.1 ;
     a owl:ObjectProperty ;
     rdfs:comment "language used by the source."@en ;
-    rdfs:domain :TranslationMethod ;
+    rdfs:domain :TranslationPlan ;
     rdfs:label "from-language"@en ;
     rdfs:range <http://purl.org/dc/terms/LinguisticSystem> ;
     prov:category "base" .
@@ -674,19 +720,6 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:subPropertyOf prov:generatedAtTime ;
     prov:category "base" .
 
-:hasOwner
-    :order 1.5 ;
-    a owl:ObjectProperty ;
-    rdfs:comment "the owner of a thing."@en ;
-    rdfs:domain :OwnedEntity ;
-    rdfs:label "owner"@en ;
-    rdfs:range :Owner ;
-    rdfs:subPropertyOf prov:wasAttributedTo ;
-    owl:inverseOf :ownerOf ;
-    prov:category "base" ;
-    prov:inverse "ownerOf"@en ;
-    prov:qualifiedForm :Ownership, :qualifiedOwnership .
-
 :hasPublicationDateTime
     a owl:DatatypeProperty ;
     rdfs:comment "When the publication is published."@en ;
@@ -694,18 +727,6 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:range xsd:dateTime ;
     rdfs:subPropertyOf prov:generatedAtTime ;
     prov:category "base" .
-
-:hasPublisher
-    :order 2.5 ;
-    a owl:ObjectProperty ;
-    rdfs:comment "An agent responsible for making the document publicly available. see also http://purl.org/dc/elements/1.1/publisher."@en ;
-    rdfs:domain :Document ;
-    rdfs:label "publisher"@en ;
-    rdfs:range :Publisher ;
-    rdfs:subPropertyOf prov:wasAttributedTo ;
-    prov:category "base" ;
-    prov:inverse "publisherOf"@en ;
-    prov:qualifiedForm :Publishership, :qualifiedPublishership .
 
 :hasToCol
     :order 11.84 ;
@@ -720,7 +741,7 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     :order 20.2 ;
     a owl:ObjectProperty ;
     rdfs:comment "language used by the target."@en ;
-    rdfs:domain :TranslationMethod ;
+    rdfs:domain :TranslationPlan ;
     rdfs:label "to-language"@en ;
     rdfs:range <http://purl.org/dc/terms/LinguisticSystem> ;
     prov:category "base" .
@@ -789,14 +810,38 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
 :order
     a owl:AnnotationProperty .
 
+:ownedBy
+    :order 1.5 ;
+    a owl:ObjectProperty ;
+    rdfs:comment "the owner of a thing."@en ;
+    rdfs:domain :OwnedEntity ;
+    rdfs:label "owned by"@en ;
+    rdfs:range :Owner ;
+    rdfs:subPropertyOf prov:wasAttributedTo ;
+    owl:inverseOf :ownerOf ;
+    prov:category "base" ;
+    prov:inverse "ownerOf"@en ;
+    prov:qualifiedForm :Ownership, :qualifiedOwnership .
+
 :ownerOf
     a owl:ObjectProperty ;
     rdfs:subPropertyOf prov:contributed .
 
+:publishedBy
+    :order 2.5 ;
+    a owl:ObjectProperty ;
+    rdfs:comment "An agent responsible for making the document publicly available. see also http://purl.org/dc/elements/1.1/publisher."@en ;
+    rdfs:label "published by"@en ;
+    rdfs:range :Publisher ;
+    rdfs:subPropertyOf prov:wasAttributedTo ;
+    owl:inverseOf :publisherOf ;
+    prov:category "base" ;
+    prov:inverse "publisherOf"@en ;
+    prov:qualifiedForm :Publishership, :qualifiedPublishership .
+
 :publisherOf
     a owl:ObjectProperty ;
-    rdfs:subPropertyOf prov:contributed ;
-    owl:inverseOf :hasPublisher .
+    rdfs:subPropertyOf prov:contributed .
 
 :qualifiedAntecedent
     a owl:ObjectProperty ;
@@ -832,11 +877,23 @@ the conclusion needs to be a valid output of the method, using the premises.  Fo
     rdfs:range :Information ;
     rdfs:subPropertyOf prov:wasDerivedFrom .
 
+:wasGeneratedWithPlan
+    a owl:ObjectProperty ;
+    rdfs:comment "The plan or plans that were used to create this entity." ;
+    rdfs:domain prov:Entity ;
+    rdfs:label "was generated with plan" ;
+    rdfs:range prov:Plan ;
+    rdfs:subPropertyOf prov:wasInfluencedBy ;
+    owl:propertyChainAxiom (prov:wasGeneratedBy
+        prov:qualifiedAssociation
+        prov:hadPlan
+    ) .
+
 <http://provenanceweb.org/ns/pml-proof#>
     a owl:Ontology ;
     rdfs:comment "The proof-theoretic part of PML3 ontology. It is a fundamental component of PML3 ontology."@en ;
     rdfs:label "PML3 proof ontology"@en ;
-    owl:imports <http://provenanceweb.org/ns/pml-base#>, <http://www.w3.org/ns/inverses.owl>, <http://www.w3.org/ns/prov#> ;
+    owl:imports <http://provenanceweb.org/ns/pml#> ;
     owl:versionInfo "version 3.0, Authors: Timothy Lebo, James P. McCusker, Deborah L. McGuinness, Li Ding, Paulo Pinheiro da Silva, Alyssa Glass, and Cynthia Chang"@en .
 
 <http://provenanceweb.org/ns/pml-trust#>
@@ -925,7 +982,8 @@ owl:versionInfo
 
 <http://www.w3.org/ns/formats/media_type>
     a owl:DatatypeProperty ;
-    rdfs:domain <http://purl.org/dc/terms/FileFormat> .
+    rdfs:domain <http://purl.org/dc/terms/FileFormat> ;
+    rdfs:label "media type" .
 
 prov:Activity
     a owl:Class .
@@ -941,6 +999,9 @@ prov:AgentInfluence
         owl:onProperty prov:agent ;
         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
     ] .
+
+prov:Association
+    a owl:Class .
 
 prov:Attribution
     a owl:Class .
@@ -1018,6 +1079,9 @@ prov:hadDerivation
 prov:hadMember
     a owl:ObjectProperty .
 
+prov:hadPlan
+    a owl:ObjectProperty .
+
 prov:hadRole
     a owl:ObjectProperty .
 
@@ -1026,6 +1090,9 @@ prov:invalidated
 
 prov:inverse
     a owl:AnnotationProperty .
+
+prov:qualifiedAssociation
+    a owl:ObjectProperty .
 
 prov:qualifiedAttribution
     a owl:ObjectProperty .
@@ -1045,6 +1112,9 @@ prov:unqualifiedForm
 prov:used
     a owl:ObjectProperty .
 
+prov:value
+    a owl:DatatypeProperty .
+
 prov:wasAssociatedWith
     a owl:ObjectProperty .
 
@@ -1054,10 +1124,13 @@ prov:wasAttributedTo
 prov:wasDerivedFrom
     a owl:ObjectProperty ;
     owl:propertyChainAxiom (prov:wasGeneratedBy
-        :hasAntecedent
+        :hadAntecedent
     ) .
 
 prov:wasGeneratedBy
+    a owl:ObjectProperty .
+
+prov:wasInfluencedBy
     a owl:ObjectProperty .
 
 prov:wasQuotedFrom
