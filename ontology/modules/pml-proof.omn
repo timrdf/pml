@@ -1,25 +1,23 @@
-Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
+Prefix: : <http://provenanceweb.org/ns/pml#>
+Prefix: dc: <http://purl.org/dc/elements/1.1/>
 Prefix: owl: <http://www.w3.org/2002/07/owl#>
 Prefix: pml: <http://provenanceweb.org/ns/pml#>
-Prefix: prov: <http://www.w3.org/ns/prov#>
-Prefix: : <http://provenanceweb.org/ns/pml#>
-Prefix: xml: <http://www.w3.org/XML/1998/namespace>
 Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-Prefix: dc: <http://purl.org/dc/elements/1.1/>
+Prefix: xml: <http://www.w3.org/XML/1998/namespace>
+Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
+Prefix: prov: <http://www.w3.org/ns/prov#>
 Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 
 
 Ontology: <http://provenanceweb.org/ns/pml-proof#>
 
-Import: <http://www.w3.org/ns/inverses.owl>
-Import: <http://www.w3.org/ns/prov#>
-Import: <http://provenanceweb.org/ns/pml-base#>
+Import: <http://provenanceweb.org/ns/pml#>
 
 Annotations: 
-    rdfs:label "PML3 proof ontology"@en,
+    rdfs:comment "The proof-theoretic part of PML3 ontology. It is a fundamental component of PML3 ontology."@en,
     owl:versionInfo "version 3.0, Authors: Timothy Lebo, James P. McCusker, Deborah L. McGuinness, Li Ding, Paulo Pinheiro da Silva, Alyssa Glass, and Cynthia Chang"@en,
-    rdfs:comment "The proof-theoretic part of PML3 ontology. It is a fundamental component of PML3 ontology."@en
+    rdfs:label "PML3 proof ontology"@en
 
 AnnotationProperty: owl:versionInfo
 
@@ -45,29 +43,29 @@ Datatype: xsd:string
 Datatype: rdfs:Literal
 
     
-ObjectProperty: pml:qualifiedAntecedent
+ObjectProperty: qualifiedAntecedent
 
     SubPropertyOf: 
         prov:qualifiedUsage
     
     
-ObjectProperty: pml:hasDischarge
+ObjectProperty: hasDischarge
 
     Annotations: 
-        prov:definition "dismiss causal dependency from the conclusion of the present nodeset to an (recursive) antecedent nodeset of the present inference step. In particular, OR-elimination can only be implemented by hasDischarge"@en,
-        rdfs:label "discharge"@en
+        rdfs:label "discharge"@en,
+        prov:definition "dismiss causal dependency from the conclusion of the present nodeset to an (recursive) antecedent nodeset of the present inference step. In particular, OR-elimination can only be implemented by hasDischarge"@en
     
     SubPropertyOf: 
         prov:invalidated
     
     Domain: 
-        pml:InferenceStep
+        InferenceStep
     
     
 ObjectProperty: prov:used
 
     
-ObjectProperty: pml:hadAntecedent
+ObjectProperty: hadAntecedent
 
     Annotations: 
         prov:definition "An antecedent of an activity is an entity that is used by in such a way that the generated entities are derived from them. This provides a link between processual and derivational provenance that will allow proof-theoretic analysis to be applied to PROV and PML provenance assertions."@en,
@@ -77,16 +75,13 @@ ObjectProperty: pml:hadAntecedent
         prov:used
     
     SubPropertyChain: 
-        pml:qualifiedAntecedent o prov:entity
+        qualifiedAntecedent o prov:entity
     
     Domain: 
-        pml:InferenceStep
+        InferenceStep
     
     
-ObjectProperty: prov:wasAttributedTo
-
-    
-ObjectProperty: pml:hasConclusion
+ObjectProperty: hasConclusion
 
     Annotations: 
         rdfs:label "conclusion"@en,
@@ -96,13 +91,16 @@ ObjectProperty: pml:hasConclusion
         prov:generated
     
     
+ObjectProperty: prov:wasAttributedTo
+
+    
 ObjectProperty: prov:specializationOf
 
     
-ObjectProperty: prov:wasGeneratedBy
+ObjectProperty: prov:wasAssociatedWith
 
     
-ObjectProperty: prov:wasAssociatedWith
+ObjectProperty: prov:wasGeneratedBy
 
     
 ObjectProperty: prov:hadDerivation
@@ -111,7 +109,7 @@ ObjectProperty: prov:hadDerivation
 ObjectProperty: prov:entity
 
     
-ObjectProperty: pml:isConsequentOf
+ObjectProperty: isConsequentOf
 
     Annotations: 
         rdfs:label "because"@en,
@@ -121,7 +119,7 @@ ObjectProperty: pml:isConsequentOf
         prov:wasGeneratedBy
     
     Range: 
-        pml:InferenceStep
+        InferenceStep
     
     
 ObjectProperty: prov:invalidated
@@ -130,16 +128,16 @@ ObjectProperty: prov:invalidated
 ObjectProperty: prov:wasDerivedFrom
 
     SubPropertyChain: 
-        prov:wasGeneratedBy o pml:hadAntecedent
+        prov:wasGeneratedBy o hadAntecedent
     
     
-ObjectProperty: pml:abstractedFrom
+ObjectProperty: abstractedFrom
 
     SubPropertyOf: 
         prov:wasDerivedFrom
     
     
-ObjectProperty: pml:isQueryFor
+ObjectProperty: isQueryFor
 
     Annotations: 
         rdfs:label "query-for"@en
@@ -148,10 +146,10 @@ ObjectProperty: pml:isQueryFor
         prov:specializationOf
     
     Domain: 
-        pml:Query
+        Query
     
     Range: 
-        pml:Question
+        Question
     
     
 ObjectProperty: prov:generated
@@ -166,7 +164,7 @@ ObjectProperty: prov:qualifiedUsage
 ObjectProperty: prov:agentOfInfluence
 
     
-ObjectProperty: pml:hasAnswer
+ObjectProperty: hasAnswer
 
     Annotations: 
         rdfs:label "answer"@en,
@@ -176,58 +174,58 @@ ObjectProperty: pml:hasAnswer
         prov:hadDerivation
     
     Domain: 
-        pml:Query
+        Query
     
     
 DataProperty: prov:value
 
     
-DataProperty: pml:hasConfidenceValue
+DataProperty: hasConfidenceValue
 
     
 Class: owl:Thing
 
     
-Class: pml:InferenceStep
+Class: InferenceStep
 
     Annotations: 
-        rdfs:comment "An inference step represents a justification for the conclusion of the corresponding node set. Instances of inference step are usually anonymous as part of node set. For this reason, inference steps usually have no URIs. Moreover, an application should treat node set and its inference steps in whole."@en,
-        rdfs:label "Inference Step"@en
+        rdfs:label "Inference Step"@en,
+        rdfs:comment "An inference step represents a justification for the conclusion of the corresponding node set. Instances of inference step are usually anonymous as part of node set. For this reason, inference steps usually have no URIs. Moreover, an application should treat node set and its inference steps in whole."@en
     
     SubClassOf: 
-        prov:wasAssociatedWith exactly 1 pml:InferenceEngine,
+        prov:wasAssociatedWith exactly 1 InferenceEngine,
         prov:Activity,
-        pml:hadAntecedent max 1 owl:Thing,
-        pml:hasConfidenceValue max 1 rdfs:Literal
+        hadAntecedent max 1 owl:Thing,
+        hasConfidenceValue max 1 rdfs:Literal
     
     
-Class: pml:Query
+Class: Query
 
     Annotations: 
         rdfs:comment "A Query is a formal representation of user's question. For example, the content of the query can be '(type TonysSpecialty ?x)' which is encoded in KIF. An inference engine will take the query's content as input and find corresponding answers, each of which is a tree of node sets representing the proof traces obtained from the inference engine. "@en,
         rdfs:label "Query"@en
     
     SubClassOf: 
-        pml:Information
+        Information
     
     
-Class: pml:Assertion
+Class: Assertion
 
     SubClassOf: 
-        pml:InferenceStep
+        InferenceStep
     
     
-Class: pml:Derivation
+Class: Derivation
 
     SubClassOf: 
-        pml:InferenceStep,
+        InferenceStep,
         prov:Derivation
     
     
-Class: pml:ProceduralPlan
+Class: ProceduralPlan
 
     
-Class: pml:AbstractionRule
+Class: AbstractionRule
 
     Annotations: 
         rdfs:label "Abstraction Rule"
@@ -242,107 +240,107 @@ Class: prov:Usage
 Class: prov:Activity
 
     
-Class: pml:Assumption
+Class: Assumption
 
     SubClassOf: 
-        pml:InferenceStep,
-        prov:generated min 1 pml:Information
+        InferenceStep,
+        prov:generated min 1 Information
     
     
-Class: pml:Rule
+Class: Rule
 
     
-Class: pml:AnswerTemplate
+Class: AnswerTemplate
 
     Annotations: 
         rdfs:label "Answer Template"
     
     SubClassOf: 
-        pml:Template
+        Template
     
     
 Class: prov:Association
 
     
-Class: pml:Template
+Class: Template
 
     Annotations: 
         rdfs:label "Template"
     
     SubClassOf: 
         prov:value min 1 xsd:string,
-        pml:DeclarativePlan
+        DeclarativePlan
     
     
-Class: pml:QuestionTemplate
+Class: QuestionTemplate
 
     Annotations: 
         rdfs:label "Question Template"
     
     SubClassOf: 
-        pml:Template
+        Template
     
     
-Class: pml:Discharge
+Class: Discharge
 
     SubClassOf: 
-        prov:invalidated min 1 pml:Information,
-        pml:InferenceStep
+        prov:invalidated min 1 Information,
+        InferenceStep
     
     
-Class: pml:InferenceEngine
+Class: InferenceEngine
 
     SubClassOf: 
         prov:agentOfInfluence some 
             (prov:Association
-             and (prov:hadPlan some pml:Rule))
+             and (prov:hadPlan some Rule))
     
     
-Class: pml:DeclarativePlan
+Class: prov:Entity
+
+    
+Class: DeclarativePlan
 
     Annotations: 
         prov:definition "Declarative plans are specified in terms of declarative patterns. Contrast with procedural plan.",
         rdfs:label "Declarative Plan"
     
     
-Class: prov:Entity
-
-    
-Class: pml:Answer
+Class: Answer
 
     SubClassOf: 
-        pml:Information,
-        prov:wasDerivedFrom min 1 (pml:Query
-         or pml:Question)
+        Information,
+        prov:wasDerivedFrom min 1 (Query
+         or Question)
     
     
-Class: pml:Information
+Class: Information
 
     SubClassOf: 
         prov:value min 1 rdfs:Literal
     
     
-Class: pml:Question
-
-    Annotations: 
-        rdfs:label "Question"@en,
-        rdfs:comment "A Question refers to natural language version of a user's query. For example, a question can be \"What is the type of Tony's Specialty?\"  A question is usually additional information to an instance of Query as additional annotation."@en
-    
-    SubClassOf: 
-        pml:Information
-    
-    
 Class: prov:Derivation
 
     
-Class: pml:InformationlessActivity
+Class: Question
+
+    Annotations: 
+        rdfs:comment "A Question refers to natural language version of a user's query. For example, a question can be \"What is the type of Tony's Specialty?\"  A question is usually additional information to an instance of Query as additional annotation."@en,
+        rdfs:label "Question"@en
+    
+    SubClassOf: 
+        Information
+    
+    
+Class: InformationlessActivity
 
     Annotations: 
         rdfs:label "Informationless Activity"
     
     EquivalentTo: 
         prov:Activity
-         and (prov:generated max 0 pml:Information)
+         and (prov:generated max 0 Information)
     
     SubClassOf: 
         prov:Activity
@@ -351,7 +349,7 @@ Class: pml:InformationlessActivity
 Class: prov:Plan
 
     
-Class: pml:Antecedent
+Class: Antecedent
 
     SubClassOf: 
         prov:Usage
